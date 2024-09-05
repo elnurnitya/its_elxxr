@@ -20,6 +20,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .container {
@@ -30,6 +31,8 @@
             text-align: center;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             color: #333;
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
@@ -84,6 +87,12 @@
             bottom: 15%;
             right: 5%;
         }
+
+        /* Efek blur latar belakang saat SweetAlert aktif */
+        .swal2-shown .container, .swal2-shown .leaf {
+            filter: blur(5px); /* Efek blur pada container dan dedaunan */
+        }
+
     </style>
 </head>
 <body>
@@ -115,6 +124,12 @@
                     } else {
                         return code;
                     }
+                },
+                willOpen: () => {
+                    document.body.classList.add('swal2-shown'); // Tambahkan kelas untuk efek blur
+                },
+                willClose: () => {
+                    document.body.classList.remove('swal2-shown'); // Hapus kelas setelah SweetAlert ditutup
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -123,5 +138,6 @@
             });
         });
     </script>
+
 </body>
 </html>
