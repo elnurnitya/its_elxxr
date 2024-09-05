@@ -9,18 +9,27 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        /* Tema Alam */
+        /* Tema Alam dengan video latar belakang */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #87CEEB, #228B22); /* Langit dan hutan */
             color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             overflow: hidden;
+        }
+
+        #bgVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
         }
 
         .container {
@@ -60,54 +69,25 @@
             background-color: #2E8B57;
         }
 
-        /* Tema tambahan dedaunan */
-        .leaf {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background: url('https://cdn.pixabay.com/photo/2017/06/07/07/27/leaf-2383319_960_720.png') no-repeat center/contain;
-        }
-
-        .leaf-1 {
-            top: 10%;
-            left: 5%;
-        }
-
-        .leaf-2 {
-            top: 20%;
-            right: 10%;
-        }
-
-        .leaf-3 {
-            bottom: 10%;
-            left: 10%;
-        }
-
-        .leaf-4 {
-            bottom: 15%;
-            right: 5%;
-        }
-
         /* Efek blur latar belakang saat SweetAlert aktif */
-        .swal2-shown .container, .swal2-shown .leaf {
-            filter: blur(5px); /* Efek blur pada container dan dedaunan */
+        .swal2-shown .container {
+            filter: blur(5px); /* Efek blur pada container */
         }
-
     </style>
 </head>
 <body>
+
+    <!-- Video Background -->
+    <video autoplay muted loop id="bgVideo">
+        <source src="URL-VIDEO-ANIMASI" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
 
     <div class="container">
         <h1>Selamat Datang di Alam</h1>
         <p>Klik tombol di bawah untuk memasukkan kode menggunakan SweetAlert2!</p>
         <button id="inputCodeBtn">Masukkan Kode</button>
     </div>
-
-    <!-- Dedaunan sebagai hiasan -->
-    <div class="leaf leaf-1"></div>
-    <div class="leaf leaf-2"></div>
-    <div class="leaf leaf-3"></div>
-    <div class="leaf leaf-4"></div>
 
     <script>
         document.getElementById('inputCodeBtn').addEventListener('click', function() {
@@ -133,7 +113,7 @@
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(`Kode Anda masukkan: ${result.value}`);
+                    Swal.fire(`Kode yang Anda masukkan: ${result.value}`);
                 }
             });
         });
