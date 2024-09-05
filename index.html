@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alam Theme with Swal Input</title>
+    <title>Alam Theme with Video Background</title>
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -14,7 +14,7 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            color: #fff;
+            background-color: #87CEEB; /* Warna fallback untuk background */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,16 +22,18 @@
             overflow: hidden;
         }
 
+        /* Video Background */
         #bgVideo {
             position: fixed;
             right: 0;
             bottom: 0;
             min-width: 100%; 
             min-height: 100%;
-            z-index: -1;
+            z-index: -1; /* Agar video tetap di latar belakang */
             object-fit: cover;
         }
 
+        /* Container konten di atas video */
         .container {
             background-color: rgba(255, 255, 255, 0.8); /* Transparansi */
             border-radius: 15px;
@@ -41,7 +43,7 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             color: #333;
             position: relative;
-            z-index: 1;
+            z-index: 1; /* Agar container di atas video */
         }
 
         h1 {
@@ -79,7 +81,7 @@
 
     <!-- Video Background -->
     <video autoplay muted loop id="bgVideo">
-        <source src="URL-VIDEO-ANIMASI" type="video/mp4">
+        <source src="https://www.videvo.net/videvo_files/converted/2017_08/preview/170710_04_Friends_13_720p.mp436424.webm" type="video/webm">
         Your browser does not support HTML5 video.
     </video>
 
