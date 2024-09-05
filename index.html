@@ -124,7 +124,14 @@
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(`Kode yang Anda masukkan: ${result.value}`);
+                    const code = result.value;
+                    if (code === '123') {
+                        window.location.href = 'hgms.html'; // Redirect ke hgms.html
+                    } else if (code === '456') {
+                        window.location.href = 'afs.html'; // Redirect ke afs.html
+                    } else {
+                        Swal.fire('Kode tidak valid'); // Menampilkan pesan jika kode tidak sesuai
+                    }
                 }
             });
         });
