@@ -100,7 +100,16 @@
         <button id="inputCodeBtn">Masukkan Kode</button>
     </div>
 
+    <!-- Audio -->
+    <audio id="welcomeAudio" src="welcome.mp3" preload="auto"></audio>
+
     <script>
+        // Memainkan audio saat halaman dimuat
+        window.onload = () => {
+            const audio = document.getElementById('welcomeAudio');
+            audio.play();
+        };
+
         document.getElementById('inputCodeBtn').addEventListener('click', function() {
             Swal.fire({
                 title: 'Masukkan Kode',
