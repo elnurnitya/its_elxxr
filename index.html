@@ -1,15 +1,127 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Dicoding Indonesia Website</title>
-  </head>
-  <body>
-    <main>
-      <h1>Dicoding Indonesia</h1>
-      <h2>Gudangnya developer handal</h2>
-      <p>Mencetak banyak lulusan terbaik khususnya para developer.</p>
-      <img src="logo_dicoding.png" alt="Image dicoding" />
-      <p>Paragraph two with a <a href="https://dicoding.com">klik disini</a></p>
-    </main>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alam Theme with Swal Input</title>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        /* Tema Alam */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #87CEEB, #228B22); /* Langit dan hutan */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Transparansi */
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #2E8B57; /* Warna hijau dedaunan */
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #228B22; /* Warna hijau daun */
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2E8B57;
+        }
+
+        /* Tema tambahan dedaunan */
+        .leaf {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: url('https://cdn.pixabay.com/photo/2017/06/07/07/27/leaf-2383319_960_720.png') no-repeat center/contain;
+        }
+
+        .leaf-1 {
+            top: 10%;
+            left: 5%;
+        }
+
+        .leaf-2 {
+            top: 20%;
+            right: 10%;
+        }
+
+        .leaf-3 {
+            bottom: 10%;
+            left: 10%;
+        }
+
+        .leaf-4 {
+            bottom: 15%;
+            right: 5%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Selamat Datang di Alam</h1>
+        <p>Klik tombol di bawah untuk memasukkan kode menggunakan SweetAlert2!</p>
+        <button id="inputCodeBtn">Masukkan Kode</button>
+    </div>
+
+    <!-- Dedaunan sebagai hiasan -->
+    <div class="leaf leaf-1"></div>
+    <div class="leaf leaf-2"></div>
+    <div class="leaf leaf-3"></div>
+    <div class="leaf leaf-4"></div>
+
+    <script>
+        document.getElementById('inputCodeBtn').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Masukkan Kode',
+                input: 'text',
+                inputPlaceholder: 'Masukkan kode Anda di sini',
+                showCancelButton: true,
+                confirmButtonText: 'Kirim',
+                cancelButtonText: 'Batal',
+                preConfirm: (code) => {
+                    if (!code) {
+                        Swal.showValidationMessage('Kode tidak boleh kosong!');
+                    } else {
+                        return code;
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(`Kode yang Anda masukkan: ${result.value}`);
+                }
+            });
+        });
+    </script>
+</body>
 </html>
