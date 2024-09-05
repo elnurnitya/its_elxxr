@@ -101,14 +101,16 @@
     </div>
 
     <!-- Audio -->
-    <audio id="welcomeAudio" src="Selamat Datang Silahkan Klik Tombol di bawah dan masukkan kode yang tertera di kertas.mp3" preload="auto" controls></audio>
+    <audio id="welcomeAudio" src="Selamat Datang Silahkan Klik Tombol di bawah dan masukkan kode yang tertera di kertas.mp3" preload="auto"></audio>
 
     <script>
         // Memainkan audio saat halaman dimuat
-        window.onload = () => {
+        window.addEventListener('load', () => {
             const audio = document.getElementById('welcomeAudio');
-            audio.play();
-        };
+            audio.play().catch(error => {
+                console.log('Audio tidak bisa diputar:', error);
+            });
+        });
 
         document.getElementById('inputCodeBtn').addEventListener('click', function() {
             Swal.fire({
