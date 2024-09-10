@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agnes Febriani Sipayung</title>
+    <title>Halaman Foto dan Surat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,6 +25,9 @@
         .header h1 {
             margin: 0;
             font-size: 2.5em;
+            font-family: 'Playfair Display', serif;
+            color: #f8e5d0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             animation: fadeIn 2s ease-in;
         }
         .gallery {
@@ -37,8 +41,12 @@
             max-width: 100%;
             height: auto;
             border-radius: 8px;
+            cursor: pointer;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-            animation: scaleUp 1s ease-in-out;
+            transition: transform 0.3s ease;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
         }
         .letter-container {
             max-width: 800px;
@@ -47,18 +55,71 @@
             background: rgba(255, 255, 255, 0.8);
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-            color: #000; /* Mengubah warna font menjadi hitam */
-            animation: slideIn 1s ease-out;
+            color: #000;
+            font-family: 'Playfair Display', serif;
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            animation: fadeIn 1s ease-out;
         }
         .letter-container h2 {
             margin-top: 0;
         }
-        .audio-player {
-            text-align: center;
-            margin: 20px;
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow: auto;
+        }
+        .popup-content {
+            position: relative;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 700px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+        .popup-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .close, .next, .show-letter {
+            position: absolute;
+            top: 10px;
+            cursor: pointer;
+            color: #000;
+            background: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .close {
+            right: 10px;
+        }
+        .next {
+            right: 50px;
+        }
+        .show-letter {
+            top: 50%;
+            right: 50px;
+            transform: translateY(-50%);
+        }
+        .show-letter {
+            display: none;
         }
 
-        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -76,17 +137,27 @@
 <body>
 
     <div class="header">
-        <h1>Agnes Febriani Sipayung</h1>
+        <h1>Selamat Datang di Halaman Pantai Musim Panas</h1>
     </div>
 
     <div class="gallery">
-        <img src="https://via.placeholder.com/300" alt="Foto Pantai 1">
-        <img src="https://via.placeholder.com/300" alt="Foto Pantai 2">
-        <img src="https://via.placeholder.com/300" alt="Foto Pantai 3">
-        <img src="https://via.placeholder.com/300" alt="Foto Pantai 4">
+        <img src="https://via.placeholder.com/300" alt="Foto Pantai 1" data-index="1">
+        <img src="https://via.placeholder.com/300" alt="Foto Pantai 2" data-index="2">
+        <img src="https://via.placeholder.com/300" alt="Foto Pantai 3" data-index="3">
+        <img src="https://via.placeholder.com/300" alt="Foto Pantai 4" data-index="4">
     </div>
 
-    <div class="letter-container">
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <img id="popupImage" src="" alt="Foto Pop-up">
+            <button class="close">Tutup</button>
+            <button class="next">Next</button>
+            <button class="show-letter">Tampilkan Surat</button>
+        </div>
+    </div>
+
+    <div id="letterPopup" class="letter-container">
+        <button class="close" onclick="closeLetter()">Tutup</button>
         <h2>Surat Istimewa</h2>
         <p>Dear [Nama],</p>
         <p>Ini adalah surat untuk mengungkapkan betapa spesialnya Anda. Terima kasih telah menjadi bagian dari hidup kami. Semoga hari-hari Anda penuh kebahagiaan dan cinta.</p>
@@ -102,11 +173,61 @@
     </div>
 
     <script>
+        // JavaScript untuk Pop-up
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.gallery img');
+        const popup = document.getElementById('popup');
+        const letterPopup = document.getElementById('letterPopup');
+        const popupImage = document.getElementById('popupImage');
+        const closeButtons = document.querySelectorAll('.close');
+        const nextButton = document.querySelector('.next');
+        const showLetterButton = document.querySelector('.show-letter');
+
+        function openPopup(index) {
+            currentIndex = index;
+            popupImage.src = images[index].src;
+            popup.style.display = 'block';
+            showLetterButton.style.display = (index === images.length - 1) ? 'block' : 'none';
+        }
+
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+
+        function nextImage() {
+            if (currentIndex < images.length - 1) {
+                openPopup(currentIndex + 1);
+            }
+        }
+
+        function openLetter() {
+            closePopup();
+            letterPopup.style.display = 'block';
+        }
+
+        function closeLetter() {
+            letterPopup.style.display = 'none';
+        }
+
+        images.forEach((image, index) => {
+            image.addEventListener('click', () => openPopup(index));
+        });
+
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                closePopup();
+                closeLetter();
+            });
+        });
+
+        nextButton.addEventListener('click', nextImage);
+        showLetterButton.addEventListener('click', openLetter);
+
+        // JavaScript untuk mengatur waktu mulai audio
         document.addEventListener('DOMContentLoaded', function() {
-            var audio = document.getElementById('audioPlayer');
+            const audio = document.getElementById('audioPlayer');
             audio.addEventListener('loadedmetadata', function() {
-                // Menetapkan waktu mulai ke 80 detik (1 menit 20 detik)
-                audio.currentTime = 80;
+                audio.currentTime = 80; // Set start time to 80 seconds (1:20)
             });
         });
     </script>
