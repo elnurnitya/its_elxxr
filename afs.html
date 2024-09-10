@@ -119,6 +119,12 @@
             left: 50%;
             transform: translateX(-50%);
         }
+        .popup-content .button.show-letter {
+            position: absolute;
+            bottom: 10px;
+            right: 50%;
+            transform: translateX(50%);
+        }
         .show-letter {
             display: none;
         }
@@ -180,7 +186,7 @@
             currentIndex = index;
             popupImage.src = images[index].src;
             popup.style.display = 'block';
-            showLetterButton.style.display = (index === images.length - 1) ? 'block' : 'none';
+            updateButtons();
         }
 
         function closePopup() {
@@ -193,17 +199,23 @@
                 currentIndex++;
                 images[currentIndex].style.display = 'block'; // Show next image
                 popupImage.src = images[currentIndex].src;
-                showLetterButton.style.display = (currentIndex === images.length - 1) ? 'block' : 'none';
+                updateButtons();
             }
         }
 
         function openLetter() {
-            closePopup();
+            images.forEach(img => img.style.display = 'none'); // Hide all images
             letterPopup.style.display = 'block';
+            closePopup();
         }
 
         function closeLetter() {
             letterPopup.style.display = 'none';
+        }
+
+        function updateButtons() {
+            // Show/hide buttons based on the current image
+            showLetterButton.style.display = (currentIndex === images.length - 1) ? 'block' : 'none';
         }
 
         images.forEach((image, index) => {
