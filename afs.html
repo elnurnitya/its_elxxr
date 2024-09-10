@@ -94,24 +94,36 @@
             height: auto;
             border-radius: 8px;
         }
-        .close, .next, .show-letter {
+        .button {
+            display: inline-block;
+            background-color: #f8e5d0;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-family: 'Playfair Display', serif;
+            cursor: pointer;
+            margin: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .button:hover {
+            background-color: #f1d8c0;
+            transform: scale(1.05);
+        }
+        .popup-content .button {
             position: absolute;
             top: 10px;
-            cursor: pointer;
-            color: #000;
-            background: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            background-color: #f8e5d0;
         }
-        .close {
+        .popup-content .close {
             right: 10px;
         }
-        .next {
+        .popup-content .next {
             right: 50px;
         }
-        .show-letter {
+        .popup-content .show-letter {
             top: 50%;
             right: 50px;
             transform: translateY(-50%);
@@ -124,14 +136,6 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        @keyframes scaleUp {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
     </style>
 </head>
 <body>
@@ -141,23 +145,23 @@
     </div>
 
     <div class="gallery">
-        <img src="https://via.placeholder.com/300" alt="Foto Pantai 1" data-index="1">
-        <img src="https://via.placeholder.com/300" alt="Foto Pantai 2" data-index="2">
-        <img src="https://via.placeholder.com/300" alt="Foto Pantai 3" data-index="3">
-        <img src="https://via.placeholder.com/300" alt="Foto Pantai 4" data-index="4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Pantai_Mutiara_-_Jakarta.jpg" alt="Foto Pantai 1" data-index="1">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Pantai_Mutiara_-_Jakarta.jpg" alt="Foto Pantai 2" data-index="2">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Pantai_Mutiara_-_Jakarta.jpg" alt="Foto Pantai 3" data-index="3">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Pantai_Mutiara_-_Jakarta.jpg" alt="Foto Pantai 4" data-index="4">
     </div>
 
     <div id="popup" class="popup">
         <div class="popup-content">
             <img id="popupImage" src="" alt="Foto Pop-up">
-            <button class="close">Tutup</button>
-            <button class="next">Next</button>
-            <button class="show-letter">Tampilkan Surat</button>
+            <button class="button close">Tutup</button>
+            <button class="button next">Next</button>
+            <button class="button show-letter">Tampilkan Surat</button>
         </div>
     </div>
 
     <div id="letterPopup" class="letter-container">
-        <button class="close" onclick="closeLetter()">Tutup</button>
+        <button class="button close" onclick="closeLetter()">Tutup</button>
         <h2>Surat Istimewa</h2>
         <p>Dear [Nama],</p>
         <p>Ini adalah surat untuk mengungkapkan betapa spesialnya Anda. Terima kasih telah menjadi bagian dari hidup kami. Semoga hari-hari Anda penuh kebahagiaan dan cinta.</p>
@@ -179,9 +183,9 @@
         const popup = document.getElementById('popup');
         const letterPopup = document.getElementById('letterPopup');
         const popupImage = document.getElementById('popupImage');
-        const closeButtons = document.querySelectorAll('.close');
-        const nextButton = document.querySelector('.next');
-        const showLetterButton = document.querySelector('.show-letter');
+        const closeButtons = document.querySelectorAll('.button.close');
+        const nextButton = document.querySelector('.button.next');
+        const showLetterButton = document.querySelector('.button.show-letter');
 
         function openPopup(index) {
             currentIndex = index;
