@@ -94,7 +94,27 @@
     </div>
 
     <div class="video-container">
-        <iframe width="0" height="0" src="https://www.youtube.com/embed/jia3fhBQ8qI?start=80&autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- YouTube API Script -->
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <script>
+            var player;
+            function onYouTubeIframeAPIReady() {
+                player = new YT.Player('player', {
+                    height: '0',
+                    width: '0',
+                    videoId: 'jia3fhBQ8qI',
+                    playerVars: { 'autoplay': 1, 'start': 80, 'controls': 0 },
+                    events: {
+                        'onReady': onPlayerReady
+                    }
+                });
+            }
+            function onPlayerReady(event) {
+                event.target.playVideo();
+            }
+        </script>
+        <!-- Hidden player -->
+        <div id="player"></div>
     </div>
 
 </body>
