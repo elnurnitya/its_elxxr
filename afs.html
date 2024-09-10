@@ -53,8 +53,9 @@
         .letter-container h2 {
             margin-top: 0;
         }
-        .video-container {
-            display: none; /* Menyembunyikan video */
+        .audio-player {
+            text-align: center;
+            margin: 20px;
         }
 
         /* Animations */
@@ -93,28 +94,11 @@
         <p>[Nama Anda]</p>
     </div>
 
-    <div class="video-container">
-        <!-- YouTube API Script -->
-        <script src="https://www.youtube.com/iframe_api"></script>
-        <script>
-            var player;
-            function onYouTubeIframeAPIReady() {
-                player = new YT.Player('player', {
-                    height: '0',
-                    width: '0',
-                    videoId: 'jia3fhBQ8qI',
-                    playerVars: { 'autoplay': 1, 'start': 80, 'controls': 0 },
-                    events: {
-                        'onReady': onPlayerReady
-                    }
-                });
-            }
-            function onPlayerReady(event) {
-                event.target.playVideo();
-            }
-        </script>
-        <!-- Hidden player -->
-        <div id="player"></div>
+    <div class="audio-player">
+        <audio controls autoplay>
+            <source src="nadhif basalamah - penjaga hati (Official Music Video).mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
 
 </body>
