@@ -44,9 +44,10 @@
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             transition: transform 0.3s ease;
+            display: none; /* Hide all images initially */
         }
-        .gallery img:hover {
-            transform: scale(1.05);
+        .gallery img:first-child {
+            display: block; /* Show only the first image */
         }
         .letter-container {
             max-width: 800px;
@@ -112,21 +113,11 @@
             background-color: #f1d8c0;
             transform: scale(1.05);
         }
-        .popup-content .button {
+        .popup-content .button.next {
             position: absolute;
-            top: 10px;
-            background-color: #f8e5d0;
-        }
-        .popup-content .close {
-            right: 10px;
-        }
-        .popup-content .next {
-            right: 50px;
-        }
-        .popup-content .show-letter {
-            top: 50%;
-            right: 50px;
-            transform: translateY(-50%);
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         .show-letter {
             display: none;
@@ -154,7 +145,6 @@
     <div id="popup" class="popup">
         <div class="popup-content"> 
             <img id="popupImage" src="" alt="Foto Pop-up">
-            <button class="button close">Tutup</button>
             <button class="button next">Next</button>
             <button class="button show-letter">Tampilkan Surat</button>
         </div>
@@ -183,7 +173,6 @@
         const popup = document.getElementById('popup');
         const letterPopup = document.getElementById('letterPopup');
         const popupImage = document.getElementById('popupImage');
-        const closeButtons = document.querySelectorAll('.button.close');
         const nextButton = document.querySelector('.button.next');
         const showLetterButton = document.querySelector('.button.show-letter');
 
@@ -200,7 +189,11 @@
 
         function nextImage() {
             if (currentIndex < images.length - 1) {
-                openPopup(currentIndex + 1);
+                images[currentIndex].style.display = 'none'; // Hide current image
+                currentIndex++;
+                images[currentIndex].style.display = 'block'; // Show next image
+                popupImage.src = images[currentIndex].src;
+                showLetterButton.style.display = (currentIndex === images.length - 1) ? 'block' : 'none';
             }
         }
 
@@ -215,13 +208,6 @@
 
         images.forEach((image, index) => {
             image.addEventListener('click', () => openPopup(index));
-        });
-
-        closeButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                closePopup();
-                closeLetter();
-            });
         });
 
         nextButton.addEventListener('click', nextImage);
