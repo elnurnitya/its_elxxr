@@ -125,8 +125,11 @@
             right: 50%;
             transform: translateX(50%);
         }
-        .show-letter {
-            display: none;
+        .letter-container .button.close {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         @keyframes fadeIn {
@@ -211,6 +214,8 @@
 
         function closeLetter() {
             letterPopup.style.display = 'none';
+            images.forEach(img => img.style.display = 'block'); // Show all images
+            popup.style.display = 'none'; // Hide popup
         }
 
         function updateButtons() {
@@ -229,7 +234,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('audioPlayer');
             audio.addEventListener('loadedmetadata', function() {
-                audio.currentTime = 76; // Set start time to 80 seconds (1:20)
+                audio.currentTime = 76; // Set start time to 76 seconds (1:16)
             });
         });
     </script>
