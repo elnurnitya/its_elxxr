@@ -134,7 +134,10 @@
             transform: translateX(-50%);
             margin-top: 20px; /* Adjust this value as needed */
         }
-
+        .disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -210,14 +213,20 @@
         }
 
         function openLetter() {
-            images.forEach(img => img.style.display = 'none'); // Hide all images
+            images.forEach(img => {
+                img.style.display = 'none'; // Hide all images
+                img.classList.add('disabled'); // Disable click on images
+            });
             letterPopup.style.display = 'block';
             closePopup();
         }
 
         function closeLetter() {
             letterPopup.style.display = 'none';
-            images.forEach(img => img.style.display = 'block'); // Show all images
+            images.forEach(img => {
+                img.style.display = 'block'; // Show all images
+                img.classList.remove('disabled'); // Enable click on images again
+            });
         }
 
         function updateButtons() {
