@@ -59,10 +59,7 @@
             color: #000;
             font-family: 'Playfair Display', serif;
             display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
             z-index: 1000;
             animation: fadeIn 1s ease-out;
             overflow: auto; /* Allows scrolling if the content overflows */
@@ -150,13 +147,6 @@
         <h1>Selamat Datang di Halaman Pantai Musim Panas</h1>
     </div>
 
-    <div class="gallery">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 1" data-index="1">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 2" data-index="2">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 3" data-index="3">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 4" data-index="4">
-    </div>
-
     <div id="popup" class="popup">
         <div class="popup-content"> 
             <img id="popupImage" src="" alt="Foto Pop-up">
@@ -172,6 +162,13 @@
         <p>Ini adalah surat untuk mengungkapkan betapa spesialnya Anda. Terima kasih telah menjadi bagian dari hidup kami. Semoga hari-hari Anda penuh kebahagiaan dan cinta.</p>
         <p>Salam hangat,</p>
         <p>[Nama Anda]</p>
+    </div>
+
+    <div class="gallery">
+        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 1" data-index="1">
+        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 2" data-index="2">
+        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 3" data-index="3">
+        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 4" data-index="4">
     </div>
 
     <div class="audio-player">
@@ -225,8 +222,9 @@
             letterPopup.style.display = 'none';
             images.forEach(img => {
                 img.style.display = 'block'; // Show all images
-                img.classList.remove('disabled'); // Enable click on images again
+                img.classList.remove('disabled'); // Enable click on images
             });
+            window.scrollTo(0, document.body.scrollHeight); // Scroll to bottom of page
         }
 
         function updateButtons() {
