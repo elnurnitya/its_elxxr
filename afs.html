@@ -64,32 +64,6 @@
         .letter-container h2 {
             margin-top: 0;
         }
-        .popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            overflow: auto;
-        }
-        .popup-content {
-            position: relative;
-            margin: 5% auto;
-            padding: 20px;
-            width: 80%;
-            max-width: 700px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-        }
-        .popup-content img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
         .button {
             display: inline-block;
             background-color: #f8e5d0;
@@ -154,10 +128,6 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        .disabled {
-            pointer-events: none;
-            opacity: 0.5;
-        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -170,28 +140,20 @@
         <h1>Selamat Datang di Halaman Pantai Musim Panas</h1>
     </div>
 
-    <div id="popup" class="popup">
-        <div class="popup-content"> 
-            <img id="popupImage" src="" alt="Foto Pop-up">
-            <button class="button next">Next</button>
-            <button class="button show-letter">Tampilkan Surat</button>
-        </div>
+    <div class="gallery">
+        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 1" data-index="1">
+        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 2" data-index="2">
+        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 3" data-index="3">
+        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 4" data-index="4">
     </div>
 
-    <div id="letterPopup" class="letter-container">
+    <div class="letter-container" id="letterPopup">
         <button class="button close" onclick="openFeedbackPopup()">Send Feedback</button>
         <h2>Surat Istimewa</h2>
         <p>Dear [Nama],</p>
         <p>Ini adalah surat untuk mengungkapkan betapa spesialnya Anda. Terima kasih telah menjadi bagian dari hidup kami. Semoga hari-hari Anda penuh kebahagiaan dan cinta.</p>
         <p>Salam hangat,</p>
         <p>[Nama Anda]</p>
-    </div>
-
-    <div class="gallery">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 1" data-index="1">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 2" data-index="2">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 3" data-index="3">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 4" data-index="4">
     </div>
 
     <div class="audio-player">
@@ -210,66 +172,10 @@
     </div>
 
     <script>
-        // JavaScript untuk Pop-up
-        let currentIndex = 0;
-        const images = document.querySelectorAll('.gallery img');
-        const popup = document.getElementById('popup');
-        const letterPopup = document.getElementById('letterPopup');
-        const popupImage = document.getElementById('popupImage');
-        const nextButton = document.querySelector('.button.next');
-        const showLetterButton = document.querySelector('.button.show-letter');
-
-        function openPopup(index) {
-            currentIndex = index;
-            popupImage.src = images[index].src;
-            popup.style.display = 'block';
-            updateButtons();
-        }
-
-        function closePopup() {
-            popup.style.display = 'none';
-        }
-
-        function nextImage() {
-            if (currentIndex < images.length - 1) {
-                images[currentIndex].style.display = 'none'; // Hide current image
-                currentIndex++;
-                images[currentIndex].style.display = 'block'; // Show next image
-                popupImage.src = images[currentIndex].src;
-                updateButtons();
-            }
-        }
-
-        function openLetter() {
-            images.forEach(img => {
-                img.style.display = 'none'; // Hide all images
-            });
-            letterPopup.style.display = 'block';
-            closePopup();
-        }
-
-        function closeLetter() {
-            letterPopup.style.display = 'none';
-            images.forEach(img => {
-                img.style.display = 'block'; // Show all images again
-            });
-            window.scrollTo(0, document.body.scrollHeight); // Scroll to bottom of page
-        }
-
-        function updateButtons() {
-            if (currentIndex === images.length - 1) {
-                nextButton.classList.add('disabled');
-            } else {
-                nextButton.classList.remove('disabled');
-            }
-        }
-
-        // Show the next image when next button is clicked
-        nextButton.addEventListener('click', nextImage);
-        showLetterButton.addEventListener('click', openLetter);
-
-        images.forEach((img, index) => {
-            img.addEventListener('click', () => openPopup(index));
+        // Display the first image on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstImage = document.querySelector('.gallery img');
+            firstImage.style.display = 'block'; // Show first image
         });
 
         // Feedback popup
