@@ -10,32 +10,41 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: url('https://media.giphy.com/media/3o8cHEmJxK09PyJBAs/giphy.gif') no-repeat center center fixed;
-            background-size: cover;
+            position: relative;
             color: #fff;
             overflow-x: hidden;
-            filter: grayscale(100%); /* Menjadikan background hitam putih */
-            background-color: rgba(0, 0, 0, 0.5); /* Transparansi di atas background */
         }
-        .header {
-            text-align: center;
+
+        /* Background GIF */
+        .background-gif {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            filter: grayscale(100%); /* Membuat GIF hitam putih */
+            opacity: 0.5; /* Transparansi GIF */
+        }
+
+        /* Konten Utama */
+        .content {
+            position: relative;
+            z-index: 1;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            border-bottom: 5px solid #f8e5d0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5); /* Transparansi di latar belakang konten */
+            color: white;
         }
+
         .header h1 {
-            margin: 0;
-            font-size: 2.5em;
             font-family: 'Playfair Display', serif;
             color: #f8e5d0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            animation: fadeIn 2s ease-in;
+            margin: 0;
         }
-        .gallery {
-            text-align: center;
-            padding: 20px;
-        }
+
         .gallery img {
             max-width: 100%;
             height: auto;
@@ -43,6 +52,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             transition: transform 0.3s ease;
         }
+
         .button {
             display: inline-block;
             background-color: #f8e5d0;
@@ -57,40 +67,52 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
+
         .button:hover {
             background-color: #f1d8c0;
             transform: scale(1.05);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        .audio-player {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Selamat Datang di Halaman Pantai Musim Panas</h1>
-    </div>
+    <!-- GIF Background -->
+    <video class="background-gif" autoplay loop muted>
+        <source src="https://media.giphy.com/media/3o8cHEmJxK09PyJBAs/giphy.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
-    <div class="gallery">
-        <!-- Gambar pertama ditampilkan saat halaman dimuat -->
-        <img id="currentImage" src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 1">
-    </div>
+    <!-- Konten Utama -->
+    <div class="content">
+        <div class="header">
+            <h1>Selamat Datang di Halaman Pantai Musim Panas</h1>
+        </div>
 
-    <div style="text-align:center;">
-        <button class="button" id="nextButton" onclick="showNextImage()">Next</button>
-    </div>
+        <!-- Gallery Foto -->
+        <div class="gallery">
+            <img id="currentImage" src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 1">
+        </div>
 
-    <div class="audio-player">
-        <audio id="audioPlayer" controls autoplay>
-            <source src="PRODUCE 101  이 자리에 (Always) Piano Cover.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+        <!-- Tombol Next -->
+        <div style="text-align:center;">
+            <button class="button" id="nextButton" onclick="showNextImage()">Next</button>
+        </div>
+
+        <!-- Audio Player -->
+        <div class="audio-player">
+            <audio id="audioPlayer" controls autoplay>
+                <source src="PRODUCE 101  이 자리에 (Always) Piano Cover.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
     </div>
 
     <script>
-        // Daftar gambar
+        // Daftar gambar untuk gallery
         const images = [
             "https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg",
             "https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg",
@@ -98,13 +120,13 @@
             "https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg"
         ];
 
-        let currentIndex = 0; // Indeks gambar saat ini
+        let currentIndex = 0;
 
         // Fungsi untuk menampilkan gambar berikutnya
         function showNextImage() {
             currentIndex++;
             if (currentIndex >= images.length) {
-                currentIndex = 0; // Kembali ke gambar pertama jika sudah mencapai gambar terakhir
+                currentIndex = 0; // Kembali ke gambar pertama
             }
             document.getElementById("currentImage").src = images[currentIndex];
         }
