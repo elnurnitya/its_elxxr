@@ -65,6 +65,8 @@
             transform: translate(-50%, -50%);
             z-index: 1000;
             animation: fadeIn 1s ease-out;
+            overflow: auto; /* Allows scrolling if the content overflows */
+            padding-bottom: 60px; /* Extra space for the button */
         }
         .letter-container h2 {
             margin-top: 0;
@@ -127,7 +129,7 @@
         }
         .letter-container .button.close {
             position: absolute;
-            bottom: 10px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -215,7 +217,6 @@
         function closeLetter() {
             letterPopup.style.display = 'none';
             images.forEach(img => img.style.display = 'block'); // Show all images
-            popup.style.display = 'none'; // Hide popup
         }
 
         function updateButtons() {
