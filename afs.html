@@ -31,38 +31,15 @@
             animation: fadeIn 2s ease-in;
         }
         .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
+            text-align: center;
             padding: 20px;
         }
         .gallery img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
-            cursor: pointer;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             transition: transform 0.3s ease;
-        }
-        .letter-container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-            color: #000;
-            font-family: 'Playfair Display', serif;
-            display: none;
-            position: relative;
-            z-index: 1000;
-            animation: fadeIn 1s ease-out;
-            overflow: auto;
-            padding-bottom: 60px;
-        }
-        .letter-container h2 {
-            margin-top: 0;
         }
         .button {
             display: inline-block;
@@ -82,52 +59,6 @@
             background-color: #f1d8c0;
             transform: scale(1.05);
         }
-        .letter-container .button.close {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .feedback-popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            overflow: auto;
-        }
-        .feedback-popup-content {
-            position: relative;
-            margin: 5% auto;
-            padding: 20px;
-            width: 80%;
-            max-width: 500px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-        }
-        .feedback-popup-content textarea {
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 10px;
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-        .feedback-popup-content button {
-            display: inline-block;
-            background-color: #f8e5d0;
-            color: #000;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -141,19 +72,12 @@
     </div>
 
     <div class="gallery">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 1" data-index="1">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 2" data-index="2">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 3" data-index="3">
-        <img src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 4" data-index="4">
+        <!-- Gambar pertama ditampilkan saat halaman dimuat -->
+        <img id="currentImage" src="https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg" alt="Foto Pantai 1">
     </div>
 
-    <div class="letter-container" id="letterPopup">
-        <button class="button close" onclick="openFeedbackPopup()">Send Feedback</button>
-        <h2>Surat Istimewa</h2>
-        <p>Dear [Nama],</p>
-        <p>Ini adalah surat untuk mengungkapkan betapa spesialnya Anda. Terima kasih telah menjadi bagian dari hidup kami. Semoga hari-hari Anda penuh kebahagiaan dan cinta.</p>
-        <p>Salam hangat,</p>
-        <p>[Nama Anda]</p>
+    <div style="text-align:center;">
+        <button class="button" id="nextButton" onclick="showNextImage()">Next</button>
     </div>
 
     <div class="audio-player">
@@ -163,40 +87,24 @@
         </audio>
     </div>
 
-    <div id="feedbackPopup" class="feedback-popup">
-        <div class="feedback-popup-content">
-            <h2>Send Feedback</h2>
-            <textarea id="popupFeedbackText" rows="4" placeholder="Tulis kata hati Anda..."></textarea>
-            <button class="button" onclick="sendFeedbackPopup()">Kirim Feedback</button>
-        </div>
-    </div>
-
     <script>
-        // Display the first image on load
-        document.addEventListener('DOMContentLoaded', function() {
-            const firstImage = document.querySelector('.gallery img');
-            firstImage.style.display = 'block'; // Show first image
-        });
+        // Daftar gambar
+        const images = [
+            "https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg",
+            "https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg",
+            "https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg",
+            "https://jadesta.kemenparekraf.go.id/imgpost/93032.jpg"
+        ];
 
-        // Feedback popup
-        function sendFeedbackPopup() {
-            const feedbackText = document.getElementById('popupFeedbackText').value;
-            if (feedbackText) {
-                const whatsappURL = `https://wa.me/6287893386019?text=${encodeURIComponent(feedbackText)}`;
-                window.open(whatsappURL, '_blank');
-                document.getElementById('popupFeedbackText').value = ''; // Clear the textarea
-                closeFeedbackPopup(); // Close popup after sending
-            } else {
-                alert('Mohon tulis feedback Anda sebelum mengirim.');
+        let currentIndex = 0; // Indeks gambar saat ini
+
+        // Fungsi untuk menampilkan gambar berikutnya
+        function showNextImage() {
+            currentIndex++;
+            if (currentIndex >= images.length) {
+                currentIndex = 0; // Kembali ke gambar pertama jika sudah mencapai gambar terakhir
             }
-        }
-
-        function openFeedbackPopup() {
-            document.getElementById('feedbackPopup').style.display = 'block';
-        }
-
-        function closeFeedbackPopup() {
-            document.getElementById('feedbackPopup').style.display = 'none';
+            document.getElementById("currentImage").src = images[currentIndex];
         }
     </script>
 
