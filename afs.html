@@ -92,7 +92,7 @@
         /* Thumbnails above the letter */
         .thumbnails {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 thumbnails per row */
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive thumbnails */
             gap: 10px;
             margin-bottom: 20px;
         }
@@ -176,14 +176,13 @@
             const thumbnailsContainer = document.getElementById('thumbnailsContainer');
             const gallery = document.getElementById('gallery');
             const nextButton = document.getElementById('nextButton');
-            const mainContent = document.getElementById('mainContent');
 
             // Sembunyikan galeri dan tombol Next
             gallery.style.display = 'none';
             nextButton.style.display = 'none';
 
-            // Buat thumbnail untuk setiap gambar sebelumnya
-            images.slice(0, images.length - 1).forEach((src, index) => {
+            // Buat thumbnail untuk semua gambar
+            images.forEach(src => {
                 const imgElement = document.createElement('img');
                 imgElement.src = src;
                 thumbnailsContainer.appendChild(imgElement);
