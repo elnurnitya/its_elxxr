@@ -76,6 +76,32 @@
         .audio-player {
             margin-top: 20px;
         }
+
+        /* Container for letter and thumbnails */
+        .letter-container {
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            color: #000;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+
+        /* Thumbnails above the letter */
+        .thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 thumbnails per row */
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .thumbnails img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 <body>
@@ -111,6 +137,18 @@
         </div>
     </div>
 
+    <!-- Kontainer Surat dan Thumbnail -->
+    <div class="letter-container" id="letterContainer">
+        <div class="thumbnails" id="thumbnailsContainer">
+            <!-- Thumbnails will be generated here -->
+        </div>
+        <h2>Surat Istimewa</h2>
+        <p>Dear [Nama],</p>
+        <p>Ini adalah surat untuk mengungkapkan betapa spesialnya Anda. Terima kasih telah menjadi bagian dari hidup kami. Semoga hari-hari Anda penuh kebahagiaan dan cinta.</p>
+        <p>Salam hangat,</p>
+        <p>[Nama Anda]</p>
+    </div>
+
     <script>
         // Daftar gambar untuk gallery
         const images = [
@@ -126,9 +164,25 @@
         function showNextImage() {
             currentIndex++;
             if (currentIndex >= images.length) {
-                currentIndex = 0; // Kembali ke gambar pertama
+                showLetterContainer(); // Menampilkan kontainer surat saat gambar terakhir
+            } else {
+                document.getElementById("currentImage").src = images[currentIndex];
             }
-            document.getElementById("currentImage").src = images[currentIndex];
+        }
+
+        // Fungsi untuk menampilkan kontainer surat
+        function showLetterContainer() {
+            const letterContainer = document.getElementById('letterContainer');
+            const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+
+            // Buat thumbnail untuk setiap gambar sebelumnya
+            images.slice(0, images.length - 1).forEach((src, index) => {
+                const imgElement = document.createElement('img');
+                imgElement.src = src;
+                thumbnailsContainer.appendChild(imgElement);
+            });
+
+            letterContainer.style.display = 'block'; // Tampilkan kontainer surat
         }
     </script>
 
