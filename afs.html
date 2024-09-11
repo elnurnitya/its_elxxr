@@ -135,6 +135,45 @@
             pointer-events: none;
             opacity: 0.5;
         }
+        .feedback-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            color: #000;
+            font-family: 'Playfair Display', serif;
+        }
+        .feedback-container h2 {
+            margin-top: 0;
+        }
+        .feedback-container textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 1em;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+        }
+        .feedback-container button {
+            display: inline-block;
+            background-color: #f8e5d0;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-family: 'Playfair Display', serif;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .feedback-container button:hover {
+            background-color: #f1d8c0;
+            transform: scale(1.05);
+        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -176,6 +215,14 @@
             <source src="PRODUCE 101  이 자리에 (Always) Piano Cover.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
+    </div>
+
+    <div class="feedback-container">
+        <h2>Berikan Feedback</h2>
+        <form id="feedbackForm">
+            <textarea id="feedbackText" rows="4" placeholder="Tulis kata hati Anda di sini..." required></textarea>
+            <button type="button" class="button" onclick="sendFeedback()">Kirim Feedback</button>
+        </form>
     </div>
 
     <script>
@@ -230,6 +277,17 @@
         function updateButtons() {
             // Show/hide buttons based on the current image
             showLetterButton.style.display = (currentIndex === images.length - 1) ? 'block' : 'none';
+        }
+
+        function sendFeedback() {
+            const feedbackText = document.getElementById('feedbackText').value;
+            if (feedbackText) {
+                const whatsappURL = `https://wa.me/?text=${encodeURIComponent(feedbackText)}`;
+                window.open(whatsappURL, '_blank');
+                document.getElementById('feedbackForm').reset(); // Clear the form
+            } else {
+                alert('Mohon tulis feedback Anda sebelum mengirim.');
+            }
         }
 
         images.forEach((image, index) => {
