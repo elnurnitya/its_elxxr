@@ -44,10 +44,6 @@
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             transition: transform 0.3s ease;
-            display: none; /* Hide all images initially */
-        }
-        .gallery img:first-child {
-            display: block; /* Show only the first image */
         }
         .letter-container {
             max-width: 800px;
@@ -62,8 +58,8 @@
             position: relative;
             z-index: 1000;
             animation: fadeIn 1s ease-out;
-            overflow: auto; /* Allows scrolling if the content overflows */
-            padding-bottom: 60px; /* Extra space for the button */
+            overflow: auto;
+            padding-bottom: 60px;
         }
         .letter-container h2 {
             margin-top: 0;
@@ -112,52 +108,42 @@
             background-color: #f1d8c0;
             transform: scale(1.05);
         }
-        .popup-content .button.next {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .popup-content .button.show-letter {
-            position: absolute;
-            bottom: 10px;
-            right: 50%;
-            transform: translateX(50%);
-        }
         .letter-container .button.close {
             position: absolute;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            margin-top: 20px; /* Adjust this value as needed */
         }
-        .disabled {
-            pointer-events: none;
-            opacity: 0.5;
+        .feedback-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow: auto;
         }
-        .feedback-container {
-            max-width: 800px;
-            margin: 20px auto;
+        .feedback-popup-content {
+            position: relative;
+            margin: 5% auto;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
+            width: 80%;
+            max-width: 500px;
+            background: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-            color: #000;
-            font-family: 'Playfair Display', serif;
         }
-        .feedback-container h2 {
-            margin-top: 0;
-        }
-        .feedback-container textarea {
+        .feedback-popup-content textarea {
             width: 100%;
             border: 1px solid #ddd;
             border-radius: 4px;
             padding: 10px;
             font-size: 1em;
-            font-family: 'Playfair Display', serif;
             margin-bottom: 10px;
         }
-        .feedback-container button {
+        .feedback-popup-content button {
             display: inline-block;
             background-color: #f8e5d0;
             color: #000;
@@ -165,14 +151,12 @@
             border-radius: 5px;
             padding: 10px 20px;
             font-size: 1em;
-            font-family: 'Playfair Display', serif;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: background-color 0.3s ease;
         }
-        .feedback-container button:hover {
-            background-color: #f1d8c0;
-            transform: scale(1.05);
+        .disabled {
+            pointer-events: none;
+            opacity: 0.5;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -195,7 +179,7 @@
     </div>
 
     <div id="letterPopup" class="letter-container">
-        <button class="button close" onclick="closeLetter()">Tutup</button>
+        <button class="button close" onclick="openFeedbackPopup()">Send Feedback</button>
         <h2>Surat Istimewa</h2>
         <p>Dear [Nama],</p>
         <p>Ini adalah surat untuk mengungkapkan betapa spesialnya Anda. Terima kasih telah menjadi bagian dari hidup kami. Semoga hari-hari Anda penuh kebahagiaan dan cinta.</p>
@@ -217,12 +201,12 @@
         </audio>
     </div>
 
-    <div class="feedback-container">
-        <h2>Berikan Feedback</h2>
-        <form id="feedbackForm">
-            <textarea id="feedbackText" rows="4" placeholder="Tulis kata hati Anda di sini..." required></textarea>
-            <button type="button" class="button" onclick="sendFeedback()">Kirim Feedback</button>
-        </form>
+    <div id="feedbackPopup" class="feedback-popup">
+        <div class="feedback-popup-content">
+            <h2>Send Feedback</h2>
+            <textarea id="popupFeedbackText" rows="4" placeholder="Tulis kata hati Anda..."></textarea>
+            <button class="button" onclick="sendFeedbackPopup()">Kirim Feedback</button>
+        </div>
     </div>
 
     <script>
@@ -259,7 +243,6 @@
         function openLetter() {
             images.forEach(img => {
                 img.style.display = 'none'; // Hide all images
-                img.classList.add('disabled'); // Disable click on images
             });
             letterPopup.style.display = 'block';
             closePopup();
@@ -268,42 +251,47 @@
         function closeLetter() {
             letterPopup.style.display = 'none';
             images.forEach(img => {
-                img.style.display = 'block'; // Show all images
-                img.classList.remove('disabled'); // Enable click on images
+                img.style.display = 'block'; // Show all images again
             });
             window.scrollTo(0, document.body.scrollHeight); // Scroll to bottom of page
         }
 
         function updateButtons() {
-            // Show/hide buttons based on the current image
-            showLetterButton.style.display = (currentIndex === images.length - 1) ? 'block' : 'none';
+            if (currentIndex === images.length - 1) {
+                nextButton.classList.add('disabled');
+            } else {
+                nextButton.classList.remove('disabled');
+            }
         }
 
-        function sendFeedback() {
-            const feedbackText = document.getElementById('feedbackText').value;
+        // Show the next image when next button is clicked
+        nextButton.addEventListener('click', nextImage);
+        showLetterButton.addEventListener('click', openLetter);
+
+        images.forEach((img, index) => {
+            img.addEventListener('click', () => openPopup(index));
+        });
+
+        // Feedback popup
+        function sendFeedbackPopup() {
+            const feedbackText = document.getElementById('popupFeedbackText').value;
             if (feedbackText) {
-                const whatsappURL = `https://wa.me/?text=${encodeURIComponent(feedbackText)}`;
+                const whatsappURL = `https://wa.me/6287893386019?text=${encodeURIComponent(feedbackText)}`;
                 window.open(whatsappURL, '_blank');
-                document.getElementById('feedbackForm').reset(); // Clear the form
+                document.getElementById('popupFeedbackText').value = ''; // Clear the textarea
+                closeFeedbackPopup(); // Close popup after sending
             } else {
                 alert('Mohon tulis feedback Anda sebelum mengirim.');
             }
         }
 
-        images.forEach((image, index) => {
-            image.addEventListener('click', () => openPopup(index));
-        });
+        function openFeedbackPopup() {
+            document.getElementById('feedbackPopup').style.display = 'block';
+        }
 
-        nextButton.addEventListener('click', nextImage);
-        showLetterButton.addEventListener('click', openLetter);
-
-        // JavaScript untuk mengatur waktu mulai audio
-        document.addEventListener('DOMContentLoaded', function() {
-            const audio = document.getElementById('audioPlayer');
-            audio.addEventListener('loadedmetadata', function() {
-                audio.currentTime = 76; // Set start time to 76 seconds (1:16)
-            });
-        });
+        function closeFeedbackPopup() {
+            document.getElementById('feedbackPopup').style.display = 'none';
+        }
     </script>
 
 </body>
