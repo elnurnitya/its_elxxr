@@ -102,6 +102,39 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         }
+
+        /* Feedback Popup */
+        .feedback-container {
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            color: #000;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+
+        .feedback-container textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .feedback-container button {
+            display: inline-block;
+            background-color: #f8e5d0;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -147,6 +180,15 @@
         <p>Ini adalah surat untuk mengungkapkan betapa spesialnya Anda. Terima kasih telah menjadi bagian dari hidup kami. Semoga hari-hari Anda penuh kebahagiaan dan cinta.</p>
         <p>Salam hangat,</p>
         <p>[Nama Anda]</p>
+        <!-- Tombol Kirim Feedback -->
+        <button class="button" id="feedbackButton" onclick="showFeedbackContainer()">Kirim Feedback</button>
+    </div>
+
+    <!-- Kontainer Feedback -->
+    <div class="feedback-container" id="feedbackContainer">
+        <h2>Send Feedback</h2>
+        <textarea id="popupFeedbackText" rows="4" placeholder="Tulis kata hati Anda..."></textarea>
+        <button class="button" onclick="sendFeedback()">Kirim Feedback</button>
     </div>
 
     <script>
@@ -176,6 +218,7 @@
             const thumbnailsContainer = document.getElementById('thumbnailsContainer');
             const gallery = document.getElementById('gallery');
             const nextButton = document.getElementById('nextButton');
+            const feedbackButton = document.getElementById('feedbackButton');
 
             // Sembunyikan galeri dan tombol Next
             gallery.style.display = 'none';
@@ -189,6 +232,27 @@
             });
 
             letterContainer.style.display = 'block'; // Tampilkan kontainer surat
+            feedbackButton.style.display = 'block'; // Pastikan tombol Kirim Feedback ditampilkan
+        }
+
+        // Fungsi untuk menampilkan kontainer feedback
+        function showFeedbackContainer() {
+            document.getElementById('feedbackContainer').style.display = 'block';
+            document.getElementById('feedbackButton').style.display = 'none'; // Sembunyikan tombol Kirim Feedback
+        }
+
+        // Fungsi untuk mengirim feedback
+        function sendFeedback() {
+            const feedbackText = document.getElementById('popupFeedbackText').value;
+            if (feedbackText.trim() !== '') {
+                const encodedFeedback = encodeURIComponent(feedbackText);
+                const phoneNumber = '6287893386019';
+                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedFeedback}`;
+                window.open(whatsappURL, '_blank');
+                document.getElementById('popupFeedbackText').value = ''; // Kosongkan textarea
+            } else {
+                alert('Tolong tulis feedback Anda.');
+            }
         }
     </script>
 
