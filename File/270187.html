@@ -145,10 +145,7 @@
         </div>
 
         <!-- Audio Player -->
-        <audio id="audioPlayer" controls>
-            <source src="../Media/MAHALINI - SAMPAI MENUTUP MATA (OFFICIAL MUSIC VIDEO) (1).mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+        <audio id="bgAudio" src="../Media/MAHALINI - SAMPAI MENUTUP MATA (OFFICIAL MUSIC VIDEO) (1).mp3" preload="auto"></audio>
 
     </div>
 
@@ -240,14 +237,14 @@
         }
 
         // Autoplay audio dan mulai dari detik ke-15
-        document.addEventListener('DOMContentLoaded', () => {
-            const audioPlayer = document.getElementById('audioPlayer');
-            audioPlayer.addEventListener('canplay', () => {
-                audioPlayer.currentTime = 15; // Mulai dari detik ke-15
-                audioPlayer.play().catch(error => {
+        window.addEventListener('load', () => {
+            const audio = document.getElementById('bgAudio');
+            audio.currentTime = 15;
+            const playAudio = () => {
+                audio.play().catch(error => {
                     console.log('Audio tidak bisa diputar:', error);
                 });
-            });
+            };
         });
     </script>
 
