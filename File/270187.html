@@ -240,11 +240,11 @@
         window.addEventListener('load', () => {
             const audio = document.getElementById('bgAudio');
             audio.currentTime = 15;
-            const playAudio = () => {
-                audio.play().catch(error => {
-                    console.log('Audio tidak bisa diputar:', error);
-                });
-            };
+            audio.play().then(() => {
+                console.log('Audio mulai diputar');
+            }).catch(error => {
+                console.log('Audio tidak bisa diputar:', error);
+            });
         });
     </script>
 
