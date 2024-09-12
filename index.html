@@ -136,10 +136,16 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     const code = result.value;
-                    if (code === '123') {
-                        window.location.href = 'hgms.html'; // Redirect ke hgms.html
-                    } else if (code === '456') {
-                        window.location.href = 'afs.html'; // Redirect ke afs.html
+                    if (code === '207') {
+                        window.location.href = 'File/270207.html'; // Redirect ke yanti
+                    } else if (code === '187') {
+                        window.location.href = 'File/270187.html'; // Redirect ke agnes
+                    } else if (code === '375') {
+                        window.location.href = 'File/270375.html'; // Redirect ke via
+                    } else if (code === '170') {
+                        window.location.href = 'File/270170.html'; // Redirect ke faldy
+                    } else if (code === '257') {
+                        window.location.href = 'File/270257.html'; // Redirect ke yoga
                     } else {
                         Swal.fire('Kode tidak valid'); // Menampilkan pesan jika kode tidak sesuai
                     }
