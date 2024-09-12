@@ -131,7 +131,7 @@
     <!-- Konten Utama -->
     <div class="content" id="mainContent">
         <div class="header">
-            <h1>Selamat Datang di Halaman Pantai Musim Panas</h1>
+            <h1>Selamat Datang di Halaman ITS ELXXR</h1>
         </div>
 
         <!-- Gallery Foto -->
@@ -151,9 +151,10 @@
         <div class="thumbnails" id="thumbnailsContainer">
             <!-- Thumbnails will be generated here -->
         </div>
-        <h2>Surat Istimewa</h2>
-        <p>Dear [Nama],</p>
-        <p>Ini adalah surat untuk mengungkapkan betapa spesialnya Anda. Terima kasih telah menjadi bagian dari hidup kami. Semoga hari-hari Anda penuh kebahagiaan dan cinta.</p>
+        <h2>Surat Untuk Orang Istimewa</h2>
+        <p>Dear Agnes Febriani Sipayung,</p>
+        <p>Udah lama ya gua ga buat ginian. Waktu lu baca ini, berarti gua udah berangkat ke China. Inget ga awal kita ketemu? Sebelum kita ketemu, gua masih inget banget liat ada anak baru datang pake baju biasa. Awalnya gua mikir ini cewek cakep pasti deketnya sama Dinda dll.
+        Tapi ternyata salah gua ya hahaha.</p>
         <p>Salam hangat,</p>
         <p>[Nama Anda]</p>
         <!-- Tombol Kirim Feedback -->
@@ -245,6 +246,13 @@
             }).catch(error => {
                 console.log('Audio tidak bisa diputar:', error);
             });
+
+            audio.addEventListener('ended', () => {
+            audio.currentTime = 15;
+            audio.play().catch(error => {
+                console.log('Audio tidak bisa diputar setelah selesai:', error);
+            });
+        });
         });
     </script>
 
