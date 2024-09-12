@@ -107,49 +107,53 @@
         // Memainkan audio saat halaman dimuat
         window.addEventListener('load', () => {
             const audio = document.getElementById('welcomeAudio');
-            audio.play().catch(error => {
-                console.log('Audio tidak bisa diputar:', error);
-            });
-        });
-
-        document.getElementById('inputCodeBtn').addEventListener('click', function() {
-            Swal.fire({
-                title: 'Masukkan Kode',
-                input: 'text',
-                inputPlaceholder: 'Masukkan kode Anda di sini',
-                showCancelButton: true,
-                confirmButtonText: 'Kirim',
-                cancelButtonText: 'Batal',
-                preConfirm: (code) => {
-                    if (!code) {
-                        Swal.showValidationMessage('Kode tidak boleh kosong!');
-                    } else {
-                        return code;
+            const playAudio = () => {
+                audio.play().catch(error => {
+                    console.log('Audio tidak bisa diputar:', error);
+                });
+            };
+        
+            // Putar audio setelah interaksi tombol
+            document.getElementById('inputCodeBtn').addEventListener('click', function() {
+                playAudio(); // Memainkan audio setelah tombol diklik
+                Swal.fire({
+                    title: 'Masukkan Kode',
+                    input: 'text',
+                    inputPlaceholder: 'Masukkan kode Anda di sini',
+                    showCancelButton: true,
+                    confirmButtonText: 'Kirim',
+                    cancelButtonText: 'Batal',
+                    preConfirm: (code) => {
+                        if (!code) {
+                            Swal.showValidationMessage('Kode tidak boleh kosong!');
+                        } else {
+                            return code;
+                        }
+                    },
+                    willOpen: () => {
+                        document.body.classList.add('swal2-shown'); // Tambahkan kelas untuk efek blur
+                    },
+                    willClose: () => {
+                        document.body.classList.remove('swal2-shown'); // Hapus kelas setelah SweetAlert ditutup
                     }
-                },
-                willOpen: () => {
-                    document.body.classList.add('swal2-shown'); // Tambahkan kelas untuk efek blur
-                },
-                willClose: () => {
-                    document.body.classList.remove('swal2-shown'); // Hapus kelas setelah SweetAlert ditutup
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const code = result.value;
-                    if (code === '207') {
-                        window.location.href = 'File/270207.html'; // Redirect ke yanti
-                    } else if (code === '187') {
-                        window.location.href = 'File/270187.html'; // Redirect ke agnes
-                    } else if (code === '375') {
-                        window.location.href = 'File/270375.html'; // Redirect ke via
-                    } else if (code === '170') {
-                        window.location.href = 'File/270170.html'; // Redirect ke faldy
-                    } else if (code === '257') {
-                        window.location.href = 'File/270257.html'; // Redirect ke yoga
-                    } else {
-                        Swal.fire('Kode tidak valid'); // Menampilkan pesan jika kode tidak sesuai
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const code = result.value;
+                        if (code === '207') {
+                            window.location.href = 'File/270207.html'; // Redirect ke yanti
+                        } else if (code === '187') {
+                            window.location.href = 'File/270187.html'; // Redirect ke agnes
+                        } else if (code === '375') {
+                            window.location.href = 'File/270375.html'; // Redirect ke via
+                        } else if (code === '170') {
+                            window.location.href = 'File/270170.html'; // Redirect ke faldy
+                        } else if (code === '257') {
+                            window.location.href = 'File/270257.html'; // Redirect ke yoga
+                        } else {
+                            Swal.fire('Kode tidak valid'); // Menampilkan pesan jika kode tidak sesuai
+                        }
                     }
-                }
+                });
             });
         });
     </script>
