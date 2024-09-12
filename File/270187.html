@@ -242,8 +242,12 @@
         // Autoplay audio dan mulai dari detik ke-15
         const audioPlayer = document.getElementById('audioPlayer');
         window.addEventListener('load', function() {
-            audioPlayer.currentTime = 15; // Mulai dari detik ke-15
-            audioPlayer.play(); // Autoplay
+            audioPlayer.addEventListener('canplay', function() {
+                audioPlayer.currentTime = 15; // Mulai dari detik ke-15
+                audioPlayer.play().catch(error => {
+                    console.log('Audio tidak bisa diputar:', error);
+                });
+            });
         });
     </script>
 
