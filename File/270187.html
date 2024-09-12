@@ -6,6 +6,7 @@
     <title>Halaman Foto dan Surat</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
+        /* Styling yang ada di sini tetap sama */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -14,8 +15,6 @@
             color: #fff;
             overflow-x: hidden;
         }
-
-        /* Background GIF */
         .background-gif {
             position: fixed;
             top: 0;
@@ -24,27 +23,23 @@
             height: 100%;
             z-index: -1;
             object-fit: cover;
-            filter: grayscale(100%); /* Membuat GIF hitam putih */
-            opacity: 0.5; /* Transparansi GIF */
+            filter: grayscale(100%);
+            opacity: 0.5;
         }
-
-        /* Konten Utama */
         .content {
             position: relative;
             z-index: 1;
             padding: 20px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.5); /* Transparansi di latar belakang konten */
+            background: rgba(0, 0, 0, 0.5);
             color: white;
         }
-
         .header h1 {
             font-family: 'Playfair Display', serif;
             color: #f8e5d0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             margin: 0;
         }
-
         .gallery img {
             max-width: 100%;
             height: auto;
@@ -52,7 +47,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             transition: transform 0.3s ease;
         }
-
         .button {
             display: inline-block;
             background-color: #f8e5d0;
@@ -67,17 +61,13 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
-
         .button:hover {
             background-color: #f1d8c0;
             transform: scale(1.05);
         }
-
         .audio-player {
             margin-top: 20px;
         }
-
-        /* Container for letter and thumbnails */
         .letter-container {
             display: none;
             padding: 20px;
@@ -88,22 +78,17 @@
             margin: 20px auto;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         }
-
-        /* Thumbnails above the letter */
         .thumbnails {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive thumbnails */
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 10px;
             margin-bottom: 20px;
         }
-
         .thumbnails img {
             width: 100%;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         }
-
-        /* Feedback Popup */
         .feedback-container {
             display: none;
             padding: 20px;
@@ -114,7 +99,6 @@
             margin: 20px auto;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         }
-
         .feedback-container textarea {
             width: 100%;
             border: 1px solid #ddd;
@@ -123,7 +107,6 @@
             font-size: 1em;
             margin-bottom: 10px;
         }
-
         .feedback-container button {
             display: inline-block;
             background-color: #f8e5d0;
@@ -256,9 +239,8 @@
 
         // Autoplay audio dan mulai dari detik ke-15
         const audioPlayer = document.getElementById('audioPlayer');
-        audioPlayer.addEventListener('loadedmetadata', function() {
-            audioPlayer.currentTime = 15; // Mulai dari detik ke-15
-            audioPlayer.play(); // Autoplay
+        window.addEventListener('load', function() {
+            audioPlayer.play(); // Memulai pemutaran audio saat halaman dimuat
         });
     </script>
 
