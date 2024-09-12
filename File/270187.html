@@ -145,7 +145,7 @@
         </div>
 
         <!-- Audio Player -->
-        <audio id="audioPlayer" controls autoplay>
+        <audio id="audioPlayer" controls>
             <source src="../Media/MAHALINI - SAMPAI MENUTUP MATA (OFFICIAL MUSIC VIDEO) (1).mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
@@ -240,9 +240,9 @@
         }
 
         // Autoplay audio dan mulai dari detik ke-15
-        const audioPlayer = document.getElementById('audioPlayer');
-        window.addEventListener('load', function() {
-            audioPlayer.addEventListener('canplay', function() {
+        document.addEventListener('DOMContentLoaded', () => {
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.addEventListener('loadeddata', () => {
                 audioPlayer.currentTime = 15; // Mulai dari detik ke-15
                 audioPlayer.play().catch(error => {
                     console.log('Audio tidak bisa diputar:', error);
