@@ -56,7 +56,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             transition: transform 0.3s ease;
             width: 100%; /* atau bisa diubah ke ukuran spesifik seperti 200px */
-            height: 100px; /* Ukuran tetap agar semua gambar seragam */
             object-fit: cover;
         }
         .button {
@@ -99,7 +98,9 @@
             justify-content: center;
         }
         .thumbnails img {
-            width: 100%;
+            width: 100%; /* atau bisa diubah ke ukuran spesifik seperti 200px */
+            height: 100px; /* Ukuran tetap agar semua gambar seragam */
+            object-fit: cover; /* Ini akan memotong gambar untuk menyesuaikan aspek rasio tanpa meregangkannya */
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         }
@@ -130,15 +131,6 @@
             border-radius: 4px;
             font-size: 1em;
         }
-        .gallery img,
-        .thumbnails img {
-            width: 100%; /* atau bisa diubah ke ukuran spesifik seperti 200px */
-            height: 100px; /* Ukuran tetap agar semua gambar seragam */
-            object-fit: cover; /* Ini akan memotong gambar untuk menyesuaikan aspek rasio tanpa meregangkannya */
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-        }
-
     </style>
 </head>
 <body>
