@@ -51,7 +51,9 @@
             margin: 0;
         }
         .gallery img {
-            max-width: 100%;
+            width: 100%; /* atau bisa diubah ke ukuran spesifik seperti 200px */
+            height: 100px; /* Ukuran tetap agar semua gambar seragam */
+            object-fit: cover;
             height: auto;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
