@@ -209,22 +209,20 @@
         // Fungsi untuk menampilkan kontainer surat
         function showLetterContainer() {
             const letterContainer = document.getElementById('letterContainer');
+            const content = document.getElementById('mainContent'); // Mengambil konten utama
             const thumbnailsContainer = document.getElementById('thumbnailsContainer');
-            const gallery = document.getElementById('gallery');
-            const nextButton = document.getElementById('nextButton');
             const feedbackButton = document.getElementById('feedbackButton');
-
-            // Sembunyikan galeri dan tombol Next
-            gallery.style.display = 'none';
-            nextButton.style.display = 'none';
-
+        
+            // Sembunyikan konten utama
+            content.style.display = 'none';
+        
             // Buat thumbnail untuk semua gambar
             images.forEach(src => {
                 const imgElement = document.createElement('img');
                 imgElement.src = src;
                 thumbnailsContainer.appendChild(imgElement);
             });
-
+        
             letterContainer.style.display = 'block'; // Tampilkan kontainer surat
             feedbackButton.style.display = 'block'; // Pastikan tombol Kirim Feedback ditampilkan
         }
