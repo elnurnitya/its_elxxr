@@ -70,7 +70,18 @@
     @media (max-width:640px){.tree-svg{width:240px}}
 
     /* snow (canvas) overlay */
-    #snow-canvas{position:fixed;left:0;top:0;pointer-events:none;z-index:50}
+    #snow-canvas{
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 1; /* salju di belakang */
+    }
+    
+    .card {
+      position: relative;
+      z-index: 10; /* card selalu di atas salju */
+    }
 
     /* subtle glow around cards */
     .glow{box-shadow:0 8px 40px rgba(214,40,40,0.12)}
