@@ -42,7 +42,7 @@
     #treeCard{display:none;text-align:center}
     #tree-wrap{display:inline-block;padding:16px;background:linear-gradient(180deg,#071116,#0b1620);border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
     /* SVG tree styles */
-    .tree-svg{width:260px;height:auto}
+    .tree-svg{width:320px;height:auto;display:block;margin:0 auto}
 
     /* twinkling lights */
     .light{filter:drop-shadow(0 0 8px rgba(214,40,40,0.6))}
@@ -50,10 +50,6 @@
     .light--a{animation:twinkle 1.6s infinite ease-in-out}
     .light--b{animation:twinkle 1.9s infinite ease-in-out}
     .light--c{animation:twinkle 2.2s infinite ease-in-out}
-
-    /* ornaments (wish) */
-    .ornament{cursor:pointer;transition:transform .2s}
-    .ornament:hover{transform:scale(1.06)}
 
     /* wish list */
     #wishList{max-width:460px;margin:12px auto;text-align:left}
@@ -71,7 +67,7 @@
     .recap-slide{min-width:100%;transition:transform .4s}
 
     /* responsive */
-    @media (max-width:640px){.tree-svg{width:200px}}
+    @media (max-width:640px){.tree-svg{width:240px}}
 
     /* snow (canvas) overlay */
     #snow-canvas{position:fixed;left:0;top:0;pointer-events:none;z-index:50}
@@ -118,25 +114,26 @@
   <!-- WISH TREE CARD -->
   <div id="treeCard" class="card center">
     <div id="tree-wrap">
-      <!-- SVG tree with lights & ornaments -->
-      <svg class="tree-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" id="svgTree">
+      <!-- SVG tree with lights & text-wishes -->
+      <svg class="tree-svg" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" id="svgTree">
         <!-- trunk -->
-        <rect x="92" y="210" width="16" height="40" rx="2" fill="#5b3a2e"></rect>
-        <!-- layers of green -->
-        <path d="M100 40 C60 70, 40 100, 20 140 L180 140 C160 100,140 70,100 40 Z" fill="#063b1f"></path>
-        <path d="M100 80 C70 100,50 120,30 160 L170 160 C150 120,130 100,100 80 Z" fill="#094f29"></path>
-        <path d="M100 120 C80 130,70 150,50 190 L150 190 C130 150,120 130,100 120 Z" fill="#0b6b37"></path>
+        <rect x="90" y="250" width="20" height="40" rx="2" fill="#5b3a2e"></rect>
 
-        <!-- lights (small circles) -->
-        <circle class="light light--a" cx="60" cy="110" r="3" fill="#ffd166"></circle>
-        <circle class="light light--b" cx="140" cy="90" r="3" fill="#ffd166"></circle>
-        <circle class="light light--c" cx="100" cy="150" r="3" fill="#ffd166"></circle>
+        <!-- three-layer tree (triangles) -->
+        <polygon id="layer1" points="100,20 40,110 160,110" fill="#063b1f"></polygon>
+        <polygon id="layer2" points="100,80 55,160 145,160" fill="#094f29"></polygon>
+        <polygon id="layer3" points="100,140 70,220 130,220" fill="#0b6b37"></polygon>
 
-        <!-- ornaments group -->
-        <g id="ornaments"></g>
+        <!-- lights -->
+        <circle class="light light--a" cx="60" cy="125" r="3" fill="#ffd166"></circle>
+        <circle class="light light--b" cx="140" cy="105" r="3" fill="#ffd166"></circle>
+        <circle class="light light--c" cx="100" cy="175" r="3" fill="#ffd166"></circle>
+
+        <!-- text-wishes group -->
+        <g id="wishTextGroup"></g>
 
         <!-- star -->
-        <polygon points="100,18 107,34 124,34 110,44 116,60 100,50 84,60 90,44 76,34 93,34" fill="#ffd166'" opacity="0.95"></polygon>
+        <polygon points="100,8 105,20 118,20 108,28 112,40 100,32 88,40 92,28 82,20 95,20" fill="#ffd166"></polygon>
       </svg>
 
       <div style="margin-top:12px">
@@ -172,9 +169,6 @@
 <!-- canvas for snow -->
 <canvas id="snow-canvas"></canvas>
 
-<!-- html2canvas -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNa5l3zXG2oGm1p3+Yy6sQqkBq8q6Qq1z0qv6U8aA9p1XbQk2n5oJmGvZbX1YcM5f3ZQe6jJ2E7V7e3b6+Qx1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 <script>
   // ---------- small helper ----------
   const nameModal = document.getElementById('nameModal');
@@ -202,7 +196,7 @@
   function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
   addEventListener('resize', resize); resize();
   let flakes = [];
-  function initSnow(n=140){ flakes = []; for(let i=0;i<n;i++){ flakes.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,d:Math.random()*1.5+0.5,spd:Math.random()*0.8+0.2}) }}
+  function initSnow(n=160){ flakes = []; for(let i=0;i<n;i++){ flakes.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,d:Math.random()*1.5+0.5,spd:Math.random()*0.8+0.2}) }}
   function renderSnow(){ ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='rgba(255,255,255,0.9)'; flakes.forEach(f=>{ ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2); ctx.fill(); f.y += f.spd + f.d; f.x += Math.sin(f.y/30)*0.6; if(f.y>canvas.height){ f.y = -10; f.x = Math.random()*canvas.width } }); requestAnimationFrame(renderSnow); }
   initSnow(160); renderSnow();
 
@@ -217,66 +211,207 @@
   greetCard.onclick = ()=>{ greetCard.style.display='none'; messageCard.style.display='block'; messageCard.classList.add('glow'); setTimeout(()=>messageCard.classList.remove('glow'),900)}
   btnOpenTree.onclick = ()=>{ messageCard.style.display='none'; treeCard.style.display='block'; }
 
-  // ornaments / wishes
-  const ornamentsGroup = document.getElementById('ornaments');
+  // ————— WISH TEXT PLACEMENT (grid within tree) —————
+  const svgTree = document.getElementById('svgTree');
+  const wishGroup = document.getElementById('wishTextGroup');
   const wishInput = document.getElementById('wishInput');
   const addWishBtn = document.getElementById('addWish');
   const wishListEl = document.getElementById('wishList');
   let wishes = [];
 
-  function placeOrnament(text){
-    // create small circle at random position on tree
-    const cx = 40 + Math.random()*120; const cy = 60 + Math.random()*120; const r = 6 + Math.random()*6;
-    const color = ['#d62828','#ffd166','#ffffff'][Math.floor(Math.random()*3)];
-    const id = 'orn'+Date.now()+Math.floor(Math.random()*1000);
-    const el = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    el.setAttribute('cx',cx); el.setAttribute('cy',cy); el.setAttribute('r',r); el.setAttribute('fill',color);
-    el.setAttribute('class','ornament'); el.setAttribute('data-text',text); el.setAttribute('id',id);
-    el.addEventListener('click', ()=>{ alert('Wish: '+text); });
-    ornamentsGroup.appendChild(el);
+  // compute position for a wish by index using triangular levels (level 0..4)
+  function computePositionForIndex(idx){
+    // levels: 1,2,3,4,5 items => cumulative 1,3,6,10,15
+    let level = 0, cumulative = 0;
+    while(true){
+      cumulative += (level+1);
+      if(idx < cumulative) break;
+      level++;
+    }
+    const levelStart = cumulative - (level+1); // index of first in this level
+    const posInLevel = idx - levelStart; // 0..level
+    // map into svg coords (viewBox 0..200 x 0..300)
+    // y: start 60, gap 35
+    const maxWidth = 120 - (level * 12); // narrower for lower levels
+    const xCenter = 100;
+    const slots = level+1;
+    const spacing = maxWidth / slots;
+    const x = xCenter + (posInLevel - (slots-1)/2) * spacing;
+    const y = 60 + level * 40;
+    return {x: Math.round(x), y: Math.round(y), level};
   }
 
-  function renderWishList(){ wishListEl.innerHTML=''; wishes.forEach((w,i)=>{ const d=document.createElement('div'); d.className='wish-item'; d.innerHTML = `<strong>${i+1}.</strong> ${w}`; wishListEl.appendChild(d); }); }
+  // wrap text into lines (maxChars per line) — returns array of lines
+  function wrapText(text, maxChars=20){
+    const words = text.split(' ');
+    const lines = [];
+    let cur = '';
+    for(const w of words){
+      if((cur + ' ' + w).trim().length <= maxChars){
+        cur = (cur + ' ' + w).trim();
+      } else {
+        if(cur) lines.push(cur);
+        cur = w;
+      }
+    }
+    if(cur) lines.push(cur);
+    return lines;
+  }
+
+  function placeWishText(text, idx){
+    const pos = computePositionForIndex(idx);
+    // create text element with tspans for lines
+    const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x', pos.x);
+    txt.setAttribute('y', pos.y);
+    txt.setAttribute('fill', '#ffffff');
+    txt.setAttribute('font-size', '10');
+    txt.setAttribute('font-weight', '600');
+    txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('pointer-events','visible'); // clickable
+    // wrap
+    const lines = wrapText(text, 16);
+    const startDy = -(lines.length-1)*7; // center the block vertically
+    lines.forEach((ln,i)=>{
+      const tspan = document.createElementNS('http://www.w3.org/2000/svg','tspan');
+      tspan.setAttribute('x', pos.x);
+      tspan.setAttribute('dy', i===0 ? startDy : 14);
+      tspan.textContent = ln;
+      txt.appendChild(tspan);
+    });
+    // clicking text shows full wish
+    txt.addEventListener('click', ()=>{ alert('Wish: '+text); });
+    wishGroup.appendChild(txt);
+  }
+
+  function renderWishList(){
+    wishListEl.innerHTML = '';
+    wishes.forEach((w,i)=>{
+      const d = document.createElement('div');
+      d.className = 'wish-item';
+      d.innerHTML = `<strong>${i+1}.</strong> ${w}`;
+      wishListEl.appendChild(d);
+    });
+  }
 
   addWishBtn.onclick = ()=>{
     const v = wishInput.value.trim(); if(!v) return alert('Tulis harapan dulu');
-    wishes.push(v); placeOrnament(v); renderWishList(); wishInput.value='';
+    const idx = wishes.length;
+    wishes.push(v);
+    placeWishText(v, idx); // draw on svg at computed position
+    renderWishList();
+    wishInput.value = '';
+  };
+  wishInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); addWishBtn.click(); } });
+
+  // ————— SVG -> PNG helper (serialize & rasterize) —————
+  function svgToDataUrl(svgEl, scale=2){
+    return new Promise((resolve, reject)=>{
+      const clone = svgEl.cloneNode(true);
+      // inline computed styles that matter (fill colors) if needed — our SVG uses fills directly so OK
+      const serializer = new XMLSerializer();
+      let svgString = serializer.serializeToString(clone);
+      // add xml header and proper namespace
+      if(!svgString.match(/^<svg[^>]+xmlns=/)){
+        svgString = svgString.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg" ');
+      }
+      svgString = '<?xml version="1.0" standalone="no"?>\n' + svgString;
+      const svg64 = encodeURIComponent(svgString);
+      const url = 'data:image/svg+xml;charset=utf-8,' + svg64;
+      const img = new Image();
+      img.onload = ()=>{
+        // create canvas sized to svg viewBox
+        const viewBox = svgEl.viewBox.baseVal;
+        const w = viewBox && viewBox.width ? viewBox.width : svgEl.clientWidth;
+        const h = viewBox && viewBox.height ? viewBox.height : svgEl.clientHeight;
+        const canvas = document.createElement('canvas');
+        canvas.width = (w || svgEl.clientWidth) * scale;
+        canvas.height = (h || svgEl.clientHeight) * scale;
+        const cctx = canvas.getContext('2d');
+        // fill transparent or dark background? We'll keep transparent
+        cctx.fillStyle = 'transparent';
+        cctx.fillRect(0,0,canvas.width,canvas.height);
+        cctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const data = canvas.toDataURL('image/png');
+        resolve({data, width: canvas.width, height: canvas.height});
+      };
+      img.onerror = (e)=> reject(e);
+      img.crossOrigin = 'anonymous';
+      img.src = url;
+    });
   }
 
-  // allow multiple wishes quickly: pressing Enter in input adds
-  wishInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); addWishBtn.click(); } });
-
-  // DOWNLOAD using html2canvas
-  const downloadCardBtn = document.getElementById('downloadCardBtn');
-  const downloadTreeBtn = document.getElementById('downloadTreeBtn');
-
-  downloadCardBtn.addEventListener('click', async ()=>{
-    // capture the message card + greeting name as a single image
-    // temporarily show greeting + message together
-    const wrapper = document.createElement('div');
-    wrapper.style.padding='20px'; wrapper.style.background='#070707'; wrapper.style.color='#fff'; wrapper.style.width='800px'; wrapper.style.maxWidth='90%'; wrapper.style.borderRadius='16px';
-    // clone greeting
-    const greet = document.getElementById('greetingCard').cloneNode(true);
-    greet.style.display='block'; greet.classList.remove('small');
-    const msg = document.getElementById('messageCard').cloneNode(true); msg.style.display='block';
-    wrapper.appendChild(greet); wrapper.appendChild(msg);
-    document.body.appendChild(wrapper);
+  // DOWNLOAD Tree as PNG
+  document.getElementById('downloadTreeBtn').addEventListener('click', async ()=>{
     try{
-      const canvas = await html2canvas(wrapper, {useCORS:true, scale:2});
-      const data = canvas.toDataURL('image/png');
-      const a = document.createElement('a'); a.href=data; a.download = 'card-'+Date.now()+'.png'; a.click();
-    }catch(err){ alert('Gagal generate image: '+err); }
-    wrapper.remove();
+      const svg = document.getElementById('svgTree');
+      const out = await svgToDataUrl(svg, 2);
+      const a = document.createElement('a');
+      a.href = out.data;
+      a.download = `wish-tree-${Date.now()}.png`;
+      a.click();
+      // after download navigate to recap
+      setTimeout(()=>{ treeCard.style.display='none'; recapCard.style.display='block'; }, 600);
+    }catch(err){
+      alert('Gagal generate tree: '+err);
+      console.error(err);
+    }
   });
 
-  downloadTreeBtn.addEventListener('click', async ()=>{
-    // capture the tree-wrap element
-    const el = document.getElementById('tree-wrap');
+  // DOWNLOAD Card (compose greeting + message + tree)
+  document.getElementById('downloadCardBtn').addEventListener('click', async ()=>{
     try{
-      const canvas = await html2canvas(el, {useCORS:true, scale:2});
-      const data = canvas.toDataURL('image/png');
-      const a = document.createElement('a'); a.href=data; a.download = 'wish-tree-'+Date.now()+'.png'; a.click();
-    }catch(err){ alert('Gagal generate tree: '+err); }
+      const svg = document.getElementById('svgTree');
+      const svgOut = await svgToDataUrl(svg, 2); // rasterized tree image
+      // create canvas for card: landscape
+      const W = 1200; const H = 630;
+      const c = document.createElement('canvas'); c.width = W; c.height = H;
+      const cctx = c.getContext('2d');
+      // background (dark)
+      cctx.fillStyle = '#070707'; cctx.fillRect(0,0,W,H);
+      // left: greeting text
+      const name = greetName.innerText || '';
+      cctx.fillStyle = '#fff'; cctx.textAlign = 'left';
+      cctx.font = '48px Georgia';
+      cctx.fillText('Selamat Natal & Tahun Baru', 48, 120);
+      cctx.font = '40px Georgia';
+      cctx.fillStyle = '#ffd166';
+      cctx.fillText(name, 48, 180);
+      cctx.font = '20px Arial';
+      cctx.fillStyle = '#cbd5e1';
+      const message = 'Semoga tahun mendatang membawa kebahagiaan, kesehatan, dan kenangan manis.';
+      // wrap message
+      (function drawWrapped(text, x, y, maxW, lineH){
+        const words = text.split(' ');
+        let line = '', test='';
+        for(let n=0;n<words.length;n++){
+          const w = words[n];
+          test = line + w + ' ';
+          const tw = cctx.measureText(test).width;
+          if(tw > maxW && n>0){ cctx.fillText(line, x, y); line = w + ' '; y += lineH; }
+          else { line = test; }
+        }
+        if(line) cctx.fillText(line, x, y);
+      })(message, 48, 230, W/2 - 80, 30);
+      // draw tree image on right
+      const treeImg = new Image();
+      treeImg.src = svgOut.data;
+      await new Promise((res,rej)=>{ treeImg.onload = res; treeImg.onerror = rej; });
+      const tw = Math.min(420, W/2);
+      const th = (treeImg.height / treeImg.width) * tw;
+      cctx.drawImage(treeImg, W - tw - 48, (H - th)/2, tw, th);
+      // wishes text block (small) on left-below
+      cctx.fillStyle = '#fff';
+      cctx.font = '18px Arial';
+      let yy = 360;
+      wishes.slice(0,6).forEach((w,i)=>{
+        cctx.fillText(`${i+1}. ${w}`, 48, yy); yy += 28;
+      });
+      // trigger download
+      const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = `card-${Date.now()}.png`; a.click();
+    }catch(err){
+      alert('Gagal generate card: '+err); console.error(err);
+    }
   });
 
   // RECAP slider (simple). Use placeholder images.
@@ -293,16 +428,10 @@
 
   // when done (user clicks Finish), show recap
   function goToRecap(){ treeCard.style.display='none'; recapCard.style.display='block'; }
-  // add finish behavior when user downloads or clicks some finish
-  document.getElementById('downloadTreeBtn').addEventListener('click', ()=>{ setTimeout(goToRecap,700); });
+  window.goToRecap = goToRecap;
 
   // initial: hide message & tree & recap until flow
   messageCard.style.display = 'none'; treeCard.style.display='none'; recapCard.style.display='none';
-
-  // small polish: automatically show message card when greeting clicked (already done)
-
-  // expose goToRecap for other flows
-  window.goToRecap = goToRecap;
 
 </script>
 </body>
