@@ -3,341 +3,151 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kartu Ucapan Natal & Tahun Baru — Template</title>
-  <meta name="description" content="Kartu ucapan interaktif: ucapan, galeri 1 tahun, countdown, wish tree, guestbook." />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
+  <title>Kartu Natal & Tahun Baru Interaktif</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --bg:#0f172a; /* dark navy */
-      --card:#0b1220;
-      --accent:#ffd166; /* warm gold */
-      --muted:#98a8c7;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;font-family:Montserrat,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      background:linear-gradient(180deg,var(--bg) 0%, #071020 100%);
-      color:#e6eef8; -webkit-font-smoothing:antialiased; padding:24px;
-    }
+    body{margin:0;background:#0e1525;color:#fff;font-family:Montserrat;padding:0}
+    .center{display:flex;align-items:center;justify-content:center}
+    #name-popup{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:20}
+    #popup-box{background:#fff;color:#000;padding:30px;border-radius:12px;max-width:320px;width:90%;text-align:center}
+    input{padding:10px;width:100%;margin-top:10px;border-radius:8px;border:1px solid #ccc}
+    button{margin-top:12px;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;background:#ffd166;font-weight:600}
 
-    .container{max-width:1100px;margin:0 auto}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{font-family:Pacifico;font-size:26px;color:var(--accent)}
-    .sub{color:var(--muted);font-size:13px}
+    /* card awal */
+    #welcome-card{display:none;position:fixed;inset:0;z-index:15;}
+    #welcome-inner{background:#14243d;border-radius:20px;padding:30px;max-width:360px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.4)}
+    #welcome-inner h1{font-family:Pacifico;font-size:32px;color:#ffd166;margin:0 0 6px}
 
-    /* card */
-    .card{background:rgba(255,255,255,0.03);border-radius:14px;padding:18px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    /* letter / message */
+    #message-screen{display:none;padding:20px}
+    .section{max-width:760px;margin:0 auto}
 
-    /* hero */
-    .hero{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
-    .hero-left{padding:18px}
-    h1{margin:0 0 6px 0;font-size:26px}
-    p.lead{margin:0;color:var(--muted)}
+    /* wish tree */
+    #wish-tree-screen{display:none;padding:20px;text-align:center}
+    #tree-canvas{background:#fff;border-radius:18px;margin:20px auto;display:block}
 
-    /* countdown */
-    .countdown{display:flex;gap:10px;margin-top:12px}
-    .countdown .box{background:rgba(255,255,255,0.04);padding:12px;border-radius:10px;min-width:68px;text-align:center}
-    .countdown .num{font-size:20px;font-weight:700}
-    .countdown .label{font-size:12px;color:var(--muted)}
+    /* recap */
+    #recap-screen{display:none;padding:20px;text-align:center}
 
-    /* controls */
-    .controls{display:flex;gap:8px;margin-top:12px}
-    button{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;color:inherit;cursor:pointer}
-    button.primary{background:linear-gradient(90deg,var(--accent),#ffb677);color:#07202b;border:none}
-
-    /* right column */
-    .sidebar{padding:18px;height:100%}
-    .tree-wrap{min-height:260px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:12px}
-    .wish-input{display:flex;gap:8px;margin-top:10px}
-    input[type="text"]{flex:1;padding:10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:inherit}
-
-    /* gallery timeline */
-    .timeline{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-    .month{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;min-height:120px}
-    .month h4{margin:0 0 6px 0;font-size:14px}
-    .month p{margin:0;color:var(--muted);font-size:13px}
-    .month img{width:100%;height:90px;object-fit:cover;border-radius:8px;margin-top:8px}
-
-    /* wish leaves */
-    .tree{position:relative;height:320px;display:flex;align-items:flex-end;justify-content:center}
-    .tree svg{width:120px;height:auto}
-    .leaf{position:absolute;padding:6px 10px;background:linear-gradient(180deg,#fff,#f7e9c2);color:#1b1b1b;border-radius:999px;font-size:13px;box-shadow:0 6px 18px rgba(0,0,0,0.35);transform-origin:center}
-
-    /* guestbook */
-    .guestbook{margin-top:16px}
-    .entry{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;margin-bottom:8px}
-
-    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
-
-    /* responsive */
-    @media (max-width:900px){.hero{grid-template-columns:1fr}}
-
-    /* small helper */
-    .muted{color:var(--muted)}
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo">Selamat Tahun Baru & Natal</div>
-        <div class="sub">Kartu ucapan interaktif — Buat & bagikan lewat GitHub Pages</div>
-      </div>
-      <div>
-        <button id="toggle-music">🔈 Music</button>
-        <button id="download" class="primary">Copy Link</button>
-      </div>
-    </header>
 
-    <main class="card hero">
-      <section class="hero-left">
-        <h1>Selamat Natal & Tahun Baru!</h1>
-        <p class="lead">Semoga tahun depan membawa kebahagiaan, kesehatan, dan pencapaian baru. Klik tombol di kanan untuk menambahkan harapanmu pada wish tree.</p>
-
-        <!-- countdown -->
-        <div style="margin-top:12px">
-          <div style="font-size:14px;color:var(--muted)">Countdown ke <strong id="target-label">01 January</strong></div>
-          <div class="countdown" id="countdown">
-            <div class="box"><div class="num" id="cd-days">0</div><div class="label">Hari</div></div>
-            <div class="box"><div class="num" id="cd-hours">0</div><div class="label">Jam</div></div>
-            <div class="box"><div class="num" id="cd-mins">0</div><div class="label">Menit</div></div>
-            <div class="box"><div class="num" id="cd-secs">0</div><div class="label">Detik</div></div>
-          </div>
-        </div>
-
-        <div class="controls">
-          <button id="show-recap">Play Year Recap</button>
-          <button id="toggle-snow">Toggle Snow</button>
-          <button id="open-letter">Open Letter ✉️</button>
-        </div>
-
-        <!-- recap (slideshow) -->
-        <div id="recap" style="margin-top:18px;display:none">
-          <div style="font-weight:700;margin-bottom:8px">Year Recap</div>
-          <div id="recap-slide" style="height:220px;border-radius:12px;overflow:hidden;background:#031226;display:flex;align-items:center;justify-content:center">Click Play to start slideshow</div>
-        </div>
-
-        <!-- timeline gallery -->
-        <div style="margin-top:18px">
-          <div style="font-weight:700;margin-bottom:8px">Gallery: 1 Tahun</div>
-          <div class="timeline" id="timeline">
-            <!-- months injected by JS -->
-          </div>
-        </div>
-
-        <!-- guestbook -->
-        <div class="guestbook card" style="margin-top:18px;padding:12px;background:transparent">
-          <div style="font-weight:700;margin-bottom:8px">Guestbook</div>
-          <div style="display:flex;gap:8px;margin-bottom:8px">
-            <input id="guest-name" placeholder="Nama" />
-            <input id="guest-msg" placeholder="Pesan singkat" />
-            <button id="guest-add">Kirim</button>
-          </div>
-          <div id="guest-list"></div>
-        </div>
-      </section>
-
-      <aside class="sidebar">
-        <div class="tree-wrap">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="font-weight:700">Wish Tree</div>
-            <div class="muted" style="font-size:13px">Leaves: <span id="leaves-count">0</span></div>
-          </div>
-          <div class="tree" id="tree">
-            <!-- simple svg tree trunk -->
-            <svg viewBox="0 0 100 120" style="position:relative;z-index:1">
-              <g>
-                <rect x="45" y="70" width="10" height="40" rx="2" fill="#5b3a2e"></rect>
-                <circle cx="50" cy="46" r="40" fill="#103b20"></circle>
-              </g>
-            </svg>
-          </div>
-
-          <div class="wish-input">
-            <input id="wish-text" placeholder="Tulis harapanmu..." />
-            <button id="wish-add" class="primary">Tambah</button>
-          </div>
-          <div style="font-size:12px;color:var(--muted);margin-top:8px">Harapanmu akan tersimpan di browser. Bagikan halaman agar orang lain bisa menambah.</div>
-        </div>
-
-        <!-- mini instructions -->
-        <div style="margin-top:12px;font-size:13px;color:var(--muted)" class="card">
-          <strong>Cara pakai</strong>
-          <ol style="padding-left:18px;margin:8px 0">
-            <li>Tambahkan foto tiap bulan di gallery (di file /assets/ atau via admin).</li>
-            <li>Bagikan link GitHub Pages ke teman/keluarga.</li>
-            <li>Minta mereka menulis wish — muncul sebagai daun di pohon.</li>
-          </ol>
-        </div>
-
-      </aside>
-    </main>
-
-    <footer class="container muted">Template siap untuk di-deploy ke GitHub Pages. Edit foto di bagian <code>/assets/month-*.jpg</code>.</footer>
+  <!-- POPUP NAMA -->
+  <div id="name-popup" class="center">
+    <div id="popup-box">
+      <h2>Masukkan Nama Kamu ✨</h2>
+      <input id="username" placeholder="Nama kamu" />
+      <button id="submit-name">Lanjut</button>
+    </div>
   </div>
 
-  <!-- optional audio -->
-  <audio id="bg-music" loop src="https://cdn.simple-music-placeholder.org/ambient-harp.mp3"></audio>
+  <!-- KARTU SELAMAT NATAL & TAHUN BARU -->
+  <div id="welcome-card" class="center">
+    <div id="welcome-inner">
+      <h1>Selamat Natal & Tahun Baru</h1>
+      <div id="welcome-name" style="font-size:18px;margin-bottom:12px"></div>
+      <button id="open-message">Buka Card</button>
+    </div>
+  </div>
 
-  <!-- snowfall canvas overlay -->
-  <canvas id="snow" style="position:fixed;left:0;top:0;pointer-events:none;z-index:9;display:none"></canvas>
+  <!-- PESAN UCAPAN (TERMASUK WISH TREE) -->
+  <div id="message-screen">
+    <div class="section">
+      <h2 style="font-family:Pacifico;color:#ffd166;font-size:30px;text-align:center">Pesan Untukmu</h2>
+      <p style="text-align:center">Semoga damai dan sukacita menyertaimu di tahun baru ini. Klik tombol di bawah untuk menambahkan harapanmu di Wish Tree.</p>
+      <div style="text-align:center;margin-top:20px">
+        <button id="go-tree">Buka Wish Tree 🎄</button>
+      </div>
+    </div>
+  </div>
 
-  <script>
-    // ---------- configuration ----------
-    const TARGET_YEAR = (new Date()).getFullYear() + 1; // next year
-    const TARGET_DATE = new Date(TARGET_YEAR, 0, 1, 0, 0, 0); // Jan 1 midnight
-    const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  <!-- WISH TREE -->
+  <div id="wish-tree-screen">
+    <h2 style="font-family:Pacifico;color:#ffd166;font-size:30px">Wish Tree 🎄</h2>
+    <p>Tulis wish kamu, nanti akan muncul sebagai daun dan bisa kamu download bersama kartu.</p>
 
-    // ---------- countdown ----------
-    function updateCountdown(){
-      const now = new Date();
-      const diff = TARGET_DATE - now;
-      if(diff<=0){
-        document.getElementById('cd-days').innerText = 0;
-        document.getElementById('cd-hours').innerText = 0;
-        document.getElementById('cd-mins').innerText = 0;
-        document.getElementById('cd-secs').innerText = 0;
-        // fireworks or celebration
-        startFireworks();
-        clearInterval(cdInterval);
-        return;
-      }
-      const secs = Math.floor(diff/1000)%60;
-      const mins = Math.floor(diff/1000/60)%60;
-      const hours = Math.floor(diff/1000/3600)%24;
-      const days = Math.floor(diff/1000/3600/24);
-      document.getElementById('cd-days').innerText = days;
-      document.getElementById('cd-hours').innerText = hours;
-      document.getElementById('cd-mins').innerText = mins;
-      document.getElementById('cd-secs').innerText = secs;
-    }
-    document.getElementById('target-label').innerText = `1 Januari ${TARGET_YEAR}`;
-    updateCountdown();
-    const cdInterval = setInterval(updateCountdown, 1000);
+    <input id="wish-input" placeholder="Harapanmu..." style="padding:10px;width:80%;max-width:300px;border-radius:10px;border:none" />
+    <br>
+    <button id="submit-wish" style="margin-top:10px">Kirim Wish</button>
 
-    // ---------- timeline gallery population (placeholder images) ----------
-    const timeline = document.getElementById('timeline');
-    for(let i=0;i<12;i++){
-      const div = document.createElement('div'); div.className='month';
-      div.innerHTML = `<h4>${months[i]}</h4><p class="muted">Tambahkan 1–3 foto kenangan bulan ini.</p><img src="https://picsum.photos/seed/${i+1}/400/240" alt="${months[i]}">`;
-      timeline.appendChild(div);
-    }
+    <canvas id="tree-canvas" width="350" height="420"></canvas>
 
-    // ---------- wish tree (localStorage) ----------
-    const tree = document.getElementById('tree');
-    const wishInput = document.getElementById('wish-text');
-    const leavesCount = document.getElementById('leaves-count');
+    <button id="download-tree">Download Wish Tree</button>
+    <button id="download-card">Download Card</button>
+  </div>
 
-    function loadWishes(){
-      const data = JSON.parse(localStorage.getItem('wishes_v1')||'[]');
-      renderWishes(data);
-    }
-    function saveWishes(list){ localStorage.setItem('wishes_v1', JSON.stringify(list)); }
-    function renderWishes(list){
-      // remove existing leaves
-      [...tree.querySelectorAll('.leaf')].forEach(n=>n.remove());
-      list.forEach((w,i)=>{
-        const el = document.createElement('div'); el.className='leaf'; el.innerText = w.text;
-        // random position around tree
-        const left = 40 + (Math.sin(i*2.3)*40) + Math.random()*80; // percent-ish
-        const top = 40 + Math.abs(Math.cos(i*1.8))*120; // px from top
-        el.style.left = left+'%'; el.style.top = top+'px'; el.style.transform = `rotate(${(i*23)%50-25}deg)`;
-        el.title = w.author + ' — ' + new Date(w.t).toLocaleString();
-        tree.appendChild(el);
-      });
-      leavesCount.innerText = list.length;
-    }
-    document.getElementById('wish-add').addEventListener('click', ()=>{
-      const text = wishInput.value.trim(); if(!text) return alert('Tulis harapan terlebih dahulu');
-      const name = prompt('Tulis namamu (opsional)') || 'Anonim';
-      const list = JSON.parse(localStorage.getItem('wishes_v1')||'[]');
-      list.push({text,author:name,t:Date.now()});
-      saveWishes(list); renderWishes(list);
-      wishInput.value='';
-    });
-    loadWishes();
+  <!-- RECAP -->
+  <div id="recap-screen">
+    <h2 style="font-family:Pacifico;color:#ffd166;font-size:30px">Your Year Recap ✨</h2>
+    <p>Terima kasih sudah melewati tahun ini. Berikut adalah rangkuman momen perjalananmu.</p>
 
-    // ---------- guestbook ----------
-    const guestListEl = document.getElementById('guest-list');
-    function loadGuests(){
-      const g = JSON.parse(localStorage.getItem('guests_v1')||'[]');
-      guestListEl.innerHTML='';
-      g.slice().reverse().forEach(entry=>{
-        const d = document.createElement('div'); d.className='entry';
-        d.innerHTML = `<strong>${entry.name}</strong><div style="font-size:13px;color:var(--muted)">${entry.msg}</div><div style="font-size:11px;color:var(--muted)">${new Date(entry.t).toLocaleString()}</div>`;
-        guestListEl.appendChild(d);
-      });
-    }
-    document.getElementById('guest-add').addEventListener('click', ()=>{
-      const name = document.getElementById('guest-name').value.trim() || 'Tamu';
-      const msg = document.getElementById('guest-msg').value.trim(); if(!msg) return alert('Tulis pesan dahulu');
-      const g = JSON.parse(localStorage.getItem('guests_v1')||'[]');
-      g.push({name,msg,t:Date.now()}); localStorage.setItem('guests_v1', JSON.stringify(g));
-      document.getElementById('guest-name').value=''; document.getElementById('guest-msg').value=''; loadGuests();
-    });
-    loadGuests();
+    <div id="recap-area" style="margin-top:20px">(Isi recap tampil di sini...)</div>
+  </div>
 
-    // ---------- music control ----------
-    const music = document.getElementById('bg-music');
-    const toggleMusic = document.getElementById('toggle-music');
-    toggleMusic.addEventListener('click', ()=>{
-      if(music.paused){ music.play().catch(()=>{}); toggleMusic.innerText='🔊 Music'; }
-      else { music.pause(); toggleMusic.innerText='🔈 Music'; }
-    });
+<script>
+  const popup = document.getElementById('name-popup');
+  const welcomeCard = document.getElementById('welcome-card');
+  const welcomeName = document.getElementById('welcome-name');
+  const messageScreen = document.getElementById('message-screen');
+  const treeScreen = document.getElementById('wish-tree-screen');
+  const recapScreen = document.getElementById('recap-screen');
 
-    // ---------- copy link (simple) ----------
-    document.getElementById('download').addEventListener('click', async ()=>{
-      try{
-        await navigator.clipboard.writeText(location.href);
-        alert('Link disalin ke clipboard!');
-      }catch(e){ prompt('Salin link manual:', location.href); }
-    });
+  document.getElementById('submit-name').onclick = () =>{
+    const name = document.getElementById('username').value.trim();
+    if(!name) return alert('Isi nama dulu ya!');
+    popup.style.display = 'none';
+    welcomeName.innerText = name;
+    welcomeCard.style.display = 'flex';
+  };
 
-    // ---------- recap slideshow (simple) ----------
-    const recap = document.getElementById('recap');
-    const recapSlide = document.getElementById('recap-slide');
-    const respics = Array.from(document.querySelectorAll('.month img')).map(i=>i.src);
-    let slideIdx = 0; let slideTimer = null;
-    document.getElementById('show-recap').addEventListener('click', ()=>{
-      if(recap.style.display==='none') recap.style.display='block';
-      if(slideTimer){ clearInterval(slideTimer); slideTimer=null; recapSlide.innerHTML='Stopped'; return; }
-      recapSlide.innerHTML = `<img src="${respics[0]}" style="width:100%;height:100%;object-fit:cover">`;
-      slideIdx=0;
-      slideTimer=setInterval(()=>{
-        slideIdx = (slideIdx+1)%respics.length; recapSlide.innerHTML = `<img src="${respics[slideIdx]}" style="width:100%;height:100%;object-fit:cover">`;
-      },2500);
-    });
+  document.getElementById('open-message').onclick = () =>{
+    welcomeCard.style.display='none';
+    messageScreen.style.display='block';
+  };
 
-    // ---------- simple snow effect ----------
-    const canvas = document.getElementById('snow'); const ctx = canvas.getContext('2d');
-    let snowOn = false; let particles = [];
-    function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resizeCanvas); resizeCanvas();
-    function startSnow(){ snowOn=true; canvas.style.display='block'; particles = Array.from({length:120}).map(()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height, r:Math.random()*3+1, d:Math.random()*1+0.2})); animateSnow(); }
-    function stopSnow(){ snowOn=false; canvas.style.display='none'; }
-    function animateSnow(){ if(!snowOn) return; ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='rgba(255,255,255,0.9)'; particles.forEach(p=>{ ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); p.y += p.d + 0.5; p.x += Math.sin(p.y/20); if(p.y>canvas.height) { p.y= -10; p.x = Math.random()*canvas.width; } }); requestAnimationFrame(animateSnow); }
-    document.getElementById('toggle-snow').addEventListener('click', ()=>{ if(snowOn) stopSnow(); else startSnow(); });
+  document.getElementById('go-tree').onclick = () =>{
+    messageScreen.style.display='none';
+    treeScreen.style.display='block';
+  };
 
-    // ---------- simple fireworks (canvas overlay) ----------
-    // Minimal fireworks using alert (placeholder) to keep code small
-    function startFireworks(){ alert('Selamat Tahun Baru! 🎆 (Tambahkan efek kembang api di sini)'); }
+  // SIMPLE WISH TREE (CANVAS)
+  const canvas = document.getElementById('tree-canvas');
+  const ctx = canvas.getContext('2d');
 
-    // ---------- open letter (handwritten mode) ----------
-    document.getElementById('open-letter').addEventListener('click', ()=>{
-      const letter = window.open('', '_blank', 'width=600,height=700');
-      letter.document.write(`<html><head><title>Surat Spesial</title><link href=\"https://fonts.googleapis.com/css2?family=Pacifico&display=swap\" rel=\"stylesheet\"></head><body style=\"background:#f8f3ec;padding:28px;font-family:Georgia,serif;color:#111\">`);
-      letter.document.write(`<div style=\"max-width:520px;margin:0 auto;padding:18px;background:white;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.12)\">`);
-      letter.document.write(`<h2 style=\"font-family:Pacifico,serif;color:#b83b5e\">Untukmu</h2><p>Semoga segala kebaikan dan kebahagiaan menyertai langkahmu di tahun mendatang. Terima kasih sudah menjadi bagian dari cerita ini.</p><p style=\"margin-top:30px\">Salam hangat,<br><em>Nama Pengirim</em></p></div></body></html>`);
-      letter.document.close();
-    });
+  function drawTree(){
+    ctx.fillStyle = '#5b3a2e';
+    ctx.fillRect(160,250,30,140);
+    ctx.fillStyle = '#0f5f2d';
+    ctx.beginPath(); ctx.arc(175,220,120,0,Math.PI*2); ctx.fill();
+  }
+  drawTree();
 
-    // ---------- initial notes ----------
-    // - Untuk production: ganti assets, tambahkan serverless API bila ingin wish tree / guestbook terpusat
-    // - Untuk deploy: simpan file ini sebagai index.html di repo GitHub dan aktifkan GitHub Pages
+  document.getElementById('submit-wish').onclick = ()=>{
+    const wish = document.getElementById('wish-input').value.trim();
+    if(!wish) return alert('Tulis wish dulu');
+    ctx.fillStyle = '#fffbea';
+    ctx.font = '14px Montserrat';
+    const x = 100 + Math.random()*150;
+    const y = 150 + Math.random()*150;
+    ctx.fillText('• '+wish,x,y);
+    alert('Wish ditambahkan!');
+    setTimeout(()=>{
+      treeScreen.style.display='none';
+      recapScreen.style.display='block';
+    },600);
+  };
 
-  </script>
+  document.getElementById('download-tree').onclick = ()=>{
+    const link = document.createElement('a');
+    link.download = 'wish-tree.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  };
+
+  document.getElementById('download-card').onclick = ()=>{
+    alert('Download kartu bisa ditambahkan menggunakan html2canvas.');
+  };
+</script>
 </body>
 </html>
