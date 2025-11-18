@@ -96,12 +96,28 @@
       margin:12px auto
     }
     .card-title{
-      font-family: "Georgia", serif;
-      color: var(--white);
-      font-size: 42px;
+      font-family: "Pacifico", "Georgia", serif;
+      font-size: 46px;
       margin: 0 0 10px;
       text-align: center;
+      line-height: 1.15;
     }
+    
+    /* tema Natal merah–putih */
+    #greetingCard .title-red{
+      color: #ff4b5c; /* merah lebih “bagus” dan vivid */
+      text-shadow: 0 0 14px rgba(255, 75, 92, 0.45);
+    }
+    
+    #greetingCard .title-white{
+      color: #ffffff;
+    }
+    
+    #greetingCard .title-amp{
+      color: #ffe4e6;
+      margin: 0 6px;
+    }
+    
     p.lead{
       margin:0;
       color:var(--muted)
@@ -185,6 +201,21 @@
         height: 52px;
       }
     }
+
+    /* GIF khusus di greeting card – besar */
+    #greetingCard .card-gifs .gif{
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+    }
+    
+    @media (max-width:640px){
+      #greetingCard .card-gifs .gif{
+        width: 110px;
+        height: 110px;
+      }
+    }
+
 
     /* greeting card */
     #greetingCard{
@@ -342,7 +373,11 @@
   <!-- GREETING CARD -->
   <div id="greetingCard" class="card small">
     <div class="greeting-inner">
-      <div class="card-title">Merry Christmas & Happy New Year</div>
+      <div class="card-title">
+        <span class="title-red">Merry Christmas</span>
+        <span class="title-amp">&</span>
+        <span class="title-white">Happy New Year</span>
+      </div>
       <h1 id="greetName" style="margin:6px 0 0;font-size:20px"></h1>
       <div class="card-gifs">
         <img src="Image/Santa Clause GIF by filmeditor.gif" alt="Santa Claus" class="gif santa">
