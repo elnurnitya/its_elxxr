@@ -97,13 +97,64 @@
     }
     .card-title{
       font-family: "Georgia", serif;
-      color:var(--red);
-      font-size:22px;
-      margin:0 0 6px
+      color: var(--white);
+      font-size: 42px;
+      margin: 0 0 10px;
+      text-align: center;
     }
     p.lead{
       margin:0;
       color:var(--muted)
+    }
+
+    /* bungkus isi greeting agar center */
+    .greeting-inner{
+      text-align: center;
+    }
+    
+    /* wrapper GIF */
+    .card-gifs{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 6px 0 10px;
+    }
+    
+    /* ukuran GIF */
+    .card-gifs .gif{
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+    }
+    
+    /* animasi lembut */
+    .card-gifs .santa{
+      animation: santaFloat 2.6s ease-in-out infinite;
+    }
+    .card-gifs .firework{
+      animation: fireworkPulse 1.8s ease-in-out infinite;
+    }
+    
+    @keyframes santaFloat{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-6px); }
+    }
+    
+    @keyframes fireworkPulse{
+      0%,100%{ transform: scale(1); opacity: 0.9; }
+      50%{ transform: scale(1.12); opacity: 1; }
+    }
+    
+    /* sedikit kecil di HP */
+    @media (max-width:640px){
+      .card-title{
+        font-size: 32px;
+      }
+      .card-gifs .gif{
+        width: 52px;
+        height: 52px;
+      }
     }
 
     /* greeting card */
@@ -260,18 +311,27 @@
   </div>
 
   <!-- GREETING CARD -->
-  <div id="greetingCard" class="card small center">
+  <div id="greetingCard" class="card small">
+    <div class="greeting-inner">
       <div class="card-title">Merry Christmas & Happy New Year</div>
+  
+      <div class="card-gifs">
+        <img src="Image/santa.gif" alt="Santa Claus" class="gif santa">
+        <img src="Image/fireworks.gif" alt="Fireworks" class="gif firework">
+      </div>
+  
       <h1 id="greetName" style="margin:6px 0 0;font-size:20px"></h1>
-      <p class="lead" style="margin-top:8px; display:flex; align-items:center; gap:6px;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
-        <polyline points="3 7 12 13 21 7"></polyline>
-      </svg>
-      Click this card to open your special message.
-</p>
-
+  
+      <p class="lead" style="margin-top:8px; display:flex; align-items:center; gap:6px; justify-content:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+          <polyline points="3 7 12 13 21 7"></polyline>
+        </svg>
+        Click this card to open your special message.
+      </p>
+    </div>
   </div>
+
 
   <!-- MESSAGE CARD -->
   <div id="messageCard" class="card">
