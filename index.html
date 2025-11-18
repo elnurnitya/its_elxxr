@@ -107,6 +107,35 @@
       color:var(--muted)
     }
 
+    .card{
+      position: relative;
+      padding:22px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow:0 8px 30px rgba(2,6,23,0.6);
+      margin:18px 0;
+    
+      /* background GIF */
+      background: url("Image/fourth of july fireworks GIF by hateplow.gif")
+                  center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: rgba(11, 19, 32, 0.45); /* opacity bisa diatur */
+      backdrop-filter: blur(1px); /* efek mewah */
+      z-index:0;
+    }
+    
+    /* pastikan isi card berada di atas overlay */
+    .card > *{
+      position: relative;
+      z-index: 1;
+    }
+
     /* bungkus isi greeting agar center */
     .greeting-inner{
       text-align: center;
@@ -314,14 +343,10 @@
   <div id="greetingCard" class="card small">
     <div class="greeting-inner">
       <div class="card-title">Merry Christmas & Happy New Year</div>
-  
-      <div class="card-gifs">
-        <img src="Image/santa.gif" alt="Santa Claus" class="gif santa">
-        <img src="Image/fireworks.gif" alt="Fireworks" class="gif firework">
-      </div>
-  
       <h1 id="greetName" style="margin:6px 0 0;font-size:20px"></h1>
-  
+      <div class="card-gifs">
+        <img src="Image/Santa Clause GIF by filmeditor.gif" alt="Santa Claus" class="gif santa">
+      </div>
       <p class="lead" style="margin-top:8px; display:flex; align-items:center; gap:6px; justify-content:center;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
