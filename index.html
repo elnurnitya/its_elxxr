@@ -17,7 +17,15 @@
     .center{display:flex;align-items:center;justify-content:center}
 
     /* popup name */
-    #nameModal{position:fixed;inset:0;background:linear-gradient(rgba(3,3,3,0.85),rgba(3,3,3,0.85));z-index:9999;display:flex;align-items:center;justify-content:center}
+    #nameModal{
+      position:fixed;
+      inset:0;
+      background:linear-gradient(rgba(3,3,3,0.85),rgba(3,3,3,0.85));
+      z-index:9999;
+      display:flex;
+      align-items:center;
+      justify-content:center
+    }
     .modal-card{background:linear-gradient(180deg,#121212,#0f0f12);padding:26px;border-radius:16px;border:2px solid rgba(214,40,40,0.12);width:94%;max-width:420px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.7)}
     .modal-card h2{font-family:Pacifico;color:var(--red);margin:0 0 8px}
     .modal-card input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
@@ -93,7 +101,7 @@
   <!-- NAME POPUP -->
   <div id="nameModal">
     <div class="modal-card">
-      <h2>Masukkan Nama Kamu</h2>
+      <h2>Enter Your Name</h2>
       <input id="username" placeholder="Nama kamu (mis. Budi)" />
       <div style="margin-top:10px;color:var(--muted)">Nama akan tampil di kartu ucapanmu.</div>
       <button class="btn" id="btnStart">Mulai</button>
