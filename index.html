@@ -487,13 +487,22 @@
     <div id="tree-wrap">
       <svg class="tree-svg" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" id="svgTree">
         <rect x="90" y="250" width="20" height="40" rx="2" fill="#5b3a2e"></rect>
-          <polygon id="layer1" points="100,20 70,110 130,110" fill="#063b1f"></polygon>
-          <polygon id="layer2" points="100,80 55,160 145,160" fill="#094f29"></polygon>
-          <polygon id="layer3" points="100,140 40,220 160,220" fill="#0b6b37"></polygon>
-          <g id="wishTextGroup"></g>
+      
+        <!-- semua segitiga: lebar 120 (40–160), tinggi 90 -->
+        <!-- paling atas -->
+        <polygon id="layer1" points="100,20 40,110 160,110" fill="#0b6b37"></polygon>
+        <!-- tengah -->
+        <polygon id="layer2" points="100,70 40,160 160,160" fill="#094f29"></polygon>0b6b37
+        <!-- paling bawah -->
+        <polygon id="layer3" points="100,120 40,210 160,210" fill="#063b1f"></polygon>
+
+
+        <g id="wishTextGroup"></g>
+      
         <polygon points="100,8 105,20 118,20 108,28 112,40 100,32 88,40 92,28 82,20 95,20"
                  fill="#ffd166"></polygon>
       </svg>
+
 
       <div style="margin-top:12px">
         <input id="wishInput"
