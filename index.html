@@ -3,239 +3,230 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Merry Christmas and Happy New Yeear</title>
+  <title>Merry Christmas and Happy New Year</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#0b0b0b;
-      --card:#111;
-      --red:#d62828;
-      --white:#fff;
-      --muted:#b8c2cf}
-    *{
-      box-sizing:border-box
+    :root {
+      --bg: #0b0b0b;
+      --card: #111;
+      --red: #d62828;
+      --white: #fff;
+      --muted: #b8c2cf;
     }
-    body{
-      margin:0;
-      min-height:100vh;
-      background: url("Image/istockphoto-509422646-612x612.jpg") 
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: url("Image/istockphoto-509422646-612x612.jpg")
                   no-repeat center center fixed;
       background-size: cover;
       color: var(--white);
-      font-family: Montserrat, system-ui, Arial;
+      font-family: Montserrat, system-ui, Arial, sans-serif;
       padding: 18px;
     }
 
     /* layout */
-    .wrap{
-      max-width:980px;
-      margin:0 auto
-    }
-    .center{
-      display:flex;
-      align-items:center;
-      justify-content:center
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
     }
 
-    /* popup name */
-    #nameModal, #greetingCard{
-      position:fixed;
-      inset:0;
-      background:linear-gradient(rgba(2,2,2,0.5),rgba(2,2,2,0.5));
-      z-index:9999;
-      display:flex;
-      align-items:center;
-      justify-content:center
+    .center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .modal-card{
+
+    /* popup name & greeting modal overlay */
+    #nameModal,
+    #greetingCard {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(2, 2, 2, 0.5), rgba(2, 2, 2, 0.5));
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-card {
       background: rgba(11, 19, 32, 0.40);
-      padding:26px;
-      border-radius:5px;
-      width:94%;
-      max-width:420px;
-      text-align:center;
-      box-shadow:0 8px 40px rgba(0,0,0,0.7)
+      padding: 26px;
+      border-radius: 5px;
+      width: 94%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
     }
-    .modal-card h2{
+
+    .modal-card h2 {
       font-family: "Georgia", serif;
-      color:var(--white);
-      margin:0 0 8px
+      color: var(--white);
+      margin: 0 0 8px;
     }
-    .modal-card input{
-      width:100%;
-      padding:10px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.06);
-      background:transparent;
-      color:inherit
+
+    .modal-card input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: transparent;
+      color: inherit;
     }
-    .btn{
-      display:inline-block;
-      padding:10px 14px;
-      border-radius:10px;
-      border:none;
-      background:var(--red);
-      color:#fff;
-      cursor:pointer;
-      margin-top:12px
+
+    .btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      background: var(--red);
+      color: #fff;
+      cursor: pointer;
+      margin-top: 12px;
     }
 
     /* global card style */
-    .card{
-      rgba(11, 19, 32, 0.40);
-      padding:22px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.03);
-      box-shadow:0 8px 30px rgba(2,6,23,0.6);
-      margin:18px 0
+    .card {
+      position: relative;
+      padding: 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+      margin: 18px 0;
+      background: url("Image/fourth of july fireworks GIF by hateplow.gif")
+                  center/cover no-repeat;
+      overflow: hidden;
+      z-index: 10; /* card selalu di atas salju */
     }
-    .card.small{
-      width: 80vw;          /* 80% of viewport width */
-      max-width: 900px;     /* limit agar tetap cantik */
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(11, 19, 32, 0.45);
+      backdrop-filter: blur(1px);
+      z-index: 0;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card.small {
+      width: 80vw;       /* 80% of viewport width */
+      max-width: 900px;  /* limit agar tetap cantik */
       margin: 12px auto;
-      padding: 32px;        /* diperbesar sedikit biar proporsional */
+      padding: 32px;
       border-radius: 18px;
     }
-    .card-title{
+
+    .card-title {
       font-family: "Pacifico", "Georgia", serif;
       font-size: 46px;
       margin: 0 0 10px;
       text-align: center;
       line-height: 1.15;
     }
-    
-    /* tema Natal merah–putih */
-    /* semua span di title punya glow */
-    #greetingCard .card-title span{
+
+    /* tema Natal merah–putih + glow untuk title */
+    #greetingCard .card-title span {
       text-shadow:
-        0 0 4px rgba(255,255,255,0.9),
-        0 0 10px rgba(255,255,255,0.8),
+        0 0 4px rgba(255, 255, 255, 0.9),
+        0 0 10px rgba(255, 255, 255, 0.8),
         0 0 18px rgba(255, 75, 92, 0.6),
         0 0 32px rgba(255, 75, 92, 0.4);
       animation: titleGlow 2.6s ease-in-out infinite;
     }
-    
-    /* merah natal yang vivid */
-    #greetingCard .title-red{
+
+    #greetingCard .title-red {
       color: #ff4b5c;
     }
-    
-    /* putih bersih untuk “Happy New Year” */
-    #greetingCard .title-white{
+
+    #greetingCard .title-white {
       color: #ffffff;
     }
-    
-    /* ampersand sedikit pink lembut */
-    #greetingCard .title-amp{
+
+    #greetingCard .title-amp {
       color: #f5db76;
       margin: 0 6px;
     }
-    @keyframes titleGlow{
-      0%, 100%{
+
+    @keyframes titleGlow {
+      0%, 100% {
         text-shadow:
-          0 0 2px rgba(255,255,255,0.5),
-          0 0 6px rgba(255,255,255,0.4),
+          0 0 2px rgba(255, 255, 255, 0.5),
+          0 0 6px rgba(255, 255, 255, 0.4),
           0 0 12px rgba(255, 75, 92, 0.3),
           0 0 20px rgba(255, 75, 92, 0.2);
       }
-      50%{
+      50% {
         text-shadow:
-          0 0 4px rgba(255,255,255,1),
-          0 0 12px rgba(255,255,255,0.9),
+          0 0 4px rgba(255, 255, 255, 1),
+          0 0 12px rgba(255, 255, 255, 0.9),
           0 0 24px rgba(255, 75, 92, 0.8),
           0 0 40px rgba(255, 75, 92, 0.6);
       }
     }
 
-    
-    p.lead{
-      margin:0;
-      color:var(--muted)
+    p.lead {
+      margin: 0;
+      color: var(--muted);
     }
 
-    .card{
-      position: relative;
-      padding:22px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.03);
-      box-shadow:0 8px 30px rgba(2,6,23,0.6);
-      margin:18px 0;
-    
-      /* background GIF */
-      background: url("Image/fourth of july fireworks GIF by hateplow.gif")
-                  center/cover no-repeat;
-      overflow: hidden;
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: rgba(11, 19, 32, 0.45); /* opacity bisa diatur */
-      backdrop-filter: blur(1px); /* efek mewah */
-      z-index:0;
-    }
-    
-    /* pastikan isi card berada di atas overlay */
-    .card > *{
-      position: relative;
-      z-index: 1;
-    }
-
-    /* bungkus isi greeting agar center */
-    .greeting-inner{
+    /* isi greeting card */
+    .greeting-inner {
       text-align: center;
     }
-    
+
+    /* H1 Nama — tampil spesial */
+    #greetName {
+      font-family: "Pacifico", "Georgia", serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: #ffe8ec;
+      margin: 24px 0 28px;
+      letter-spacing: 1px;
+      text-shadow:
+        0 0 4px rgba(255, 75, 92, 0.35),
+        0 0 10px rgba(255, 75, 92, 0.35),
+        0 0 20px rgba(255, 75, 92, 0.25);
+      animation: nameGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes nameGlow {
+      0%, 100% {
+        text-shadow:
+          0 0 3px rgba(255, 75, 92, 0.3),
+          0 0 8px rgba(255, 75, 92, 0.2),
+          0 0 14px rgba(255, 75, 92, 0.15);
+      }
+      50% {
+        text-shadow:
+          0 0 6px rgba(255, 75, 92, 0.55),
+          0 0 14px rgba(255, 75, 92, 0.45),
+          0 0 26px rgba(255, 75, 92, 0.35);
+      }
+    }
+
     /* wrapper GIF */
-    .card-gifs{
+    .card-gifs {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 12px;
       margin: 6px 0 10px;
-    }
-    
-    /* ukuran GIF */
-    .card-gifs .gif{
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-    }
-    
-    /* animasi lembut */
-    .card-gifs .santa{
-      animation: santaFloat 2.6s ease-in-out infinite;
-    }
-    .card-gifs .firework{
-      animation: fireworkPulse 1.8s ease-in-out infinite;
-    }
-    
-    @keyframes santaFloat{
-      0%,100%{ transform: translateY(0); }
-      50%{ transform: translateY(-6px); }
-    }
-    
-    @keyframes fireworkPulse{
-      0%,100%{ transform: scale(1); opacity: 0.9; }
-      50%{ transform: scale(1.12); opacity: 1; }
-    }
-    
-    /* sedikit kecil di HP */
-    @media (max-width:640px){
-      .card-title{
-        font-size: 32px;
-      }
-      .card-gifs .gif{
-        width: 52px;
-        height: 52px;
-      }
+      overflow: visible;
     }
 
-    /* GIF khusus di greeting card – besar */
-    #greetingCard .card-gifs .gif{
+    /* GIF khusus di greeting card – 60% lebar card */
+    #greetingCard .card-gifs .gif {
       width: 60%;
       height: auto;
       object-fit: contain;
@@ -243,202 +234,150 @@
       display: block;
       margin: 0 auto;
     }
-    @media (max-width:640px){
-      #greetingCard .card-gifs .gif{
-        width: 120px;
-        height: 120px;
-      }
+
+    /* animasi lembut */
+    .card-gifs .santa {
+      animation: santaFloat 2.6s ease-in-out infinite;
     }
 
-    /* wrapper tetap center */
-    #greetingCard .card-gifs{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: visible;
-    }
-    /* greeting card */
-    #greetingCard{
-      display:none;
-      cursor:pointer
-    }
-    #greetingCard h1{
-      font-family: "Georgia", serif;
-      color:var(--white);
-      margin:0 0 6px
-    }
-    #greetingCard .name{
-      font-weight:700;
-      font-size:18px;
-      color:var(--white)
-    }
-    /* H1 Nama — tampil spesial */
-    #greetName{
-      font-family: "Pacifico", "Georgia", serif;
-      font-size: 42px;
-      font-weight: 700;
-      color: #ffe8ec;
-    
-      /* spacing biar mewah */
-      margin: 24px 0 28px;
-      letter-spacing: 1px;
-    
-      /* efek mewah */
-      text-shadow:
-        0 0 4px rgba(255, 75, 92, 0.35),
-        0 0 10px rgba(255, 75, 92, 0.35),
-        0 0 20px rgba(255, 75, 92, 0.25);
-    
-      /* animasi halus glowing */
-      animation: nameGlow 3s ease-in-out infinite;
-    }
-    
-    @keyframes nameGlow{
-      0%, 100%{
-        text-shadow:
-          0 0 3px rgba(255, 75, 92, 0.3),
-          0 0 8px rgba(255, 75, 92, 0.2),
-          0 0 14px rgba(255, 75, 92, 0.15);
-      }
-      50%{
-        text-shadow:
-          0 0 6px rgba(255, 75, 92, 0.55),
-          0 0 14px rgba(255, 75, 92, 0.45),
-          0 0 26px rgba(255, 75, 92, 0.35);
-      }
-    }
-    
-    /* responsif */
-    @media (max-width:640px){
-      #greetName{
-        font-size: 32px;
-      }
+    .card-gifs .firework {
+      animation: fireworkPulse 1.8s ease-in-out infinite;
     }
 
+    @keyframes santaFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @keyframes fireworkPulse {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.12); opacity: 1; }
+    }
+
+    /* greeting card behavior */
+    #greetingCard {
+      display: none;  /* akan di-set ke flex lewat JS */
+      cursor: pointer;
+    }
 
     /* message */
-    #messageCard{
-      display:none
+    #messageCard {
+      display: none;
     }
 
     /* tree area */
-    #treeCard{
-      display:none;
-      text-align:center
+    #treeCard {
+      display: none;
+      text-align: center;
     }
-    #tree-wrap{
-      display:inline-block;
-      padding:16px;
-      background:linear-gradient(180deg,#071116,#0b1620);
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,0.03)
+
+    #tree-wrap {
+      display: inline-block;
+      padding: 16px;
+      background: linear-gradient(180deg, #071116, #0b1620);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
     }
-    /* SVG tree styles */
-    .tree-svg{
-      width:320px;
-      height:auto;
-      display:block;
-      margin:0 auto
+
+    .tree-svg {
+      width: 320px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
 
     /* twinkling lights */
-    .light{
-      filter:drop-shadow(0 0 8px rgba(214,40,40,0.6))
-    }
-    @keyframes twinkle{
-      0%{
-        opacity:0.2;
-        transform:scale(0.9)
-      }
-      50%{
-        opacity:1;
-        transform:scale(1.08)
-      }
-      100%{
-        opacity:0.25;
-        transform:scale(0.95)
-      }
-    }
-    .light--a{
-      animation:twinkle 1.6s infinite ease-in-out
-    }
-    .light--b{
-      animation:twinkle 1.9s infinite ease-in-out
-    }
-    .light--c{
-      animation:twinkle 2.2s infinite ease-in-out
+    .light {
+      filter: drop-shadow(0 0 8px rgba(214, 40, 40, 0.6));
     }
 
-    /* wish list */
-    #wishList{
-      max-width:460px;
-      margin:12px auto;
-      text-align:left
+    @keyframes twinkle {
+      0%   { opacity: 0.2; transform: scale(0.9); }
+      50%  { opacity: 1;   transform: scale(1.08); }
+      100% { opacity: 0.25;transform: scale(0.95); }
     }
-    .wish-item{
-      background:rgba(255,255,255,0.03);
-      padding:10px;
-      margin:8px 0;
-      border-radius:8px;
-      border-left:4px solid var(--red)
+
+    .light--a { animation: twinkle 1.6s infinite ease-in-out; }
+    .light--b { animation: twinkle 1.9s infinite ease-in-out; }
+    .light--c { animation: twinkle 2.2s infinite ease-in-out; }
+
+    /* wish list */
+    #wishList {
+      max-width: 460px;
+      margin: 12px auto;
+      text-align: left;
+    }
+
+    .wish-item {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border-left: 4px solid var(--red);
     }
 
     /* controls */
-    .controls{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top:12px
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
     }
 
-    /* download buttons */
-    .download-btn{
-      background:var(--red);
-      border:none;
-      color:#fff;
-      padding:10px 14px;
-      border-radius:10px;
-      cursor:pointer
+    .download-btn {
+      background: var(--red);
+      border: none;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
     }
 
     /* recap */
-    #recap{
-      display:none
-    }
-    .recap-slider{
-      display:flex;
-      gap:12px;
-      overflow:hidden
-    }
-    .recap-slide{
-      min-width:100%;
-      transition:transform .4s
+    #recap {
+      display: none;
     }
 
-    /* responsive */
-    @media (max-width:640px){
-      .tree-svg{
-        width:240px
-      }
+    .recap-slider {
+      display: flex;
+      gap: 12px;
+      overflow: hidden;
+    }
+
+    .recap-slide {
+      min-width: 100%;
+      transition: transform .4s;
     }
 
     /* snow (canvas) overlay */
-    #snow-canvas{
+    #snow-canvas {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: -1;
     }
-    
-    .card {
-      position: relative;
-      z-index: 10; /* card selalu di atas salju */
-    }
 
     /* subtle glow around cards */
-    .glow{box-shadow:0 8px 40px rgba(214,40,40,0.12)}
+    .glow {
+      box-shadow: 0 8px 40px rgba(214, 40, 40, 0.12);
+    }
 
+    /* responsive */
+    @media (max-width: 640px) {
+      .card-title {
+        font-size: 32px;
+      }
+      #greetingCard .card-gifs .gif {
+        width: 70%;
+      }
+      #greetName {
+        font-size: 32px;
+      }
+      .tree-svg {
+        width: 240px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -461,12 +400,19 @@
         <span class="title-amp">&</span>
         <span class="title-white">Happy New Year</span>
       </div>
-      <h1 id="greetName" style="margin:6px 0 0;font-size:20px"></h1>
+
+      <!-- nama orang, akan diisi via JS -->
+      <h1 id="greetName"></h1>
+
       <div class="card-gifs">
-        <img src="Image/Santa Clause GIF by filmeditor.gif" alt="Santa Claus" class="gif santa">
+        <img src="Image/Santa Clause GIF by filmeditor.gif"
+             alt="Santa Claus"
+             class="gif santa">
       </div>
+
       <p class="lead" style="margin-top:8px; display:flex; align-items:center; gap:6px; justify-content:center;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
           <polyline points="3 7 12 13 21 7"></polyline>
         </svg>
@@ -475,12 +421,14 @@
     </div>
   </div>
 
-
   <!-- MESSAGE CARD -->
   <div id="messageCard" class="card">
     <div class="inner">
       <div class="card-title">Pesan Hangat</div>
-      <p class="lead">Semoga tahun mendatang membawa kebahagiaan, kesehatan, dan kenangan manis. Klik tombol untuk menaruh harapanmu di pohon Natal.</p>
+      <p class="lead">
+        Semoga tahun mendatang membawa kebahagiaan, kesehatan, dan kenangan manis.
+        Klik tombol untuk menaruh harapanmu di pohon Natal.
+      </p>
       <div class="controls">
         <button class="btn" id="btnOpenTree">Buka Wish Tree</button>
         <button class="btn" id="btnPlayMusic">Pause Music</button>
@@ -491,25 +439,20 @@
   <!-- WISH TREE CARD -->
   <div id="treeCard" class="card center">
     <div id="tree-wrap">
-      <!-- SVG tree with lights & text-wishes -->
       <svg class="tree-svg" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" id="svgTree">
-        <!-- trunk -->
         <rect x="90" y="250" width="20" height="40" rx="2" fill="#5b3a2e"></rect>
-
-        <!-- three-layer tree (triangles) -->
         <polygon id="layer1" points="100,140 70,220 130,220" fill="#0b6b37"></polygon>
         <polygon id="layer2" points="100,80 55,160 145,160" fill="#094f29"></polygon>
         <polygon id="layer3" points="100,20 40,110 160,110" fill="#063b1f"></polygon>
-
-        <!-- text-wishes group -->
         <g id="wishTextGroup"></g>
-
-        <!-- star -->
-        <polygon points="100,8 105,20 118,20 108,28 112,40 100,32 88,40 92,28 82,20 95,20" fill="#ffd166"></polygon>
+        <polygon points="100,8 105,20 118,20 108,28 112,40 100,32 88,40 92,28 82,20 95,20"
+                 fill="#ffd166"></polygon>
       </svg>
 
       <div style="margin-top:12px">
-        <input id="wishInput" placeholder="Tulis wish... (bisa banyak)" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);width:260px;background:transparent;color:inherit">
+        <input id="wishInput"
+               placeholder="Tulis wish... (bisa banyak)"
+               style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);width:260px;background:transparent;color:inherit">
         <button class="btn" id="addWish">Tambah</button>
       </div>
 
@@ -535,164 +478,217 @@
       <button class="btn" id="nextSlide">Next</button>
     </div>
   </div>
-
 </div>
 
-<!-- canvas for snow -->
 <canvas id="snow-canvas"></canvas>
 
 <script>
-  // ---------- small helper ----------
-  const nameModal = document.getElementById('nameModal');
-  const btnStart = document.getElementById('btnStart');
-  const greetCard = document.getElementById('greetingCard');
+  const nameModal   = document.getElementById('nameModal');
+  const btnStart    = document.getElementById('btnStart');
+  const greetCard   = document.getElementById('greetingCard');
   const messageCard = document.getElementById('messageCard');
-  const treeCard = document.getElementById('treeCard');
-  const recapCard = document.getElementById('recap');
-  const greetName = document.getElementById('greetName');
+  const treeCard    = document.getElementById('treeCard');
+  const recapCard   = document.getElementById('recap');
+  const greetName   = document.getElementById('greetName');
   const btnOpenTree = document.getElementById('btnOpenTree');
   const btnPlayMusic = document.getElementById('btnPlayMusic');
 
-  // music (replace src with your file path)
+  // music
   const music = new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_9b8a1b6e4f.mp3?filename=relaxing-guitar-111409.mp3');
-  music.loop = true; music.volume = 0.6; music.play().catch(()=>{});
+  music.loop = true;
+  music.volume = 0.6;
+  music.play().catch(() => {});
   let musicPlaying = true;
-  btnPlayMusic.addEventListener('click', ()=>{
-    if(musicPlaying){ music.pause(); btnPlayMusic.innerText = 'Play Music'; }
-    else { music.play(); btnPlayMusic.innerText = 'Pause Music'; }
+
+  btnPlayMusic.addEventListener('click', () => {
+    if (musicPlaying) {
+      music.pause();
+      btnPlayMusic.innerText = 'Play Music';
+    } else {
+      music.play();
+      btnPlayMusic.innerText = 'Pause Music';
+    }
     musicPlaying = !musicPlaying;
   });
 
-  // snow canvas
-  const canvas = document.getElementById('snow-canvas'); const ctx = canvas.getContext('2d');
-  function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-  addEventListener('resize', resize); resize();
+  // snow
+  const canvas = document.getElementById('snow-canvas');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+  }
+  addEventListener('resize', resize);
+  resize();
+
   let flakes = [];
-  function initSnow(n=160){ flakes = []; for(let i=0;i<n;i++){ flakes.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,d:Math.random()*1.5+0.5,spd:Math.random()*0.8+0.2}) }}
-  function renderSnow(){ ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='rgba(255,255,255,0.9)'; flakes.forEach(f=>{ ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2); ctx.fill(); f.y += f.spd + f.d; f.x += Math.sin(f.y/30)*0.6; if(f.y>canvas.height){ f.y = -10; f.x = Math.random()*canvas.width } }); requestAnimationFrame(renderSnow); }
-  initSnow(160); renderSnow();
+  function initSnow(n = 160) {
+    flakes = [];
+    for (let i = 0; i < n; i++) {
+      flakes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 3 + 1,
+        d: Math.random() * 1.5 + 0.5,
+        spd: Math.random() * 0.8 + 0.2
+      });
+    }
+  }
+
+  function renderSnow() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    flakes.forEach(f => {
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      ctx.fill();
+      f.y += f.spd + f.d;
+      f.x += Math.sin(f.y / 30) * 0.6;
+      if (f.y > canvas.height) {
+        f.y = -10;
+        f.x = Math.random() * canvas.width;
+      }
+    });
+    requestAnimationFrame(renderSnow);
+  }
+
+  initSnow(160);
+  renderSnow();
 
   // flow: name -> greeting -> message -> tree -> recap
-  btnStart.onclick = ()=>{
+  btnStart.onclick = () => {
     const name = document.getElementById('username').value.trim();
-    if(!name) return alert('Isi nama dulu ya');
-    nameModal.style.display='none';
+    if (!name) return alert('Isi nama dulu ya');
+    nameModal.style.display = 'none';
     greetName.innerText = name;
-    greetCard.style.display='block';
-  }
-  greetCard.onclick = ()=>{ greetCard.style.display='none'; messageCard.style.display='block'; messageCard.classList.add('glow'); setTimeout(()=>messageCard.classList.remove('glow'),900)}
-  btnOpenTree.onclick = ()=>{ messageCard.style.display='none'; treeCard.style.display='block'; }
+    greetCard.style.display = 'flex'; // penting: biar tetap center (flex)
+  };
 
-  // ————— WISH TEXT PLACEMENT (grid within tree) —————
-  const svgTree = document.getElementById('svgTree');
+  greetCard.onclick = () => {
+    greetCard.style.display = 'none';
+    messageCard.style.display = 'block';
+    messageCard.classList.add('glow');
+    setTimeout(() => messageCard.classList.remove('glow'), 900);
+  };
+
+  btnOpenTree.onclick = () => {
+    messageCard.style.display = 'none';
+    treeCard.style.display = 'block';
+  };
+
+  // WISH TEXT PLACEMENT
+  const svgTree   = document.getElementById('svgTree');
   const wishGroup = document.getElementById('wishTextGroup');
   const wishInput = document.getElementById('wishInput');
   const addWishBtn = document.getElementById('addWish');
   const wishListEl = document.getElementById('wishList');
   let wishes = [];
 
-  // compute position for a wish by index using triangular levels (level 0..4)
-  function computePositionForIndex(idx){
-    // levels: 1,2,3,4,5 items => cumulative 1,3,6,10,15
+  function computePositionForIndex(idx) {
     let level = 0, cumulative = 0;
-    while(true){
-      cumulative += (level+1);
-      if(idx < cumulative) break;
+    while (true) {
+      cumulative += (level + 1);
+      if (idx < cumulative) break;
       level++;
     }
-    const levelStart = cumulative - (level+1); // index of first in this level
-    const posInLevel = idx - levelStart; // 0..level
-    // map into svg coords (viewBox 0..200 x 0..300)
-    // y: start 60, gap 35
-    const maxWidth = 120 - (level * 12); // narrower for lower levels
+    const levelStart = cumulative - (level + 1);
+    const posInLevel = idx - levelStart;
+    const maxWidth = 120 - (level * 12);
     const xCenter = 100;
-    const slots = level+1;
+    const slots = level + 1;
     const spacing = maxWidth / slots;
-    const x = xCenter + (posInLevel - (slots-1)/2) * spacing;
+    const x = xCenter + (posInLevel - (slots - 1) / 2) * spacing;
     const y = 60 + level * 40;
-    return {x: Math.round(x), y: Math.round(y), level};
+    return { x: Math.round(x), y: Math.round(y), level };
   }
 
-  // wrap text into lines (maxChars per line) — returns array of lines
-  function wrapText(text, maxChars=20){
+  function wrapText(text, maxChars = 20) {
     const words = text.split(' ');
     const lines = [];
     let cur = '';
-    for(const w of words){
-      if((cur + ' ' + w).trim().length <= maxChars){
-        cur = (cur + ' ' + w).trim();
+    for (const w of words) {
+      const test = (cur + ' ' + w).trim();
+      if (test.length <= maxChars) {
+        cur = test;
       } else {
-        if(cur) lines.push(cur);
+        if (cur) lines.push(cur);
         cur = w;
       }
     }
-    if(cur) lines.push(cur);
+    if (cur) lines.push(cur);
     return lines;
   }
 
-  function placeWishText(text, idx){
+  function placeWishText(text, idx) {
     const pos = computePositionForIndex(idx);
-    // create text element with tspans for lines
-    const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+    const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     txt.setAttribute('x', pos.x);
     txt.setAttribute('y', pos.y);
     txt.setAttribute('fill', '#ffffff');
     txt.setAttribute('font-size', '10');
     txt.setAttribute('font-weight', '600');
     txt.setAttribute('text-anchor', 'middle');
-    txt.setAttribute('pointer-events','visible'); // clickable
-    // wrap
+    txt.setAttribute('pointer-events', 'visible');
+
     const lines = wrapText(text, 16);
-    const startDy = -(lines.length-1)*7; // center the block vertically
-    lines.forEach((ln,i)=>{
-      const tspan = document.createElementNS('http://www.w3.org/2000/svg','tspan');
+    const startDy = -(lines.length - 1) * 7;
+    lines.forEach((ln, i) => {
+      const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
       tspan.setAttribute('x', pos.x);
-      tspan.setAttribute('dy', i===0 ? startDy : 14);
+      tspan.setAttribute('dy', i === 0 ? startDy : 14);
       tspan.textContent = ln;
       txt.appendChild(tspan);
     });
-    // clicking text shows full wish
-    txt.addEventListener('click', ()=>{ alert('Wish: '+text); });
+
+    txt.addEventListener('click', () => {
+      alert('Wish: ' + text);
+    });
+
     wishGroup.appendChild(txt);
   }
 
-  function renderWishList(){
+  function renderWishList() {
     wishListEl.innerHTML = '';
-    wishes.forEach((w,i)=>{
+    wishes.forEach((w, i) => {
       const d = document.createElement('div');
       d.className = 'wish-item';
-      d.innerHTML = `<strong>${i+1}.</strong> ${w}`;
+      d.innerHTML = `<strong>${i + 1}.</strong> ${w}`;
       wishListEl.appendChild(d);
     });
   }
 
-  addWishBtn.onclick = ()=>{
-    const v = wishInput.value.trim(); if(!v) return alert('Tulis harapan dulu');
+  addWishBtn.onclick = () => {
+    const v = wishInput.value.trim();
+    if (!v) return alert('Tulis harapan dulu');
     const idx = wishes.length;
     wishes.push(v);
-    placeWishText(v, idx); // draw on svg at computed position
+    placeWishText(v, idx);
     renderWishList();
     wishInput.value = '';
   };
-  wishInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); addWishBtn.click(); } });
 
-  // ————— SVG -> PNG helper (serialize & rasterize) —————
-  function svgToDataUrl(svgEl, scale=2){
-    return new Promise((resolve, reject)=>{
+  wishInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addWishBtn.click();
+    }
+  });
+
+  // SVG -> PNG helper
+  function svgToDataUrl(svgEl, scale = 2) {
+    return new Promise((resolve, reject) => {
       const clone = svgEl.cloneNode(true);
-      // inline computed styles that matter (fill colors) if needed — our SVG uses fills directly so OK
       const serializer = new XMLSerializer();
       let svgString = serializer.serializeToString(clone);
-      // add xml header and proper namespace
-      if(!svgString.match(/^<svg[^>]+xmlns=/)){
+      if (!svgString.match(/^<svg[^>]+xmlns=/)) {
         svgString = svgString.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg" ');
       }
       svgString = '<?xml version="1.0" standalone="no"?>\n' + svgString;
       const svg64 = encodeURIComponent(svgString);
       const url = 'data:image/svg+xml;charset=utf-8,' + svg64;
       const img = new Image();
-      img.onload = ()=>{
-        // create canvas sized to svg viewBox
+      img.onload = () => {
         const viewBox = svgEl.viewBox.baseVal;
         const w = viewBox && viewBox.width ? viewBox.width : svgEl.clientWidth;
         const h = viewBox && viewBox.height ? viewBox.height : svgEl.clientHeight;
@@ -700,111 +696,153 @@
         canvas.width = (w || svgEl.clientWidth) * scale;
         canvas.height = (h || svgEl.clientHeight) * scale;
         const cctx = canvas.getContext('2d');
-        // fill transparent or dark background? We'll keep transparent
         cctx.fillStyle = 'transparent';
-        cctx.fillRect(0,0,canvas.width,canvas.height);
+        cctx.fillRect(0, 0, canvas.width, canvas.height);
         cctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         const data = canvas.toDataURL('image/png');
-        resolve({data, width: canvas.width, height: canvas.height});
+        resolve({ data, width: canvas.width, height: canvas.height });
       };
-      img.onerror = (e)=> reject(e);
+      img.onerror = (e) => reject(e);
       img.crossOrigin = 'anonymous';
       img.src = url;
     });
   }
 
-  // DOWNLOAD Tree as PNG
-  document.getElementById('downloadTreeBtn').addEventListener('click', async ()=>{
-    try{
+  // DOWNLOAD Tree
+  document.getElementById('downloadTreeBtn').addEventListener('click', async () => {
+    try {
       const svg = document.getElementById('svgTree');
       const out = await svgToDataUrl(svg, 2);
       const a = document.createElement('a');
       a.href = out.data;
       a.download = `wish-tree-${Date.now()}.png`;
       a.click();
-      // after download navigate to recap
-      setTimeout(()=>{ treeCard.style.display='none'; recapCard.style.display='block'; }, 600);
-    }catch(err){
-      alert('Gagal generate tree: '+err);
+      setTimeout(() => {
+        treeCard.style.display = 'none';
+        recapCard.style.display = 'block';
+      }, 600);
+    } catch (err) {
+      alert('Gagal generate tree: ' + err);
       console.error(err);
     }
   });
 
-  // DOWNLOAD Card (compose greeting + message + tree)
-  document.getElementById('downloadCardBtn').addEventListener('click', async ()=>{
-    try{
+  // DOWNLOAD Card
+  document.getElementById('downloadCardBtn').addEventListener('click', async () => {
+    try {
       const svg = document.getElementById('svgTree');
-      const svgOut = await svgToDataUrl(svg, 2); // rasterized tree image
-      // create canvas for card: landscape
-      const W = 1200; const H = 630;
-      const c = document.createElement('canvas'); c.width = W; c.height = H;
+      const svgOut = await svgToDataUrl(svg, 2);
+      const W = 1200;
+      const H = 630;
+      const c = document.createElement('canvas');
+      c.width = W;
+      c.height = H;
       const cctx = c.getContext('2d');
-      // background (dark)
-      cctx.fillStyle = '#070707'; cctx.fillRect(0,0,W,H);
-      // left: greeting text
+
+      cctx.fillStyle = '#070707';
+      cctx.fillRect(0, 0, W, H);
+
       const name = greetName.innerText || '';
-      cctx.fillStyle = '#fff'; cctx.textAlign = 'left';
+      cctx.fillStyle = '#fff';
+      cctx.textAlign = 'left';
       cctx.font = '48px Georgia';
       cctx.fillText('Selamat Natal & Tahun Baru', 48, 120);
+
       cctx.font = '40px Georgia';
       cctx.fillStyle = '#ffd166';
       cctx.fillText(name, 48, 180);
+
       cctx.font = '20px Arial';
       cctx.fillStyle = '#cbd5e1';
       const message = 'Semoga tahun mendatang membawa kebahagiaan, kesehatan, dan kenangan manis.';
-      // wrap message
-      (function drawWrapped(text, x, y, maxW, lineH){
+
+      (function drawWrapped(text, x, y, maxW, lineH) {
         const words = text.split(' ');
-        let line = '', test='';
-        for(let n=0;n<words.length;n++){
+        let line = '';
+        for (let n = 0; n < words.length; n++) {
           const w = words[n];
-          test = line + w + ' ';
+          const test = line + w + ' ';
           const tw = cctx.measureText(test).width;
-          if(tw > maxW && n>0){ cctx.fillText(line, x, y); line = w + ' '; y += lineH; }
-          else { line = test; }
+          if (tw > maxW && n > 0) {
+            cctx.fillText(line, x, y);
+            line = w + ' ';
+            y += lineH;
+          } else {
+            line = test;
+          }
         }
-        if(line) cctx.fillText(line, x, y);
-      })(message, 48, 230, W/2 - 80, 30);
-      // draw tree image on right
+        if (line) cctx.fillText(line, x, y);
+      })(message, 48, 230, W / 2 - 80, 30);
+
       const treeImg = new Image();
       treeImg.src = svgOut.data;
-      await new Promise((res,rej)=>{ treeImg.onload = res; treeImg.onerror = rej; });
-      const tw = Math.min(420, W/2);
+      await new Promise((res, rej) => {
+        treeImg.onload = res;
+        treeImg.onerror = rej;
+      });
+
+      const tw = Math.min(420, W / 2);
       const th = (treeImg.height / treeImg.width) * tw;
-      cctx.drawImage(treeImg, W - tw - 48, (H - th)/2, tw, th);
-      // wishes text block (small) on left-below
+      cctx.drawImage(treeImg, W - tw - 48, (H - th) / 2, tw, th);
+
       cctx.fillStyle = '#fff';
       cctx.font = '18px Arial';
       let yy = 360;
-      wishes.slice(0,6).forEach((w,i)=>{
-        cctx.fillText(`${i+1}. ${w}`, 48, yy); yy += 28;
+      wishes.slice(0, 6).forEach((w, i) => {
+        cctx.fillText(`${i + 1}. ${w}`, 48, yy);
+        yy += 28;
       });
-      // trigger download
-      const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = `card-${Date.now()}.png`; a.click();
-    }catch(err){
-      alert('Gagal generate card: '+err); console.error(err);
+
+      const a = document.createElement('a');
+      a.href = c.toDataURL('image/png');
+      a.download = `card-${Date.now()}.png`;
+      a.click();
+    } catch (err) {
+      alert('Gagal generate card: ' + err);
+      console.error(err);
     }
   });
 
-  // RECAP slider (simple). Use placeholder images.
+  // recap slider
   const recapInner = document.getElementById('recapInner');
   const recapImages = [];
-  for(let i=1;i<=6;i++){ // 6 sample slides
+  for (let i = 1; i <= 6; i++) {
     const url = `https://picsum.photos/seed/recap${i}/900/500`;
     recapImages.push(url);
   }
-  recapImages.forEach(u=>{ const s=document.createElement('div'); s.style.minWidth='100%'; s.innerHTML = `<img src="${u}" style="width:100%;height:auto;border-radius:10px;display:block">`; recapInner.appendChild(s); });
-  let slideIndex = 0; function showSlide(idx){ recapInner.style.transform = `translateX(-${idx*100}%)`; }
-  document.getElementById('nextSlide').onclick = ()=>{ slideIndex = Math.min(slideIndex+1, recapImages.length-1); showSlide(slideIndex); };
-  document.getElementById('prevSlide').onclick = ()=>{ slideIndex = Math.max(slideIndex-1, 0); showSlide(slideIndex); };
 
-  // when done (user clicks Finish), show recap
-  function goToRecap(){ treeCard.style.display='none'; recapCard.style.display='block'; }
+  recapImages.forEach(u => {
+    const s = document.createElement('div');
+    s.style.minWidth = '100%';
+    s.innerHTML = `<img src="${u}" style="width:100%;height:auto;border-radius:10px;display:block">`;
+    recapInner.appendChild(s);
+  });
+
+  let slideIndex = 0;
+  function showSlide(idx) {
+    recapInner.style.transform = `translateX(-${idx * 100}%)`;
+  }
+
+  document.getElementById('nextSlide').onclick = () => {
+    slideIndex = Math.min(slideIndex + 1, recapImages.length - 1);
+    showSlide(slideIndex);
+  };
+
+  document.getElementById('prevSlide').onclick = () => {
+    slideIndex = Math.max(slideIndex - 1, 0);
+    showSlide(slideIndex);
+  };
+
+  function goToRecap() {
+    treeCard.style.display = 'none';
+    recapCard.style.display = 'block';
+  }
   window.goToRecap = goToRecap;
 
   // initial: hide message & tree & recap until flow
-  messageCard.style.display = 'none'; treeCard.style.display='none'; recapCard.style.display='none';
-
+  messageCard.style.display = 'none';
+  treeCard.style.display = 'none';
+  recapCard.style.display = 'none';
 </script>
 </body>
 </html>
