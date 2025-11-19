@@ -467,40 +467,55 @@
 
     </div>
   </div>
-
-  <!-- MESSAGE CARD -->
+  
+    <!-- MESSAGE CARD -->
   <div id="messageCard" class="card">
     <div class="inner">
-      <div class="card-title">Pesan Hangat</div>
-      <p class="lead">
-        Semoga tahun mendatang membawa kebahagiaan, kesehatan, dan kenangan manis.
-        Klik tombol untuk menaruh harapanmu di pohon Natal.
-      </p>
+      <!-- Language toggle -->
+      <div class="controls lang-toggle" style="margin-bottom: 10px;">
+        <button class="btn btn-lang" data-lang="id">Indonesia</button>
+        <button class="btn btn-lang" data-lang="en">English</button>
+      </div>
+
+      <div class="card-title" id="messageTitle">Pesan Hangat</div>
+      <p class="lead" id="messageText"></p>
+
       <div class="controls">
         <button class="btn" id="btnOpenTree">Buka Wish Tree</button>
       </div>
     </div>
   </div>
 
+
   <!-- WISH TREE CARD -->
   <div id="treeCard" class="card center">
     <div id="tree-wrap">
-      <svg class="tree-svg" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" id="svgTree">
-        <rect x="90" y="250" width="20" height="40" rx="2" fill="#5b3a2e"></rect>
+      <svg class="tree-svg" viewBox="0 0 200 330" xmlns="http://www.w3.org/2000/svg" id="svgTree">
+
+        <!-- batang -->
+        <rect x="90" y="250" width="20" height="60" rx="2" fill="#5b3a2e"></rect>
       
-        <!-- semua segitiga: lebar 120 (40–160), tinggi 90 -->
-        <!-- paling atas -->
-        <polygon id="layer1" points="100,120 40,210 160,210" fill="#063b1f"></polygon>
-        <!-- tengah -->
-        <polygon id="layer2" points="100,70 40,160 160,160" fill="#094f29"></polygon>0b6b37
-        <!-- paling bawah -->
-        <polygon id="layer3" points="100,20 40,110 160,110" fill="#0b6b37"></polygon>
-
-
+        <!-- Layer 5 (paling bawah - paling lebar) -->
+        <polygon points="100,160 20,250 180,250" fill="#084523"></polygon>
+      
+        <!-- Layer 4 -->
+        <polygon points="100,130 27.5,220 172.5,220" fill="#0a5c2f"></polygon>
+      
+        <!-- Layer 3 -->
+        <polygon points="100,100 35,190 165,190" fill="#0d733b"></polygon>
+      
+        <!-- Layer 2 -->
+        <polygon points="100,70 42.5,160 157.5,160" fill="#0f8a46"></polygon>
+      
+        <!-- Layer 1 (paling atas - paling kecil) -->
+        <polygon points="100,40 50,130 150,130" fill="#12a152"></polygon>
+      
         <g id="wishTextGroup"></g>
       
-        <polygon points="100,8 105,20 118,20 108,28 112,40 100,32 88,40 92,28 82,20 95,20"
-                 fill="#ffd166"></polygon>
+        <!-- bintang -->
+        <polygon points="100,18 105,30 118,30 108,38 112,50 
+                         100,42 88,50 92,38 82,30 95,30"
+            fill="#ffd166"></polygon>
       </svg>
 
 
@@ -546,6 +561,66 @@
   const recapCard   = document.getElementById('recap');
   const greetName   = document.getElementById('greetName');
   const btnOpenTree = document.getElementById('btnOpenTree');
+
+    // elemen untuk message card multi-bahasa
+  const messageTitle = document.getElementById('messageTitle');
+  const messageText  = document.getElementById('messageText');
+  const langButtons  = document.querySelectorAll('.btn-lang');
+
+  // isi pesan per bahasa
+  const cardMessages = {
+    id: `Natal ini, aku berharap hatimu menemukan damai setelah semua yang telah kamu lalui tahun ini. 
+      Semoga musim ini mengingatkanmu bahwa kamu lebih kuat dari yang kamu kira, dan bahwa kamu pantas menerima kehangatan, sukacita, dan kebaikan yang datang kepadamu. 
+      Aku berharap kamu bisa melewati masa ini dikelilingi orang-orang yang menghargaimu dan momen-momen yang menguatkan hatimu.
+      
+      Saat kita memasuki Tahun Baru, aku berharap kamu mendapatkan pemulihan di bagian hidup yang kamu butuhkan, kebahagiaan yang tulus, dan kesempatan yang membuka pintu-pintu baru bagimu. 
+      Semoga tahun yang akan datang membawamu semakin dekat pada hidup yang kamu harapkan, langkah demi langkah, dengan kasih karunia dan keberanian.
+      
+      Selamat Natal yang penuh penghiburan dan Tahun Baru yang penuh pertumbuhan dan berkat.
+      Selamat Hari Natal dan Tahun Baru!`,
+      
+    en: `This Christmas, I hope your heart finds peace after everything you’ve gone through this year. 
+      May this season remind you that you’re stronger than you think, and that you deserve the warmth, joy, and kindness that come your way. 
+      I hope you spend this time surrounded by people who appreciate you and moments that lift your spirit.
+      
+      As we enter the New Year, I wish you healing where you need it, happiness that feels genuine, and opportunities that open new doors for you. 
+      May the coming year bring you closer to the life you’ve been hoping for, one step at a time, with grace and courage.
+      
+      Wishing you a Christmas full of comfort and a New Year full of growth and blessings.
+      Merry Christmas and Happy New Year!`
+  };
+
+  function setMessageLanguage(lang) {
+    // isi teks pesan
+    messageText.textContent = cardMessages[lang];
+
+    // judul card
+    messageTitle.textContent = (lang === 'id')
+      ? 'Pesan Hangat'
+      : 'Warm Message';
+
+    // teks tombol buka tree
+    btnOpenTree.textContent = (lang === 'id')
+      ? 'Buka Wish Tree'
+      : 'Open Wish Tree';
+
+    // styling tombol aktif
+    langButtons.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  }
+
+  // event klik untuk tombol bahasa
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang;
+      setMessageLanguage(lang);
+    });
+  });
+
+  // default: Indonesia
+  setMessageLanguage('id');
+
 
   // snow
   const canvas = document.getElementById('snow-canvas');
