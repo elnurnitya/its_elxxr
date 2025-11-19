@@ -270,6 +270,28 @@
       cursor: pointer;
     }
 
+    .card .lead svg{
+      width: 40%;
+      height: auto;
+      flex-shrink: 0;             /* jangan dikecilkan flex */
+      display: block;             /* hilangkan alignment aneh */
+    }
+    
+    /* agar teks tidak terdorong */
+    .card .lead{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    @media (max-width:640px){
+      .card .lead svg{
+        width: 28%;
+      }
+    }
+
+
     /* message */
     #messageCard {
       display: none;
@@ -421,13 +443,12 @@
       </div>
 
       <p class="lead" style="margin-top:8px; display:flex; align-items:center; gap:6px; justify-content:center;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-             stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
-          <polyline points="3 7 12 13 21 7"></polyline>
-        </svg>
         Click this card to open your special message.
       </p>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+        <polyline points="3 7 12 13 21 7"></polyline>
+      </svg>
     </div>
   </div>
 
