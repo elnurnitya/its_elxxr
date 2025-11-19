@@ -186,35 +186,46 @@
     }
 
     /* H1 Nama — tampil spesial */
-    #greetName {
+    #greetName{
       font-family: "Pacifico", "Georgia", serif;
       font-size: 42px;
       font-weight: 700;
-      color: #ffe8ec;
+      color: #ffffff;              /* putih */
       margin: 24px 0 28px;
       letter-spacing: 1px;
+      text-decoration: underline;  /* underline */
+    
+      /* glow putih */
       text-shadow:
-        0 0 4px rgba(255, 75, 92, 0.35),
-        0 0 10px rgba(255, 75, 92, 0.35),
-        0 0 20px rgba(255, 75, 92, 0.25);
+        0 0 4px rgba(255, 255, 255, 0.45),
+        0 0 10px rgba(255, 255, 255, 0.45),
+        0 0 20px rgba(255, 255, 255, 0.35);
+    
       animation: nameGlow 3s ease-in-out infinite;
     }
 
-    @keyframes nameGlow {
-      0%, 100% {
+    @keyframes nameGlow{
+      0%, 100%{
         text-shadow:
-          0 0 3px rgba(255, 75, 92, 0.3),
-          0 0 8px rgba(255, 75, 92, 0.2),
-          0 0 14px rgba(255, 75, 92, 0.15);
+          0 0 3px rgba(255, 255, 255, 0.35),
+          0 0 8px rgba(255, 255, 255, 0.25),
+          0 0 14px rgba(255, 255, 255, 0.2);
       }
-      50% {
+      50%{
         text-shadow:
-          0 0 6px rgba(255, 75, 92, 0.55),
-          0 0 14px rgba(255, 75, 92, 0.45),
-          0 0 26px rgba(255, 75, 92, 0.35);
+          0 0 6px rgba(255, 255, 255, 0.7),
+          0 0 14px rgba(255, 255, 255, 0.6),
+          0 0 26px rgba(255, 255, 255, 0.5);
       }
     }
 
+  /* responsif tetap boleh dipakai */
+  @media (max-width:640px){
+    #greetName{
+      font-size: 32px;
+    }
+  }
+    
     /* wrapper GIF */
     .card-gifs {
       display: flex;
