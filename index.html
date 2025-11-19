@@ -478,7 +478,6 @@
       </p>
       <div class="controls">
         <button class="btn" id="btnOpenTree">Buka Wish Tree</button>
-        <button class="btn" id="btnPlayMusic">Pause Music</button>
       </div>
     </div>
   </div>
@@ -538,25 +537,6 @@
   const recapCard   = document.getElementById('recap');
   const greetName   = document.getElementById('greetName');
   const btnOpenTree = document.getElementById('btnOpenTree');
-  const btnPlayMusic = document.getElementById('btnPlayMusic');
-
-  // music
-  const music = new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_9b8a1b6e4f.mp3?filename=relaxing-guitar-111409.mp3');
-  music.loop = true;
-  music.volume = 0.6;
-  music.play().catch(() => {});
-  let musicPlaying = true;
-
-  btnPlayMusic.addEventListener('click', () => {
-    if (musicPlaying) {
-      music.pause();
-      btnPlayMusic.innerText = 'Play Music';
-    } else {
-      music.play();
-      btnPlayMusic.innerText = 'Pause Music';
-    }
-    musicPlaying = !musicPlaying;
-  });
 
   // snow
   const canvas = document.getElementById('snow-canvas');
