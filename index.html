@@ -272,6 +272,49 @@
       font-size:18px;
       color:var(--white)
     }
+    /* H1 Nama — tampil spesial */
+    #greetName{
+      font-family: "Pacifico", "Georgia", serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: #ffe8ec;
+    
+      /* spacing biar mewah */
+      margin: 24px 0 28px;
+      letter-spacing: 1px;
+    
+      /* efek mewah */
+      text-shadow:
+        0 0 4px rgba(255, 75, 92, 0.35),
+        0 0 10px rgba(255, 75, 92, 0.35),
+        0 0 20px rgba(255, 75, 92, 0.25);
+    
+      /* animasi halus glowing */
+      animation: nameGlow 3s ease-in-out infinite;
+    }
+    
+    @keyframes nameGlow{
+      0%, 100%{
+        text-shadow:
+          0 0 3px rgba(255, 75, 92, 0.3),
+          0 0 8px rgba(255, 75, 92, 0.2),
+          0 0 14px rgba(255, 75, 92, 0.15);
+      }
+      50%{
+        text-shadow:
+          0 0 6px rgba(255, 75, 92, 0.55),
+          0 0 14px rgba(255, 75, 92, 0.45),
+          0 0 26px rgba(255, 75, 92, 0.35);
+      }
+    }
+    
+    /* responsif */
+    @media (max-width:640px){
+      #greetName{
+        font-size: 32px;
+      }
+    }
+
 
     /* message */
     #messageCard{
