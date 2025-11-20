@@ -586,13 +586,10 @@
   const greetName   = document.getElementById('greetName');
   const btnOpenTree = document.getElementById('btnOpenTree');
 
-  // elemen untuk message card multi-bahasa
+    // elemen untuk message card multi-bahasa
   const messageTitle = document.getElementById('messageTitle');
   const messageText  = document.getElementById('messageText');
   const langButtons  = document.querySelectorAll('.btn-lang');
-
-  // bahasa aktif (dipakai juga untuk alert wish tree)
-  let currentLang = 'en';
 
   // isi pesan per bahasa
   const cardMessages = {
@@ -616,8 +613,7 @@
   };
 
   function setMessageLanguage(lang) {
-    currentLang = lang;                     // simpan bahasa aktif
-    messageText.innerHTML = cardMessages[lang];
+  messageText.innerHTML = cardMessages[lang];
 
     // judul card
     messageTitle.textContent = (lang === 'id')
@@ -643,208 +639,8 @@
     });
   });
 
-  // default: English
-  setMessageLanguage('en');
-
-  // ========= lanjut script lainmu di bawah ini =========
-
-  // snow, flow, dll ... (biarkan seperti sebelumnya)
-  const canvas = document.getElementById('snow-canvas');
-  const ctx = canvas.getContext('2d');
-
-  function resize() {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-  }
-  addEventListener('resize', resize);
-  resize();
-
-  let flakes = [];
-  function initSnow(n = 160) {
-    flakes = [];
-    for (let i = 0; i < n; i++) {
-      flakes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 3 + 1,
-        d: Math.random() * 1.5 + 0.5,
-        spd: Math.random() * 0.8 + 0.2
-      });
-    }
-  }
-
-  function renderSnow() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(255,255,255,0.9)';
-    flakes.forEach(f => {
-      ctx.beginPath();
-      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-      ctx.fill();
-      f.y += f.spd + f.d;
-      f.x += Math.sin(f.y / 30) * 0.6;
-      if (f.y > canvas.height) {
-        f.y = -10;
-        f.x = Math.random() * canvas.width;
-      }
-    });
-    requestAnimationFrame(renderSnow);
-  }
-
-  initSnow(160);
-  renderSnow();
-
-  // flow: name -> greeting -> message -> tree -> recap
-  btnStart.onclick = () => {
-    const name = document.getElementById('username').value.trim();
-    if (!name) {
-      return alert(currentLang === 'en'
-        ? 'Please enter your name first.'
-        : 'Isi nama dulu ya.');
-    }
-    nameModal.style.display = 'none';
-    greetName.innerText = name;
-    greetCard.style.display = 'flex';
-  };
-
-  greetCard.onclick = () => {
-    greetCard.style.display = 'none';
-    messageCard.style.display = 'block';
-    messageCard.classList.add('glow');
-    setTimeout(() => messageCard.classList.remove('glow'), 900);
-  };
-
-  btnOpenTree.onclick = () => {
-    messageCard.style.display = 'none';
-    treeCard.style.display = 'block';
-  };
-
-  // WISH TEXT PLACEMENT
-  const svgTree     = document.getElementById('svgTree');
-  const wishGroup   = document.getElementById('wishTextGroup');
-  const wishInput   = document.getElementById('wishInput');
-  const addWishBtn  = document.getElementById('addWish');
-  const wishListEl  = document.getElementById('wishList');
-  let wishes = [];
-
-  function computePositionForIndex(idx) {
-    let level = 0, cumulative = 0;
-    while (true) {
-      cumulative += (level + 1);
-      if (idx < cumulative) break;
-      level++;
-    }
-    const levelStart = cumulative - (level + 1);
-    const posInLevel = idx - levelStart;
-    const maxWidth = 120 - (level * 12);
-    const xCenter = 100;
-    const slots = level + 1;
-    const spacing = maxWidth / slots;
-    const x = xCenter + (posInLevel - (slots - 1) / 2) * spacing;
-    const y = 60 + level * 40;
-    return { x: Math.round(x), y: Math.round(y), level };
-  }
-
-  function wrapText(text, maxChars = 20) {
-    const words = text.split(' ');
-    const lines = [];
-    let cur = '';
-    for (const w of words) {
-      const test = (cur + ' ' + w).trim();
-      if (test.length <= maxChars) {
-        cur = test;
-      } else {
-        if (cur) lines.push(cur);
-        cur = w;
-      }
-    }
-    if (cur) lines.push(cur);
-    return lines;
-  }
-
-  function placeWishText(text, idx) {
-    const pos = computePositionForIndex(idx);
-    const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    txt.setAttribute('x', pos.x);
-    txt.setAttribute('y', pos.y);
-    txt.setAttribute('fill', '#ffffff');
-    txt.setAttribute('font-size', '10');
-    txt.setAttribute('font-weight', '600');
-    txt.setAttribute('text-anchor', 'middle');
-    txt.setAttribute('pointer-events', 'visible');
-
-    const lines = wrapText(text, 16);
-    const startDy = -(lines.length - 1) * 7;
-    lines.forEach((ln, i) => {
-      const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
-      tspan.setAttribute('x', pos.x);
-      tspan.setAttribute('dy', i === 0 ? startDy : 14);
-      tspan.textContent = ln;
-      txt.appendChild(tspan);
-    });
-
-    txt.addEventListener('click', () => {
-      alert(
-        currentLang === 'en'
-          ? 'Wish: ' + text
-          : 'Wish kamu: ' + text
-      );
-    });
-
-    wishGroup.appendChild(txt);
-  }
-
-  function renderWishList() {
-    wishListEl.innerHTML = '';
-    wishes.forEach((w, i) => {
-      const d = document.createElement('div');
-      d.className = 'wish-item';
-      d.innerHTML = `<strong>${i + 1}.</strong> ${w}`;
-      wishListEl.appendChild(d);
-    });
-  }
-
-  // ⬇️ DI SINI bagian addWish dengan alert bilingual + 1 kata + max 10
-  addWishBtn.onclick = () => {
-    const v = wishInput.value.trim();
-
-    const msg = {
-      empty: currentLang === 'en'
-        ? 'Please enter a wish first.'
-        : 'Tulis harapan dulu.',
-      max: currentLang === 'en'
-        ? 'You can only create a maximum of 10 wishes.'
-        : 'Kamu hanya bisa membuat maksimal 10 wish 😊',
-      oneWord: currentLang === 'en'
-        ? 'Wish must be only ONE word.'
-        : 'Wish hanya boleh 1 kata saja ya 🙏'
-    };
-
-    if (!v) {
-      return alert(msg.empty);
-    }
-
-    if (wishes.length >= 10) {
-      return alert(msg.max);
-    }
-
-    const wordCount = v.split(/\s+/).length;
-    if (wordCount > 1) {
-      return alert(msg.oneWord);
-    }
-
-    const idx = wishes.length;
-    wishes.push(v);
-    placeWishText(v, idx);
-    renderWishList();
-    wishInput.value = '';
-  };
-
-  wishInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      addWishBtn.click();
-    }
-  });
+  // default: Indonesia
+  setMessageLanguage('id');
 
 
   // snow
