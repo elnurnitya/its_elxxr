@@ -574,6 +574,8 @@
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
 
+    // ini akan jalan setelah WISH TREE di-init,
+    // karena pemanggilan default dipindah ke bawah
     syncTreeLanguage();
   }
 
@@ -584,10 +586,9 @@
     });
   });
 
-  // default: English
-  setMessageLanguage('en');
-
-  // snow
+  // =====================
+  // SNOW
+  // =====================
   const canvas = document.getElementById('snow-canvas');
   const ctx = canvas.getContext('2d');
 
@@ -632,7 +633,9 @@
   initSnow(160);
   renderSnow();
 
-  // flow: name -> greeting -> message -> tree
+  // =====================
+  // FLOW: name -> greeting -> message -> tree
+  // =====================
   btnStart.onclick = () => {
     const name = document.getElementById('username').value.trim();
     if (!name) return alert('Isi nama dulu ya');
@@ -654,7 +657,9 @@
     syncTreeLanguage();
   };
 
+  // =====================
   // WISH TREE
+  // =====================
   const svgTree     = document.getElementById('svgTree');
   const wishGroup   = document.getElementById('wishTextGroup');
   const wishInput   = document.getElementById('wishInput');
@@ -691,12 +696,10 @@
   function computePositionForIndex(idx) {
     const centerX = 100;
 
-    // wish pertama di paling atas tengah
     if (idx === 0) {
       return { x: centerX, y: 60, row: 0 };
     }
 
-    // setelah itu: setiap baris isi max 2 wish
     const pairIndex = idx - 1;
     const row = Math.floor(pairIndex / 2) + 1;
     const posInRow = pairIndex % 2;
@@ -872,7 +875,6 @@
     }
   };
 
-  // DOWNLOAD Tree – tetap di treeCard (tidak pindah ke card lain)
   downloadTreeBtn.addEventListener('click', async () => {
     try {
       const svg = document.getElementById('svgTree');
@@ -887,13 +889,11 @@
     }
   });
 
-  // DOWNLOAD Card 9:16
   document.getElementById('downloadCardBtn').addEventListener('click', async () => {
     try {
       const svg = document.getElementById('svgTree');
       const svgOut = await svgToDataUrl(svg, 2);
 
-      // background card
       const bgImg = await new Promise((resolve, reject) => {
         const img = new Image();
         img.src = 'Image/bacground_card.jpg';
@@ -908,10 +908,8 @@
       c.width = W;
       c.height = H;
 
-      // background
       cctx.drawImage(bgImg, 0, 0, W, H);
 
-      // overlay gelap
       cctx.fillStyle = 'rgba(0,0,0,0.45)';
       cctx.fillRect(0, 0, W, H);
 
@@ -945,7 +943,6 @@
         return y + lines.length * lineHeight;
       }
 
-      // TITLE merah
       cctx.fillStyle = "#ff4b5c";
       cctx.shadowColor = 'rgba(255,255,255,0.85)';
       cctx.shadowBlur = 18;
@@ -961,7 +958,6 @@
 
       cctx.shadowBlur = 0;
 
-      // Nama
       if (name) {
         cctx.font = 'bold 60px "Georgia", serif';
         cctx.fillStyle = '#ffffff';
@@ -975,7 +971,6 @@
         nextY += 120;
       }
 
-      // Pesan putih
       cctx.fillStyle = "#ffffff";
       nextY = wrapTextCenter(
         dict.message,
@@ -986,7 +981,6 @@
         50
       );
 
-      // Pohon
       const treeImg = new Image();
       treeImg.src = svgOut.data;
       await new Promise((res, rej) => {
@@ -999,7 +993,6 @@
 
       cctx.drawImage(treeImg, (W - tw) / 2, nextY + 80, tw, th);
 
-      // Footer
       if (dict.footer) {
         cctx.font = '34px "Georgia", serif';
         cctx.fillStyle = '#f5db76';
@@ -1027,9 +1020,14 @@
     }
   });
 
-  // initial hide
+  // initial state
   messageCard.style.display = 'none';
   treeCard.style.display = 'none';
+
+  // PENTING: panggil ini PALING AKHIR,
+  // setelah wishInput & kawan-kawan sudah dideklarasikan
+  setMessageLanguage('en');
 </script>
+
 </body>
 </html>
