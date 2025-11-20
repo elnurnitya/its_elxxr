@@ -976,6 +976,18 @@
     }
   });
 
+  const cardDownloadTexts = {
+    id: {
+      title: 'Selamat Natal & Tahun Baru',
+      message: 'Semoga tahun mendatang membawa kebahagiaan, kesehatan, dan kenangan manis.'
+    },
+    en: {
+      title: 'Merry Christmas & Happy New Year',
+      message: 'May the coming year bring happiness, health, and beautiful memories.'
+    }
+  };
+
+
   // DOWNLOAD Card
   document.getElementById('downloadCardBtn').addEventListener('click', async () => {
     try {
@@ -994,16 +1006,27 @@
       const name = greetName.innerText || '';
       cctx.fillStyle = '#fff';
       cctx.textAlign = 'left';
-      cctx.font = '48px Georgia';
-      cctx.fillText('Selamat Natal & Tahun Baru', 48, 120);
+            const name = greetName.innerText || '';
 
+      // pilih teks sesuai bahasa
+      const dict = cardDownloadTexts[currentLang] || cardDownloadTexts.id;
+
+      // judul (Natal & Tahun Baru / Merry Christmas & Happy New Year)
+      cctx.fillStyle = '#fff';
+      cctx.textAlign = 'left';
+      cctx.font = '48px Georgia';
+      cctx.fillText(dict.title, 48, 120);
+
+      // nama
       cctx.font = '40px Georgia';
       cctx.fillStyle = '#ffd166';
       cctx.fillText(name, 48, 180);
 
+      // pesan pendek
       cctx.font = '20px Arial';
       cctx.fillStyle = '#cbd5e1';
-      const message = 'Semoga tahun mendatang membawa kebahagiaan, kesehatan, dan kenangan manis.';
+      const message = dict.message;
+
 
       (function drawWrapped(text, x, y, maxW, lineH) {
         const words = text.split(' ');
