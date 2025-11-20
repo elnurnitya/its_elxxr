@@ -305,6 +305,24 @@
       display: none;
     }
 
+    /* Overlay gelap untuk isi pesan */
+      #messageCard #messageText {
+        background: rgba(0, 0, 0, 0.55); /* gelap transparan */
+        padding: 14px 18px;
+        border-radius: 12px;
+        display: inline-block;      /* biar cuma selebar teks */
+        max-width: 100%;
+      }
+      
+      /* Biar gak ikut aturan flex dari .card .lead */
+      #messageCard .lead {
+        display: block;
+        justify-content: flex-start;
+        align-items: flex-start;
+        text-align: left;           /* bisa diganti justify kalau mau rata kiri-kanan */
+      }
+
+
     /* tree area */
     #treeCard {
       display: none;
