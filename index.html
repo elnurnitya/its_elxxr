@@ -986,92 +986,150 @@
     id: {
       title: 'Selamat Natal & Tahun Baru',
       message: 'Semoga tahun yang baru membawa sukacita, kesehatan, dan banyak kenangan indah dalam hidupmu.',
-      footer: 'Peluk Hangat & Cinta,\nElnur Nitya'
+      footer: 'Peluk Hangat & Cinta\nElnur Nitya'
     },
     en: {
       title: 'Merry Christmas & Happy New Year',
       message: 'May the coming year bring you joy, good health, and beautiful memories to cherish.',
-      footer: 'With Big Hug & Love,\nElnur Nitya'
+      footer: 'With Big Hug & Love\nElnur Nitya'
     }
   };
 
-  // DOWNLOAD Card
-  document.getElementById('downloadCardBtn').addEventListener('click', async () => {
-    try {
-      const svg = document.getElementById('svgTree');
-      const svgOut = await svgToDataUrl(svg, 2);
-      const W = 1200;
-      const H = 630;
-      const c = document.createElement('canvas');
-      c.width = W;
-      c.height = H;
-      const cctx = c.getContext('2d');
-  
-      // background
-      cctx.fillStyle = '#070707';
-      cctx.fillRect(0, 0, W, H);
-  
-      // ambil nama
-      const name = greetName.innerText || '';
-  
-      // pilih teks sesuai bahasa
-      const dict = cardDownloadTexts[currentLang] || cardDownloadTexts.id;
-  
-      // judul
-      cctx.fillStyle = '#ff4b5c';
-      cctx.textAlign = 'left';
-      cctx.font = '48px Georgia';
-      cctx.fillText(dict.title, 48, 120);
-  
-      // nama
-      cctx.font = '40px Georgia';
-      cctx.fillStyle = '#fff';
-      cctx.fillText(name, 48, 180);
-  
-      // pesan pendek
-      cctx.font = '20px Arial';
-      cctx.fillStyle = '#fff';
-      const message = dict.message;
-  
-      (function drawWrapped(text, x, y, maxW, lineH) {
-        const words = text.split(' ');
-        let line = '';
-        for (let n = 0; n < words.length; n++) {
-          const w = words[n];
-          const test = line + w + ' ';
-          const tw = cctx.measureText(test).width;
-          if (tw > maxW && n > 0) {
-            cctx.fillText(line, x, y);
-            line = w + ' ';
-            y += lineH;
-          } else {
-            line = test;
-          }
-        }
-        if (line) cctx.fillText(line, x, y);
-      })(message, 48, 230, W / 2 - 80, 30);
-  
-      // gambar tree
-      const treeImg = new Image();
-      treeImg.src = svgOut.data;
-      await new Promise((res, rej) => {
-        treeImg.onload = res;
-        treeImg.onerror = rej;
-      });
-  
-      const tw = Math.min(420, W / 2);
-      const th = (treeImg.height / treeImg.width) * tw;
-      cctx.drawImage(treeImg, W - tw - 48, (H - th) / 2, tw, th);
-  
-      const a = document.createElement('a');
-      a.href = c.toDataURL('image/png');
-      a.download = `card-${Date.now()}.png`;
-      a.click();
-    } catch (err) {
-      alert('Gagal generate card: ' + err);
-      console.error(err);
+  // DOWNLOAD Card (ukuran 9:16 untuk Story) + background image
+document.getElementById('downloadCardBtn').addEventListener('click', async () => {
+  try {
+    // --- siapkan SVG pohon dulu ---
+    const svg = document.getElementById('svgTree');
+    const svgOut = await svgToDataUrl(svg, 2);
+
+    // --- load background card image ---
+    const bgImg = await new Promise((resolve, reject) => {
+      const img = new Image();
+      // SESUAIKAN EKSTENSI FILENYA di sini (jpg/png)
+      img.src = 'Image/bacground_card.jpg';
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+    });
+
+    // === Kanvas 9:16 (Story) ===
+    const W = 1080;
+    const H = 1920;
+    const c = document.createElement('canvas');
+    c.width = W;
+    c.height = H;
+    const cctx = c.getContext('2d');
+
+    // ===== Background pakai gambar =====
+    // versi simple: stretch full canvas
+    cctx.drawImage(bgImg, 0, 0, W, H);
+
+    // data dinamis
+    const name = greetName.innerText || '';
+    const dict = cardDownloadTexts[currentLang] || cardDownloadTexts.id;
+
+    // ===== TITLE (merah, di atas, center) =====
+    cctx.textAlign = 'center';
+    cctx.fillStyle = '#ff4b5c';
+    cctx.font = 'bold 56px "Georgia", serif';
+
+    // Shadow putih
+    cctx.shadowColor = 'rgba(255,255,255,0.85)';
+    cctx.shadowBlur = 18;
+    cctx.shadowOffsetX = 0;
+    cctx.shadowOffsetY = 0;
+
+    cctx.fillText(dict.title, W / 2, 200);
+
+    // reset shadow setelah title
+    cctx.shadowColor = 'transparent';
+    cctx.shadowBlur = 0;
+    cctx.shadowOffsetX = 0;
+    cctx.shadowOffsetY = 0;
+
+    // ===== NAMA (spesial, di bawah title) =====
+    if (name) {
+      cctx.font = 'bold 50px "Georgia", serif';
+      cctx.fillStyle = '#ffffff';
+      cctx.shadowColor = 'rgba(0,0,0,0.7)';
+      cctx.shadowBlur = 10;
+      cctx.fillText(name, W / 2, 280);
+      cctx.shadowBlur = 0;
     }
-  });
+
+    // ===== PESAN PENDEK (putih, di tengah atas – center) =====
+    cctx.font = '30px "Georgia", serif';
+    cctx.fillStyle = '#ffffff';
+    cctx.textAlign = 'center';
+
+    const message = dict.message;
+
+    function drawWrappedCenter(text, x, y, maxW, lineH) {
+      const words = text.split(' ');
+      let line = '';
+      for (let n = 0; n < words.length; n++) {
+        const w = words[n];
+        const test = line + w + ' ';
+        const tw = cctx.measureText(test).width;
+        if (tw > maxW && n > 0) {
+          cctx.fillText(line, x, y);
+          line = w + ' ';
+          y += lineH;
+        } else {
+          line = test;
+        }
+      }
+      if (line) cctx.fillText(line, x, y);
+      return y;
+    }
+
+    let nextY = drawWrappedCenter(
+      message,
+      W / 2,
+      360,
+      W - 200, // margin kanan-kiri 100px
+      40
+    );
+
+    // ===== Gambar pohon di bagian tengah–bawah =====
+    const treeImg = new Image();
+    treeImg.src = svgOut.data;
+    await new Promise((res, rej) => {
+      treeImg.onload = res;
+      treeImg.onerror = rej;
+    });
+
+    const tw = 600;
+    const th = (treeImg.height / treeImg.width) * tw;
+    const treeX = (W - tw) / 2;
+    const treeY = 700;
+    cctx.drawImage(treeImg, treeX, treeY, tw, th);
+
+    // ===== FOOTER (With Big Hug & Love / Peluk Hangat & Cinta) =====
+    if (dict.footer) {
+      cctx.font = '28px "Georgia", serif';
+      cctx.fillStyle = '#f5db76';
+      cctx.textAlign = 'center';
+
+      const footerLines = dict.footer.split('\n');
+      let fy = H - 140;
+      footerLines.forEach(line => {
+        cctx.fillText(line, W / 2, fy);
+        fy += 38;
+      });
+    }
+
+    // ===== Download =====
+    const a = document.createElement('a');
+    a.href = c.toDataURL('image/png');
+    a.download = `card-${Date.now()}.png`;
+    a.click();
+  } catch (err) {
+    alert('Gagal generate card: ' + err);
+    console.error(err);
+  }
+});
+
+
 
 
   // recap slider
