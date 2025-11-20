@@ -1012,19 +1012,19 @@
       const dict = cardDownloadTexts[currentLang] || cardDownloadTexts.id;
 
       // judul (Natal & Tahun Baru / Merry Christmas & Happy New Year)
-      cctx.fillStyle = '#fff';
+      cctx.fillStyle = '#ff4b5c';
       cctx.textAlign = 'left';
       cctx.font = '48px Georgia';
       cctx.fillText(dict.title, 48, 120);
 
       // nama
       cctx.font = '40px Georgia';
-      cctx.fillStyle = '#ffd166';
+      cctx.fillStyle = '#fff';
       cctx.fillText(name, 48, 180);
 
       // pesan pendek
       cctx.font = '20px Arial';
-      cctx.fillStyle = '#cbd5e1';
+      cctx.fillStyle = '#fff';
       const message = dict.message;
 
 
@@ -1056,14 +1056,6 @@
       const tw = Math.min(420, W / 2);
       const th = (treeImg.height / treeImg.width) * tw;
       cctx.drawImage(treeImg, W - tw - 48, (H - th) / 2, tw, th);
-
-      cctx.fillStyle = '#fff';
-      cctx.font = '18px Arial';
-      let yy = 360;
-      wishes.slice(0, 6).forEach((w, i) => {
-        cctx.fillText(`${i + 1}. ${w}`, 48, yy);
-        yy += 28;
-      });
 
       const a = document.createElement('a');
       a.href = c.toDataURL('image/png');
