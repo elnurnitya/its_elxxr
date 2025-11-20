@@ -784,23 +784,29 @@
   }
 
 
-  function computePositionForIndex(idx) {
-    let level = 0, cumulative = 0;
-    while (true) {
-      cumulative += (level + 1);
-      if (idx < cumulative) break;
-      level++;
-    }
-    const levelStart = cumulative - (level + 1);
-    const posInLevel = idx - levelStart;
-    const maxWidth = 120 - (level * 12);
-    const xCenter = 100;
-    const slots = level + 1;
-    const spacing = maxWidth / slots;
-    const x = xCenter + (posInLevel - (slots - 1) / 2) * spacing;
-    const y = 60 + level * 40;
-    return { x: Math.round(x), y: Math.round(y), level };
+ function computePositionForIndex(idx) {
+  const centerX = 100;
+
+  // baris paling atas: 1 wish di tengah
+  if (idx === 0) {
+    return { x: centerX, y: 60, row: 0 };
   }
+
+  // setelah itu: tiap baris berisi max 2 wish (kiri & kanan)
+  const pairIndex = idx - 1;             // mulai dari 0 untuk wish ke-2
+  const row = Math.floor(pairIndex / 2) + 1; // baris ke-1 di bawah, dst.
+  const posInRow = pairIndex % 2;        // 0 = kiri, 1 = kanan
+
+  const yStart = 95;                     // tinggi baris pertama di bawah
+  const rowSpacing = 35;                 // jarak antar baris
+  const y = yStart + (row - 1) * rowSpacing;
+
+  const xOffset = 30;                    // jarak dari tengah ke kiri/kanan
+  const x = posInRow === 0 ? centerX - xOffset : centerX + xOffset;
+
+  return { x, y, row };
+}
+
 
   function wrapText(text, maxChars = 20) {
     const words = text.split(' ');
@@ -976,17 +982,18 @@
     }
   });
 
-  const cardDownloadTexts = {
+  cconst cardDownloadTexts = {
     id: {
       title: 'Selamat Natal & Tahun Baru',
-      message: 'Semoga tahun mendatang membawa kebahagiaan, kesehatan, dan kenangan manis.'
+      message: 'Semoga tahun yang baru membawa sukacita, kesehatan, dan banyak kenangan indah dalam hidupmu.',
+      footer: 'Peluk Hangat & Cinta,\nElnur Nitya'
     },
     en: {
       title: 'Merry Christmas & Happy New Year',
-      message: 'May the coming year bring happiness, health, and beautiful memories.'
+      message: 'May the coming year bring you joy, good health, and beautiful memories to cherish.',
+      footer: 'With Big Hug & Love,\nElnur Nitya'
     }
   };
-
 
   // DOWNLOAD Card
   document.getElementById('downloadCardBtn').addEventListener('click', async () => {
