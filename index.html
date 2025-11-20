@@ -306,21 +306,23 @@
     }
 
     /* Overlay gelap untuk isi pesan */
-      #messageCard #messageText {
-        background: rgba(0, 0, 0, 0.55); /* gelap transparan */
-        padding: 14px 18px;
-        border-radius: 12px;
-        display: inline-block;      /* biar cuma selebar teks */
-        max-width: 100%;
-      }
-      
-      /* Biar gak ikut aturan flex dari .card .lead */
-      #messageCard .lead {
-        display: block;
-        justify-content: flex-start;
-        align-items: flex-start;
-        text-align: left;           /* bisa diganti justify kalau mau rata kiri-kanan */
-      }
+    /* wrapper agar text nggak terlalu lebar */
+    #messageCard #messageText {
+      width: 80%;                     /* 80% dari inner */
+      margin: 0 auto;                 /* center */
+      background: rgba(0, 0, 0, 0.55);
+      padding: 16px 20px;
+      border-radius: 14px;
+      line-height: 1.55;
+      white-space: pre-line;          /* penting untuk NEW LINE jadi paragraf */
+    }
+    
+    /* override rule .lead di card */
+    #messageCard .lead {
+      display: block;
+      text-align: center;
+    }
+
 
 
     /* tree area */
@@ -592,13 +594,21 @@
 
   // isi pesan per bahasa
   const cardMessages = {
-    id: `Di Natal ini, aku berdoa agar rumahmu menjadi tempat di mana terang Kristus bersinar lebih terang, kasih tumbuh lebih dalam, dan sukacita dibagikan dengan tulus. Kiranya kisah kelahiran-Nya mengingatkanmu bahwa apa pun yang terjadi selama tahun ini, Tuhan tetap bekerja, tetap mengasihi, dan tetap menuliskan sesuatu yang indah dalam hidupmu.
-Saat Tahun Baru mendekat, kiranya Tuhan melingkupimu dengan perlindungan-Nya, memberkati rencanamu, menyembuhkan setiap luka, dan menuntun langkahmu menuju kesempatan-kesempatan yang penuh tujuan. Kiranya hadirat-Nya menjadi penghiburanmu dan janji-Nya menjadi kekuatanmu.
-Selamat Natal dan Tahun Baru. Kiranya kasih Kristus menjadi dasar dari segala sesuatu yang akan datang.`,
+    id: `Di Natal ini, aku berdoa agar rumahmu menjadi tempat di mana terang Kristus bersinar lebih terang, kasih tumbuh lebih dalam, dan sukacita dibagikan dengan tulus.
+    Kiranya kisah kelahiran-Nya mengingatkanmu bahwa apa pun yang terjadi selama tahun ini, Tuhan tetap bekerja, tetap mengasihi, dan tetap menuliskan sesuatu yang indah dalam hidupmu.
+    
+    Saat Tahun Baru mendekat, kiranya Tuhan melingkupimu dengan perlindungan-Nya, memberkati rencanamu, menyembuhkan setiap luka, dan menuntun langkahmu menuju kesempatan-kesempatan yang penuh tujuan.
+    Kiranya hadirat-Nya menjadi penghiburanmu dan janji-Nya menjadi kekuatanmu.
+    
+    Selamat Natal dan Tahun Baru. Kiranya kasih Kristus menjadi dasar dari segala sesuatu yang akan datang.`,
       
-    en: `This Christmas, I pray that your home becomes a place where Christ’s light shines brighter, where love grows deeper, and where joy is shared generously. May the story of His birth remind you that no matter how the year has been, God is still working, still loving, and still writing something beautiful for your life.
-As the New Year approaches, may God surround you with His protection, bless your plans, heal every wound, and guide your steps into opportunities filled with purpose. May His presence be your comfort and His promises be your strength.
-Merry Christmas and Happy New Year. May Christ’s love be the foundation of everything ahead.`
+    en: `This Christmas, I pray that your home becomes a place where Christ’s light shines brighter, where love grows deeper, and where joy is shared generously.
+    May the story of His birth remind you that no matter how the year has been, God is still working, still loving, and still writing something beautiful for your life.
+    
+    As the New Year approaches, may God surround you with His protection, bless your plans, heal every wound, and guide your steps into opportunities filled with purpose.
+    May His presence be your comfort and His promises be your strength.
+  
+    Merry Christmas and Happy New Year. May Christ’s love be the foundation of everything ahead.`
   };
 
   function setMessageLanguage(lang) {
