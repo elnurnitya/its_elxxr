@@ -999,35 +999,33 @@
       c.width = W;
       c.height = H;
       const cctx = c.getContext('2d');
-
+  
+      // background
       cctx.fillStyle = '#070707';
       cctx.fillRect(0, 0, W, H);
-
+  
+      // ambil nama
       const name = greetName.innerText || '';
-      cctx.fillStyle = '#fff';
-      cctx.textAlign = 'left';
-            const name = greetName.innerText || '';
-
+  
       // pilih teks sesuai bahasa
       const dict = cardDownloadTexts[currentLang] || cardDownloadTexts.id;
-
-      // judul (Natal & Tahun Baru / Merry Christmas & Happy New Year)
+  
+      // judul
       cctx.fillStyle = '#ff4b5c';
       cctx.textAlign = 'left';
       cctx.font = '48px Georgia';
       cctx.fillText(dict.title, 48, 120);
-
+  
       // nama
       cctx.font = '40px Georgia';
       cctx.fillStyle = '#fff';
       cctx.fillText(name, 48, 180);
-
+  
       // pesan pendek
       cctx.font = '20px Arial';
       cctx.fillStyle = '#fff';
       const message = dict.message;
-
-
+  
       (function drawWrapped(text, x, y, maxW, lineH) {
         const words = text.split(' ');
         let line = '';
@@ -1045,18 +1043,19 @@
         }
         if (line) cctx.fillText(line, x, y);
       })(message, 48, 230, W / 2 - 80, 30);
-
+  
+      // gambar tree
       const treeImg = new Image();
       treeImg.src = svgOut.data;
       await new Promise((res, rej) => {
         treeImg.onload = res;
         treeImg.onerror = rej;
       });
-
+  
       const tw = Math.min(420, W / 2);
       const th = (treeImg.height / treeImg.width) * tw;
       cctx.drawImage(treeImg, W - tw - 48, (H - th) / 2, tw, th);
-
+  
       const a = document.createElement('a');
       a.href = c.toDataURL('image/png');
       a.download = `card-${Date.now()}.png`;
@@ -1066,6 +1065,7 @@
       console.error(err);
     }
   });
+
 
   // recap slider
   const recapInner = document.getElementById('recapInner');
