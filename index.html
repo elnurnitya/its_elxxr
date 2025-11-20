@@ -985,12 +985,12 @@
   const cardDownloadTexts = {
     id: {
       title: 'Selamat Natal & Tahun Baru',
-      message: 'Semoga tahun yang baru membawa sukacita, kesehatan, dan banyak kenangan indah dalam hidupmu.',
+      message: 'Semoga Tahun Baru dipenuhi hari-hari yang lembut, kesehatan yang baik, dan momen-momen sukacita yang bisa kau bawa sepanjang tahun.\nKiranya anugerah Tuhan membuka pintu, menguatkan langkahmu, dan membawa damai di setiap musim hidupmu.',
       footer: 'Peluk Hangat & Cinta\nElnur Nitya'
     },
     en: {
       title: 'Merry Christmas & Happy New Year',
-      message: 'May the coming year bring you joy, good health, and beautiful memories to cherish.',
+      message: 'Wishing you a New Year filled with gentle days, good health, and joyful moments to carry with you.\nMay God’s grace open doors, strengthen your steps, and bring peace into every season of your life.',
       footer: 'With Big Hug & Love\nElnur Nitya'
     }
   };
@@ -1058,7 +1058,7 @@
       //  TITLE — NOW WRAPS
       // =========================
       cctx.fillStyle = "#ff4b5c";
-      cctx.shadowColor = "rgba(255,255,255,0.85)";
+      cctx.shadowColor = 'rgba(246,190,22,0.85)';
       cctx.shadowBlur = 18;
   
       let nextY = wrapTextCenter(
@@ -1079,8 +1079,8 @@
       if (name) {
         cctx.font = 'bold 60px "Georgia", serif';
         cctx.fillStyle = '#ffffff';
-        cctx.shadowColor = 'rgba(0,0,0,0.7)';
-        cctx.shadowBlur = 10;
+        cctx.shadowColor = 'rgba(246,190,22,0.85)';
+        cctx.shadowBlur = 18;
   
         cctx.textAlign = 'center';
         cctx.fillText(name, W / 2, nextY + 70);
@@ -1124,6 +1124,8 @@
         cctx.font = '34px "Georgia", serif';
         cctx.fillStyle = '#f5db76';
         cctx.textAlign = 'center';
+        cctx.shadowColor = 'rgba(0,0,0,0.85)';
+        cctx.shadowBlur = 18;
   
         const footerLines = dict.footer.split('\n');
         let fy = H - 150;
