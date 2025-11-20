@@ -594,26 +594,27 @@
 
   // isi pesan per bahasa
   const cardMessages = {
-    id: `Di Natal ini, aku berdoa agar rumahmu menjadi tempat di mana terang Kristus bersinar lebih terang, kasih tumbuh lebih dalam, dan sukacita dibagikan dengan tulus.
-    Kiranya kisah kelahiran-Nya mengingatkanmu bahwa apa pun yang terjadi selama tahun ini, Tuhan tetap bekerja, tetap mengasihi, dan tetap menuliskan sesuatu yang indah dalam hidupmu.
+    id: `Di Natal ini, aku berdoa agar rumahmu menjadi tempat di mana terang Kristus bersinar lebih terang, kasih tumbuh lebih dalam, dan sukacita dibagikan dengan tulus.<br>
+    Kiranya kisah kelahiran-Nya mengingatkanmu bahwa apa pun yang terjadi selama tahun ini, Tuhan tetap bekerja, tetap mengasihi, dan tetap menuliskan sesuatu yang indah dalam hidupmu.<br><br>
     
-    Saat Tahun Baru mendekat, kiranya Tuhan melingkupimu dengan perlindungan-Nya, memberkati rencanamu, menyembuhkan setiap luka, dan menuntun langkahmu menuju kesempatan-kesempatan yang penuh tujuan.
-    Kiranya hadirat-Nya menjadi penghiburanmu dan janji-Nya menjadi kekuatanmu.
+    Saat Tahun Baru mendekat, kiranya Tuhan melingkupimu dengan perlindungan-Nya, memberkati rencanamu, menyembuhkan setiap luka, dan menuntun langkahmu menuju kesempatan-kesempatan yang penuh tujuan.<br>
+    Kiranya hadirat-Nya menjadi penghiburanmu dan janji-Nya menjadi kekuatanmu.<br><br>
     
-    Selamat Natal dan Tahun Baru. Kiranya kasih Kristus menjadi dasar dari segala sesuatu yang akan datang.`,
+    <strong>Selamat Natal dan Tahun Baru.</strong?<br>
+    Kiranya kasih Kristus menjadi dasar dari segala sesuatu yang akan datang.`,
       
-    en: `This Christmas, I pray that your home becomes a place where Christ’s light shines brighter, where love grows deeper, and where joy is shared generously.
-    May the story of His birth remind you that no matter how the year has been, God is still working, still loving, and still writing something beautiful for your life.
+    en: `This Christmas, I pray that your home becomes a place where Christ’s light shines brighter, where love grows deeper, and where joy is shared generously.<br>
+    May the story of His birth remind you that no matter how the year has been, God is still working, still loving, and still writing something beautiful for your life.<br><br>
     
-    As the New Year approaches, may God surround you with His protection, bless your plans, heal every wound, and guide your steps into opportunities filled with purpose.
-    May His presence be your comfort and His promises be your strength.
+    As the New Year approaches, may God surround you with His protection, bless your plans, heal every wound, and guide your steps into opportunities filled with purpose.<br>
+    May His presence be your comfort and His promises be your strength.<br><br>
   
-    Merry Christmas and Happy New Year. May Christ’s love be the foundation of everything ahead.`
+    <strong>Merry Christmas and Happy New Year.</strong><br>
+    May Christ’s love be the foundation of everything ahead.`
   };
 
   function setMessageLanguage(lang) {
-    // isi teks pesan
-    messageText.textContent = cardMessages[lang];
+  messageText.innerHTML = cardMessages[lang];
 
     // judul card
     messageTitle.textContent = (lang === 'id')
