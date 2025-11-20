@@ -31,7 +31,6 @@
       padding: 18px;
     }
 
-    /* layout */
     .wrap {
       max-width: 980px;
       margin: 0 auto;
@@ -102,7 +101,7 @@
       background: url("Image/fourth of july fireworks GIF by hateplow.gif")
                   center/cover no-repeat;
       overflow: hidden;
-      z-index: 10; /* card selalu di atas salju */
+      z-index: 10;
     }
 
     .card::before {
@@ -120,8 +119,8 @@
     }
 
     .card.small {
-      width: 80vw;       /* 80% of viewport width */
-      max-width: 900px;  /* limit agar tetap cantik */
+      width: 80vw;
+      max-width: 900px;
       margin: 12px auto;
       padding: 32px;
       border-radius: 18px;
@@ -179,43 +178,38 @@
       margin: 0;
       color: var(--muted);
     }
-    
-    /* Jarak atas khusus paragraf di greeting card */
+
     #greetingCard .lead {
       margin-top: 18px;
     }
 
-    /* isi greeting card */
     .greeting-inner {
       text-align: center;
     }
 
-    /* H1 Nama — tampil spesial */
-    #greetName{
+    /* Nama spesial */
+    #greetName {
       font-family: "Georgia", serif;
       font-size: 42px;
       font-weight: 700;
-      color: #ffffff;              /* putih */
+      color: #ffffff;
       margin: 24px 0 28px;
       letter-spacing: 1px;
-    
-      /* glow putih */
       text-shadow:
         0 0 4px rgba(255, 255, 255, 0.45),
         0 0 10px rgba(255, 255, 255, 0.45),
         0 0 20px rgba(255, 255, 255, 0.35);
-    
       animation: nameGlow 3s ease-in-out infinite;
     }
 
-    @keyframes nameGlow{
-      0%, 100%{
+    @keyframes nameGlow {
+      0%, 100% {
         text-shadow:
           0 0 3px rgba(255, 255, 255, 0.35),
           0 0 8px rgba(255, 255, 255, 0.25),
           0 0 14px rgba(255, 255, 255, 0.2);
       }
-      50%{
+      50% {
         text-shadow:
           0 0 6px rgba(255, 255, 255, 0.7),
           0 0 14px rgba(255, 255, 255, 0.6),
@@ -223,40 +217,30 @@
       }
     }
 
-  /* responsif tetap boleh dipakai */
-  @media (max-width:640px){
-    #greetName{
-      font-size: 32px;
+    @media (max-width:640px){
+      #greetName{
+        font-size: 32px;
+      }
     }
-  }
-    
-    /* wrapper GIF */
+
     .card-gifs {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 12px;
       margin: 6px 0 10px;
-      overflow: visible;
     }
 
-    /* GIF khusus di greeting card – 60% lebar card */
     #greetingCard .card-gifs .gif {
       width: 60%;
       height: auto;
       object-fit: contain;
-      max-width: none;
       display: block;
       margin: 0 auto;
     }
 
-    /* animasi lembut */
     .card-gifs .santa {
       animation: santaFloat 2.6s ease-in-out infinite;
-    }
-
-    .card-gifs .firework {
-      animation: fireworkPulse 1.8s ease-in-out infinite;
     }
 
     @keyframes santaFloat {
@@ -264,29 +248,20 @@
       50% { transform: translateY(-6px); }
     }
 
-    @keyframes fireworkPulse {
-      0%, 100% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.12); opacity: 1; }
-    }
-
-    /* greeting card behavior */
     #greetingCard {
-      display: none;  /* akan di-set ke flex lewat JS */
+      display: none;
       cursor: pointer;
     }
 
-    /* Icon surat besar: 40% lebar card, di tengah */
-    #greetingCard .letter-icon{
+    .letter-icon {
       width: 15%;
-      max-width: 260px;        /* biar di layar besar nggak terlalu gede, optional */
+      max-width: 260px;
       height: auto;
       display: block;
-      margin: 16px auto 0;     /* center + jarak dari teks */
+      margin: 16px auto 0;
     }
 
-    
-    /* agar teks tidak terdorong */
-    .card .lead{
+    .card .lead {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -299,30 +274,24 @@
       }
     }
 
-
-    /* message */
+    /* MESSAGE CARD */
     #messageCard {
       display: none;
     }
 
-    /* Overlay gelap untuk isi pesan */
-    /* wrapper agar text nggak terlalu lebar */
     #messageCard #messageText {
-      width: 80%;                     /* 80% dari inner */
-      margin: 0 auto;                 /* center */
+      width: 80%;
+      margin: 0 auto;
       background: rgba(0, 0, 0, 0.55);
       padding: 16px 20px;
       border-radius: 14px;
       line-height: 1.55;
     }
-    
-    /* override rule .lead di card */
+
     #messageCard .lead {
       display: block;
       text-align: left;
     }
-
-
 
     /* tree area */
     #treeCard {
@@ -345,21 +314,6 @@
       margin: 0 auto;
     }
 
-    /* twinkling lights */
-    .light {
-      filter: drop-shadow(0 0 8px rgba(214, 40, 40, 0.6));
-    }
-
-    @keyframes twinkle {
-      0%   { opacity: 0.2; transform: scale(0.9); }
-      50%  { opacity: 1;   transform: scale(1.08); }
-      100% { opacity: 0.25;transform: scale(0.95); }
-    }
-
-    .light--a { animation: twinkle 1.6s infinite ease-in-out; }
-    .light--b { animation: twinkle 1.9s infinite ease-in-out; }
-    .light--c { animation: twinkle 2.2s infinite ease-in-out; }
-
     /* wish list */
     #wishList {
       max-width: 460px;
@@ -378,7 +332,7 @@
       align-items: center;
       gap: 8px;
     }
-    
+
     .wish-delete {
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -388,11 +342,11 @@
       font-size: 11px;
       cursor: pointer;
     }
-    
+
     .wish-delete:hover {
       background: var(--red);
     }
-    
+
     .wish-note {
       margin-top: 6px;
       font-size: 12px;
@@ -402,8 +356,6 @@
       margin-right: auto;
     }
 
-
-    /* controls */
     .controls {
       display: flex;
       gap: 8px;
@@ -416,7 +368,6 @@
       justify-content: flex-end;
     }
 
-
     .download-btn {
       background: var(--red);
       border: none;
@@ -424,22 +375,6 @@
       padding: 10px 14px;
       border-radius: 10px;
       cursor: pointer;
-    }
-
-    /* recap */
-    #recap {
-      display: none;
-    }
-
-    .recap-slider {
-      display: flex;
-      gap: 12px;
-      overflow: hidden;
-    }
-
-    .recap-slide {
-      min-width: 100%;
-      transition: transform .4s;
     }
 
     /* snow (canvas) overlay */
@@ -450,12 +385,10 @@
       z-index: -1;
     }
 
-    /* subtle glow around cards */
     .glow {
       box-shadow: 0 8px 40px rgba(214, 40, 40, 0.12);
     }
 
-    /* responsive */
     @media (max-width: 640px) {
       .card-title {
         font-size: 32px;
@@ -493,7 +426,6 @@
         <span class="title-white">Happy New Year</span>
       </div>
 
-      <!-- nama orang, akan diisi via JS -->
       <h1 id="greetName"></h1>
 
       <div class="card-gifs">
@@ -505,7 +437,7 @@
       <p class="lead">
         Click this card to open your special message.
       </p>
-      
+
       <svg class="letter-icon"
            viewBox="0 0 24 24"
            fill="none"
@@ -516,14 +448,12 @@
         <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
         <polyline points="3 7 12 13 21 7"></polyline>
       </svg>
-
     </div>
   </div>
-  
-    <!-- MESSAGE CARD -->
+
+  <!-- MESSAGE CARD -->
   <div id="messageCard" class="card">
     <div class="inner">
-      <!-- Language toggle -->
       <div class="controls lang-toggle" style="margin-bottom: 10px;">
         <button class="btn btn-lang" data-lang="id">Indonesia</button>
         <button class="btn btn-lang" data-lang="en">English</button>
@@ -538,38 +468,36 @@
     </div>
   </div>
 
-
-  <!-- WISH TREE CARD -->
+  <!-- WISH TREE CARD (CARD TERAKHIR) -->
   <div id="treeCard" class="card center">
     <div id="tree-wrap">
       <svg class="tree-svg" viewBox="0 0 200 330" xmlns="http://www.w3.org/2000/svg" id="svgTree">
 
         <!-- batang -->
         <rect x="90" y="250" width="20" height="60" rx="2" fill="#5b3a2e"></rect>
-      
+
         <!-- Layer 5 (paling bawah - paling lebar) -->
         <polygon points="100,160 20,250 180,250" fill="#084523"></polygon>
-      
+
         <!-- Layer 4 -->
         <polygon points="100,130 27.5,220 172.5,220" fill="#0a5c2f"></polygon>
-      
+
         <!-- Layer 3 -->
         <polygon points="100,100 35,190 165,190" fill="#0d733b"></polygon>
-      
+
         <!-- Layer 2 -->
         <polygon points="100,70 42.5,160 157.5,160" fill="#0f8a46"></polygon>
-      
+
         <!-- Layer 1 (paling atas - paling kecil) -->
         <polygon points="100,40 50,130 150,130" fill="#12a152"></polygon>
-      
+
         <g id="wishTextGroup"></g>
-      
+
         <!-- bintang -->
         <polygon points="100,18 105,30 118,30 108,38 112,50 
                          100,42 88,50 92,38 82,30 95,30"
             fill="#ffd166"></polygon>
       </svg>
-
 
       <div style="margin-top:12px">
         <input id="wishInput"
@@ -577,31 +505,17 @@
                style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);width:260px;background:transparent;color:inherit">
         <button class="btn" id="addWish">Tambah</button>
       </div>
-      
+
       <p id="wishNote" class="wish-note">
         Catatan: Tulis 1 kata saja per wish (misalnya: Kesehatan, Keluarga, Damai). Maksimal 10 wish. Tekan Enter atau klik Tambah. Klik "Hapus" untuk menghapus wish.
       </p>
-      
+
       <div id="wishList"></div>
 
       <div class="controls" style="margin-top:12px">
         <button class="download-btn" id="downloadCardBtn">Download Card (PNG)</button>
         <button class="download-btn" id="downloadTreeBtn">Download Tree (PNG)</button>
       </div>
-    </div>
-  </div>
-
-  <!-- RECAP -->
-  <div id="recap" class="card">
-    <div class="card-title">Recap Tahun Ini</div>
-    <div class="recap-slider" id="recapSlider" style="overflow:hidden;position:relative">
-      <div class="recap-slide" id="recapInner" style="display:flex;transition:transform .45s">
-        <!-- slides injected -->
-      </div>
-    </div>
-    <div class="controls" style="margin-top:12px">
-      <button class="btn" id="prevSlide">Prev</button>
-      <button class="btn" id="nextSlide">Next</button>
     </div>
   </div>
 </div>
@@ -614,27 +528,16 @@
   const greetCard   = document.getElementById('greetingCard');
   const messageCard = document.getElementById('messageCard');
   const treeCard    = document.getElementById('treeCard');
-  const recapCard   = document.getElementById('recap');
   const greetName   = document.getElementById('greetName');
   const btnOpenTree = document.getElementById('btnOpenTree');
 
-    // elemen untuk message card multi-bahasa
+  // multi-bahasa untuk message card
   const messageTitle = document.getElementById('messageTitle');
   const messageText  = document.getElementById('messageText');
   const langButtons  = document.querySelectorAll('.btn-lang');
 
   let currentLang = 'en';
 
-  langButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const lang = btn.dataset.lang; // 'id' atau 'en'
-      setMessageLanguage(lang);
-      // kalau mau, sekalian sync placeholder wish tree
-      syncTreeLanguage();
-    });
-  });
-
-  // isi pesan per bahasa
   const cardMessages = {
     id: `Di Natal ini, aku berdoa agar rumahmu menjadi tempat di mana terang Kristus bersinar lebih terang, kasih tumbuh lebih dalam, dan sukacita dibagikan dengan tulus.<br><br>
     Kiranya kisah kelahiran-Nya mengingatkanmu bahwa apa pun yang terjadi selama tahun ini, Tuhan tetap bekerja, tetap mengasihi, dan tetap menuliskan sesuatu yang indah dalam hidupmu.<br><br>
@@ -656,29 +559,33 @@
   };
 
   function setMessageLanguage(lang) {
-      currentLang = lang;  // simpan bahasa aktif
-    
-      messageText.innerHTML = cardMessages[lang];
-    
-      // judul card
-      messageTitle.textContent = (lang === 'id')
-        ? 'Pesan Hangat'
-        : 'Warm Message';
-    
-      // teks tombol buka tree
-      btnOpenTree.textContent = (lang === 'id')
-        ? 'Buka Wish Tree'
-        : 'Open Wish Tree';
-    
-      // styling tombol aktif
-      langButtons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
-      });
-    }
+    currentLang = lang;
+    messageText.innerHTML = cardMessages[lang];
 
-  // default: Indonesia
+    messageTitle.textContent = (lang === 'id')
+      ? 'Pesan Hangat'
+      : 'Warm Message';
+
+    btnOpenTree.textContent = (lang === 'id')
+      ? 'Buka Wish Tree'
+      : 'Open Wish Tree';
+
+    langButtons.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+
+    syncTreeLanguage();
+  }
+
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang;
+      setMessageLanguage(lang);
+    });
+  });
+
+  // default: English
   setMessageLanguage('en');
-
 
   // snow
   const canvas = document.getElementById('snow-canvas');
@@ -725,13 +632,13 @@
   initSnow(160);
   renderSnow();
 
-  // flow: name -> greeting -> message -> tree -> recap
+  // flow: name -> greeting -> message -> tree
   btnStart.onclick = () => {
     const name = document.getElementById('username').value.trim();
     if (!name) return alert('Isi nama dulu ya');
     nameModal.style.display = 'none';
     greetName.innerText = name;
-    greetCard.style.display = 'flex'; // penting: biar tetap center (flex)
+    greetCard.style.display = 'flex';
   };
 
   greetCard.onclick = () => {
@@ -744,25 +651,24 @@
   btnOpenTree.onclick = () => {
     messageCard.style.display = 'none';
     treeCard.style.display = 'block';
-    syncTreeLanguage(); // set bahasa untuk wish tree
+    syncTreeLanguage();
   };
 
-
-  // WISH TEXT PLACEMENT
-  const svgTree   = document.getElementById('svgTree');
-  const wishGroup = document.getElementById('wishTextGroup');
-  const wishInput = document.getElementById('wishInput');
-  const addWishBtn = document.getElementById('addWish');
-  const wishListEl = document.getElementById('wishList');
-  let wishes = [];
-
-  const wishNote = document.getElementById('wishNote');
+  // WISH TREE
+  const svgTree     = document.getElementById('svgTree');
+  const wishGroup   = document.getElementById('wishTextGroup');
+  const wishInput   = document.getElementById('wishInput');
+  const addWishBtn  = document.getElementById('addWish');
+  const wishListEl  = document.getElementById('wishList');
+  const wishNote    = document.getElementById('wishNote');
   const downloadCardBtn = document.getElementById('downloadCardBtn');
   const downloadTreeBtn = document.getElementById('downloadTreeBtn');
-  
+
+  let wishes = [];
+
   function syncTreeLanguage() {
     if (!wishInput) return;
-  
+
     if (currentLang === 'id') {
       wishInput.placeholder = 'Tulis satu kata untuk wish-mu (maks. 10 wish)';
       addWishBtn.textContent = 'Tambah';
@@ -778,35 +684,32 @@
       downloadCardBtn.textContent = 'Download Card (PNG)';
       downloadTreeBtn.textContent = 'Download Tree (PNG)';
     }
-  
-    // refresh label tombol Hapus/Delete di list
+
     renderWishes();
   }
 
+  function computePositionForIndex(idx) {
+    const centerX = 100;
 
- function computePositionForIndex(idx) {
-  const centerX = 100;
+    // wish pertama di paling atas tengah
+    if (idx === 0) {
+      return { x: centerX, y: 60, row: 0 };
+    }
 
-  // baris paling atas: 1 wish di tengah
-  if (idx === 0) {
-    return { x: centerX, y: 60, row: 0 };
+    // setelah itu: setiap baris isi max 2 wish
+    const pairIndex = idx - 1;
+    const row = Math.floor(pairIndex / 2) + 1;
+    const posInRow = pairIndex % 2;
+
+    const yStart = 95;
+    const rowSpacing = 35;
+    const y = yStart + (row - 1) * rowSpacing;
+
+    const xOffset = 30;
+    const x = posInRow === 0 ? centerX - xOffset : centerX + xOffset;
+
+    return { x, y, row };
   }
-
-  // setelah itu: tiap baris berisi max 2 wish (kiri & kanan)
-  const pairIndex = idx - 1;             // mulai dari 0 untuk wish ke-2
-  const row = Math.floor(pairIndex / 2) + 1; // baris ke-1 di bawah, dst.
-  const posInRow = pairIndex % 2;        // 0 = kiri, 1 = kanan
-
-  const yStart = 95;                     // tinggi baris pertama di bawah
-  const rowSpacing = 35;                 // jarak antar baris
-  const y = yStart + (row - 1) * rowSpacing;
-
-  const xOffset = 30;                    // jarak dari tengah ke kiri/kanan
-  const x = posInRow === 0 ? centerX - xOffset : centerX + xOffset;
-
-  return { x, y, row };
-}
-
 
   function wrapText(text, maxChars = 20) {
     const words = text.split(' ');
@@ -834,7 +737,6 @@
     txt.setAttribute('font-size', '10');
     txt.setAttribute('font-weight', '600');
     txt.setAttribute('text-anchor', 'middle');
-    txt.setAttribute('pointer-events', 'visible');
 
     const lines = wrapText(text, 16);
     const startDy = -(lines.length - 1) * 7;
@@ -857,18 +759,16 @@
   function renderWishes() {
     wishGroup.innerHTML = '';
     wishListEl.innerHTML = '';
-  
+
     wishes.forEach((w, i) => {
-      // taruh teks di pohon
       placeWishText(w, i);
-  
-      // item list di bawah
+
       const d = document.createElement('div');
       d.className = 'wish-item';
-  
+
       const span = document.createElement('span');
       span.innerHTML = `<strong>${i + 1}.</strong> ${w}`;
-  
+
       const delBtn = document.createElement('button');
       delBtn.className = 'wish-delete';
       delBtn.textContent = (currentLang === 'id') ? 'Hapus' : 'Delete';
@@ -876,17 +776,16 @@
         wishes.splice(i, 1);
         renderWishes();
       });
-  
+
       d.appendChild(span);
       d.appendChild(delBtn);
       wishListEl.appendChild(d);
     });
   }
 
+  addWishBtn.onclick = () => {
+    const raw = wishInput.value.trim();
 
- addWishBtn.onclick = () => {
-  const raw = wishInput.value.trim();
-    // kosong
     if (!raw) {
       return alert(
         currentLang === 'id'
@@ -894,8 +793,7 @@
           : 'Please write a wish first.'
       );
     }
-  
-    // maksimal 10 wish
+
     if (wishes.length >= 10) {
       return alert(
         currentLang === 'id'
@@ -903,8 +801,7 @@
           : 'Maximum 10 wishes for this tree.'
       );
     }
-  
-    // hanya 1 kata (cek spasi)
+
     const parts = raw.split(/\s+/).filter(Boolean);
     if (parts.length > 1) {
       return alert(
@@ -913,10 +810,10 @@
           : 'For the wish tree, please type only one word. For example: Health, Family, Peace.'
       );
     }
-  
+
     const v = parts[0];
     if (!v) return;
-  
+
     wishes.push(v);
     renderWishes();
     wishInput.value = '';
@@ -928,7 +825,6 @@
       addWishBtn.click();
     }
   });
-
 
   // SVG -> PNG helper
   function svgToDataUrl(svgEl, scale = 2) {
@@ -963,25 +859,6 @@
     });
   }
 
-  // DOWNLOAD Tree
-  document.getElementById('downloadTreeBtn').addEventListener('click', async () => {
-    try {
-      const svg = document.getElementById('svgTree');
-      const out = await svgToDataUrl(svg, 2);
-      const a = document.createElement('a');
-      a.href = out.data;
-      a.download = `wish-tree-${Date.now()}.png`;
-      a.click();
-      setTimeout(() => {
-        treeCard.style.display = 'none';
-        recapCard.style.display = 'block';
-      }, 600);
-    } catch (err) {
-      alert('Gagal generate tree: ' + err);
-      console.error(err);
-    }
-  });
-
   const cardDownloadTexts = {
     id: {
       title: 'Selamat Natal & Tahun Baru',
@@ -995,47 +872,61 @@
     }
   };
 
+  // DOWNLOAD Tree – tetap di treeCard (tidak pindah ke card lain)
+  downloadTreeBtn.addEventListener('click', async () => {
+    try {
+      const svg = document.getElementById('svgTree');
+      const out = await svgToDataUrl(svg, 2);
+      const a = document.createElement('a');
+      a.href = out.data;
+      a.download = `wish-tree-${Date.now()}.png`;
+      a.click();
+    } catch (err) {
+      alert('Gagal generate tree: ' + err);
+      console.error(err);
+    }
+  });
+
+  // DOWNLOAD Card 9:16
   document.getElementById('downloadCardBtn').addEventListener('click', async () => {
     try {
       const svg = document.getElementById('svgTree');
       const svgOut = await svgToDataUrl(svg, 2);
-  
-      // --- load BACKGROUND IMAGE ---
+
+      // background card
       const bgImg = await new Promise((resolve, reject) => {
         const img = new Image();
-        img.src = 'Image/bacground_card.jpg'; // sesuaikan nama file/background
+        img.src = 'Image/bacground_card.jpg';
         img.onload = () => resolve(img);
         img.onerror = reject;
       });
-  
-      // === Kanvas 9:16 (Story) ===
+
       const W = 1080;
       const H = 1920;
       const c = document.createElement('canvas');
       const cctx = c.getContext('2d');
       c.width = W;
       c.height = H;
-  
-      // ===== BACKGROUND =====
+
+      // background
       cctx.drawImage(bgImg, 0, 0, W, H);
-  
-      // ===== OVERLAY GELAP =====
+
+      // overlay gelap
       cctx.fillStyle = 'rgba(0,0,0,0.45)';
       cctx.fillRect(0, 0, W, H);
-  
+
       const name = greetName.innerText || '';
       const dict = cardDownloadTexts[currentLang] || cardDownloadTexts.id;
-  
-      // ========== WRAP HELPER ==========
+
       function wrapTextCenter(text, font, x, y, maxWidth, lineHeight) {
         cctx.font = font;
         cctx.textAlign = "center";
-  
+
         const words = text.split(" ");
         let line = "";
         let testLine = "";
         let lines = [];
-  
+
         for (let i = 0; i < words.length; i++) {
           testLine = line + words[i] + " ";
           if (cctx.measureText(testLine).width > maxWidth && i > 0) {
@@ -1046,150 +937,99 @@
           }
         }
         lines.push(line);
-  
+
         lines.forEach((ln, i) => {
           cctx.fillText(ln.trim(), x, y + i * lineHeight);
         });
-  
+
         return y + lines.length * lineHeight;
       }
-  
-      // =========================
-      //  TITLE — NOW WRAPS
-      // =========================
+
+      // TITLE merah
       cctx.fillStyle = "#ff4b5c";
-      cctx.shadowColor = 'rgba(0,0,0,0.85)';
+      cctx.shadowColor = 'rgba(255,255,255,0.85)';
       cctx.shadowBlur = 18;
-  
+
       let nextY = wrapTextCenter(
         dict.title,
-        'bold 72px "Georgia", serif',   // TITLE BESAR  
+        'bold 72px "Georgia", serif',
         W / 2,
-        170,                           // posisi awal
-        W - 200,                       // max width
-        80                             // jarak antar baris
+        170,
+        W - 200,
+        80
       );
-  
-      // RESET SHADOW
+
       cctx.shadowBlur = 0;
-  
-      // =========================
-      //  NAMA (lebih besar)
-      // =========================
+
+      // Nama
       if (name) {
         cctx.font = 'bold 60px "Georgia", serif';
         cctx.fillStyle = '#ffffff';
         cctx.shadowColor = 'rgba(246,190,22,0.85)';
         cctx.shadowBlur = 18;
-  
+
         cctx.textAlign = 'center';
         cctx.fillText(name, W / 2, nextY + 70);
-  
+
         cctx.shadowBlur = 0;
         nextY += 120;
       }
-  
-      // =========================
-      //  MESSAGE — lebih besar
-      // =========================
+
+      // Pesan putih
       cctx.fillStyle = "#ffffff";
       nextY = wrapTextCenter(
         dict.message,
-        '40px "Georgia", serif',   // lebih besar
+        '40px "Georgia", serif',
         W / 2,
         nextY + 60,
-        W - 240,                   // margin lebih aman
+        W - 240,
         50
       );
-  
-      // =========================
-      //  POHON — tetap tengah
-      // =========================
+
+      // Pohon
       const treeImg = new Image();
       treeImg.src = svgOut.data;
       await new Promise((res, rej) => {
         treeImg.onload = res;
         treeImg.onerror = rej;
       });
-  
+
       const tw = 620;
       const th = (treeImg.height / treeImg.width) * tw;
-  
+
       cctx.drawImage(treeImg, (W - tw) / 2, nextY + 80, tw, th);
-  
-      // =========================
-      //  FOOTER — lebih besar
-      // =========================
+
+      // Footer
       if (dict.footer) {
         cctx.font = '34px "Georgia", serif';
         cctx.fillStyle = '#f5db76';
         cctx.textAlign = 'center';
         cctx.shadowColor = 'rgba(0,0,0,0.85)';
         cctx.shadowBlur = 18;
-  
+
         const footerLines = dict.footer.split('\n');
         let fy = H - 150;
-  
+
         footerLines.forEach(line => {
           cctx.fillText(line, W / 2, fy);
           fy += 46;
         });
       }
-  
-      // =========================
-      //  DOWNLOAD
-      // =========================
+
       const a = document.createElement("a");
       a.href = c.toDataURL("image/png");
       a.download = `card-${Date.now()}.png`;
       a.click();
-  
+
     } catch (err) {
       alert("Gagal generate card: " + err);
       console.error(err);
     }
   });
-  
-  // recap slider
-  const recapInner = document.getElementById('recapInner');
-  const recapImages = [];
-  for (let i = 1; i <= 6; i++) {
-    const url = `https://picsum.photos/seed/recap${i}/900/500`;
-    recapImages.push(url);
-  }
 
-  recapImages.forEach(u => {
-    const s = document.createElement('div');
-    s.style.minWidth = '100%';
-    s.innerHTML = `<img src="${u}" style="width:100%;height:auto;border-radius:10px;display:block">`;
-    recapInner.appendChild(s);
-  });
-
-  let slideIndex = 0;
-  function showSlide(idx) {
-    recapInner.style.transform = `translateX(-${idx * 100}%)`;
-  }
-
-  document.getElementById('nextSlide').onclick = () => {
-    slideIndex = Math.min(slideIndex + 1, recapImages.length - 1);
-    showSlide(slideIndex);
-  };
-
-  document.getElementById('prevSlide').onclick = () => {
-    slideIndex = Math.max(slideIndex - 1, 0);
-    showSlide(slideIndex);
-  };
-
-  function goToRecap() {
-    treeCard.style.display = 'none';
-    recapCard.style.display = 'block';
-  }
-  window.goToRecap = goToRecap;
-
-  // initial: hide message & tree & recap until flow
+  // initial hide
   messageCard.style.display = 'none';
   treeCard.style.display = 'none';
-  recapCard.style.display = 'none';
 </script>
 </body>
 </html>
