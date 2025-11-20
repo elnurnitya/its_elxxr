@@ -625,6 +625,15 @@
 
   let currentLang = 'en';
 
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang; // 'id' atau 'en'
+      setMessageLanguage(lang);
+      // kalau mau, sekalian sync placeholder wish tree
+      syncTreeLanguage();
+    });
+  });
+
   // isi pesan per bahasa
   const cardMessages = {
     id: `Di Natal ini, aku berdoa agar rumahmu menjadi tempat di mana terang Kristus bersinar lebih terang, kasih tumbuh lebih dalam, dan sukacita dibagikan dengan tulus.<br><br>
