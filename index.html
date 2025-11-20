@@ -373,7 +373,35 @@
       margin: 8px 0;
       border-radius: 8px;
       border-left: 4px solid var(--red);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
     }
+    
+    .wish-delete {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    
+    .wish-delete:hover {
+      background: var(--red);
+    }
+    
+    .wish-note {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 260px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
 
     /* controls */
     .controls {
@@ -545,11 +573,15 @@
 
       <div style="margin-top:12px">
         <input id="wishInput"
-               placeholder="Tulis wish... (bisa banyak)"
+               placeholder="Tulis satu kata untuk wish-mu (maks. 10 wish)"
                style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);width:260px;background:transparent;color:inherit">
         <button class="btn" id="addWish">Tambah</button>
       </div>
-
+      
+      <p id="wishNote" class="wish-note">
+        Catatan: Tulis 1 kata saja per wish (misalnya: Kesehatan, Keluarga, Damai). Maksimal 10 wish. Tekan Enter atau klik Tambah. Klik "Hapus" untuk menghapus wish.
+      </p>
+      
       <div id="wishList"></div>
 
       <div class="controls" style="margin-top:12px">
@@ -591,6 +623,8 @@
   const messageText  = document.getElementById('messageText');
   const langButtons  = document.querySelectorAll('.btn-lang');
 
+  let currentLang = 'en';
+
   // isi pesan per bahasa
   const cardMessages = {
     id: `Di Natal ini, aku berdoa agar rumahmu menjadi tempat di mana terang Kristus bersinar lebih terang, kasih tumbuh lebih dalam, dan sukacita dibagikan dengan tulus.<br><br>
@@ -613,34 +647,28 @@
   };
 
   function setMessageLanguage(lang) {
-  messageText.innerHTML = cardMessages[lang];
-
-    // judul card
-    messageTitle.textContent = (lang === 'id')
-      ? 'Pesan Hangat'
-      : 'Warm Message';
-
-    // teks tombol buka tree
-    btnOpenTree.textContent = (lang === 'id')
-      ? 'Buka Wish Tree'
-      : 'Open Wish Tree';
-
-    // styling tombol aktif
-    langButtons.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.lang === lang);
-    });
-  }
-
-  // event klik untuk tombol bahasa
-  langButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const lang = btn.dataset.lang;
-      setMessageLanguage(lang);
-    });
-  });
+      currentLang = lang;  // simpan bahasa aktif
+    
+      messageText.innerHTML = cardMessages[lang];
+    
+      // judul card
+      messageTitle.textContent = (lang === 'id')
+        ? 'Pesan Hangat'
+        : 'Warm Message';
+    
+      // teks tombol buka tree
+      btnOpenTree.textContent = (lang === 'id')
+        ? 'Buka Wish Tree'
+        : 'Open Wish Tree';
+    
+      // styling tombol aktif
+      langButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+    }
 
   // default: Indonesia
-  setMessageLanguage('id');
+  setMessageLanguage('en');
 
 
   // snow
@@ -707,7 +735,9 @@
   btnOpenTree.onclick = () => {
     messageCard.style.display = 'none';
     treeCard.style.display = 'block';
+    syncTreeLanguage(); // set bahasa untuk wish tree
   };
+
 
   // WISH TEXT PLACEMENT
   const svgTree   = document.getElementById('svgTree');
@@ -716,6 +746,34 @@
   const addWishBtn = document.getElementById('addWish');
   const wishListEl = document.getElementById('wishList');
   let wishes = [];
+
+  const wishNote = document.getElementById('wishNote');
+  const downloadCardBtn = document.getElementById('downloadCardBtn');
+  const downloadTreeBtn = document.getElementById('downloadTreeBtn');
+  
+  function syncTreeLanguage() {
+    if (!wishInput) return;
+  
+    if (currentLang === 'id') {
+      wishInput.placeholder = 'Tulis satu kata untuk wish-mu (maks. 10 wish)';
+      addWishBtn.textContent = 'Tambah';
+      wishNote.textContent =
+        'Catatan: Tulis 1 kata saja per wish (misalnya: Kesehatan, Keluarga, Damai). Maksimal 10 wish. Tekan Enter atau klik Tambah. Klik "Hapus" untuk menghapus wish.';
+      downloadCardBtn.textContent = 'Unduh Kartu (PNG)';
+      downloadTreeBtn.textContent = 'Unduh Pohon (PNG)';
+    } else {
+      wishInput.placeholder = 'Type one word for your wish (max 10 wishes)';
+      addWishBtn.textContent = 'Add';
+      wishNote.textContent =
+        'Note: Type 1 word only for each wish (for example: Health, Family, Peace). Maximum 10 wishes. Press Enter or click Add. Click "Delete" to remove a wish.';
+      downloadCardBtn.textContent = 'Download Card (PNG)';
+      downloadTreeBtn.textContent = 'Download Tree (PNG)';
+    }
+  
+    // refresh label tombol Hapus/Delete di list
+    renderWishes();
+  }
+
 
   function computePositionForIndex(idx) {
     let level = 0, cumulative = 0;
@@ -774,29 +832,78 @@
     });
 
     txt.addEventListener('click', () => {
-      alert('Wish: ' + text);
+      const msg = (currentLang === 'id' ? 'Wish-mu: ' : 'Your wish: ');
+      alert(msg + text);
     });
 
     wishGroup.appendChild(txt);
   }
 
-  function renderWishList() {
+  function renderWishes() {
+    wishGroup.innerHTML = '';
     wishListEl.innerHTML = '';
+  
     wishes.forEach((w, i) => {
+      // taruh teks di pohon
+      placeWishText(w, i);
+  
+      // item list di bawah
       const d = document.createElement('div');
       d.className = 'wish-item';
-      d.innerHTML = `<strong>${i + 1}.</strong> ${w}`;
+  
+      const span = document.createElement('span');
+      span.innerHTML = `<strong>${i + 1}.</strong> ${w}`;
+  
+      const delBtn = document.createElement('button');
+      delBtn.className = 'wish-delete';
+      delBtn.textContent = (currentLang === 'id') ? 'Hapus' : 'Delete';
+      delBtn.addEventListener('click', () => {
+        wishes.splice(i, 1);
+        renderWishes();
+      });
+  
+      d.appendChild(span);
+      d.appendChild(delBtn);
       wishListEl.appendChild(d);
     });
   }
 
-  addWishBtn.onclick = () => {
-    const v = wishInput.value.trim();
-    if (!v) return alert('Tulis harapan dulu');
-    const idx = wishes.length;
+
+ addWishBtn.onclick = () => {
+  const raw = wishInput.value.trim();
+    // kosong
+    if (!raw) {
+      return alert(
+        currentLang === 'id'
+          ? 'Tulis harapan dulu, ya.'
+          : 'Please write a wish first.'
+      );
+    }
+  
+    // maksimal 10 wish
+    if (wishes.length >= 10) {
+      return alert(
+        currentLang === 'id'
+          ? 'Maksimal 10 wish saja ya untuk pohon ini.'
+          : 'Maximum 10 wishes for this tree.'
+      );
+    }
+  
+    // hanya 1 kata (cek spasi)
+    const parts = raw.split(/\s+/).filter(Boolean);
+    if (parts.length > 1) {
+      return alert(
+        currentLang === 'id'
+          ? 'Untuk wish tree, tulis 1 kata saja. Misalnya: Kesehatan, Keluarga, Damai.'
+          : 'For the wish tree, please type only one word. For example: Health, Family, Peace.'
+      );
+    }
+  
+    const v = parts[0];
+    if (!v) return;
+  
     wishes.push(v);
-    placeWishText(v, idx);
-    renderWishList();
+    renderWishes();
     wishInput.value = '';
   };
 
@@ -806,6 +913,7 @@
       addWishBtn.click();
     }
   });
+
 
   // SVG -> PNG helper
   function svgToDataUrl(svgEl, scale = 2) {
