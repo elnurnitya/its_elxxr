@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,77 +7,254 @@
 
   <style>
     :root {
-      --bg: #fff7f3;
+      --bg-1: #fff7f3;
+      --bg-2: #ffe5df;
+      --bg-3: #f8c8dc;
+      --text: #382b2b;
+      --muted: #7a6666;
       --primary: #b85c70;
-      --secondary: #f3c5c5;
-      --text: #3b2f2f;
-      --muted: #7a6a6a;
-      --card: #ffffff;
-      --accent: #8f4068;
+      --secondary: #8f4068;
+      --card: rgba(255, 255, 255, 0.82);
+      --border: rgba(255, 255, 255, 0.65);
+      --shadow: rgba(143, 64, 104, 0.16);
+      --glow: rgba(255, 255, 255, 0.55);
+    }
+
+    body.morning {
+      --bg-1: #fff4d6;
+      --bg-2: #ffd9b3;
+      --bg-3: #ffe9ef;
+      --primary: #bd6b3f;
+      --secondary: #9b4d2b;
+      --shadow: rgba(189, 107, 63, 0.18);
+    }
+
+    body.afternoon {
+      --bg-1: #eaf6ff;
+      --bg-2: #cbe8ff;
+      --bg-3: #fff2d9;
+      --primary: #3f7fb5;
+      --secondary: #285f8f;
+      --shadow: rgba(63, 127, 181, 0.18);
+    }
+
+    body.evening {
+      --bg-1: #ffe2c7;
+      --bg-2: #d99ac5;
+      --bg-3: #7b5ea7;
+      --primary: #8f4068;
+      --secondary: #57366f;
+      --shadow: rgba(87, 54, 111, 0.22);
+    }
+
+    body.night {
+      --bg-1: #111827;
+      --bg-2: #1f2937;
+      --bg-3: #53346d;
+      --text: #fff7f3;
+      --muted: #d6c9d6;
+      --primary: #f4a7c2;
+      --secondary: #ffd6e7;
+      --card: rgba(255, 255, 255, 0.12);
+      --border: rgba(255, 255, 255, 0.18);
+      --shadow: rgba(0, 0, 0, 0.35);
+      --glow: rgba(255, 255, 255, 0.16);
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Georgia", serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background: linear-gradient(135deg, #fff7f3, #ffe5df);
-      color: var(--text);
       min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, var(--glow), transparent 28%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2), var(--bg-3));
+      overflow-x: hidden;
+      transition: background 1s ease, color 0.6s ease;
     }
 
-    .container {
-      width: min(1100px, 90%);
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(4px);
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+      animation: floatOrb 9s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 220px;
+      height: 220px;
+      background: white;
+      top: 8%;
+      left: -60px;
+    }
+
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: var(--primary);
+      right: -120px;
+      bottom: 8%;
+      animation-delay: 1.5s;
+    }
+
+    .orb-3 {
+      width: 150px;
+      height: 150px;
+      background: var(--secondary);
+      right: 18%;
+      top: 18%;
+      animation-delay: 3s;
+    }
+
+    @keyframes floatOrb {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-24px) scale(1.06);
+      }
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      width: min(1120px, 90%);
       margin: auto;
-      padding: 60px 0;
+      padding: 52px 0 36px;
     }
 
     .hero {
       text-align: center;
-      padding: 60px 20px 40px;
+      padding: 56px 0 42px;
+      animation: fadeUp 0.9s ease both;
     }
 
-    .hero span {
-      display: inline-block;
-      background: #ffffffaa;
+    .time-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--border);
       color: var(--primary);
-      padding: 8px 18px;
-      border-radius: 50px;
       font-size: 14px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 28px var(--shadow);
+      backdrop-filter: blur(14px);
       margin-bottom: 20px;
-      letter-spacing: 1px;
     }
 
     .hero h1 {
-      font-size: clamp(38px, 6vw, 72px);
-      color: var(--accent);
-      margin-bottom: 18px;
-      line-height: 1.1;
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: 0.98;
+      color: var(--secondary);
+      margin-bottom: 22px;
+      letter-spacing: -2px;
     }
 
-    .hero p {
-      max-width: 650px;
+    .hero .subtitle {
+      max-width: 720px;
       margin: auto;
-      font-size: 18px;
       color: var(--muted);
-      line-height: 1.7;
+      font-size: 18px;
+      line-height: 1.8;
     }
 
-    .section-title {
+    .names-card {
+      margin: 26px auto 0;
+      max-width: 760px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 48px var(--shadow);
+      border-radius: 28px;
+      padding: 22px;
+      backdrop-filter: blur(16px);
+      animation: fadeUp 1s ease both;
+      animation-delay: 0.1s;
+    }
+
+    .names-card h2 {
+      color: var(--secondary);
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .names-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .name-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 12px;
+    }
+
+    input {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.72);
+      padding: 13px 15px;
+      border-radius: 16px;
+      font-size: 15px;
+      color: #382b2b;
+      outline: none;
+      font-family: inherit;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(184, 92, 112, 0.12);
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .save-btn {
+      padding: 13px 20px;
+      border-radius: 16px;
+      background: var(--secondary);
+      color: white;
+      font-size: 15px;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .save-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px var(--shadow);
+    }
+
+    .section-heading {
       text-align: center;
-      margin: 40px 0 30px;
+      margin: 62px 0 26px;
+      animation: fadeUp 1s ease both;
     }
 
-    .section-title h2 {
-      font-size: 34px;
-      color: var(--accent);
+    .section-heading h2 {
+      font-size: clamp(30px, 4vw, 44px);
+      color: var(--secondary);
       margin-bottom: 10px;
     }
 
-    .section-title p {
+    .section-heading p {
       color: var(--muted);
       font-size: 16px;
     }
@@ -85,131 +262,223 @@
     .letters {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 22px;
-      margin-top: 30px;
+      gap: 20px;
     }
 
     .letter-card {
+      position: relative;
+      min-height: 210px;
+      padding: 24px;
+      border-radius: 26px;
       background: var(--card);
-      border-radius: 22px;
-      padding: 26px;
-      box-shadow: 0 10px 30px rgba(143, 64, 104, 0.12);
-      cursor: pointer;
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 36px var(--shadow);
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .letter-card::before {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--glow);
+      top: -42px;
+      right: -42px;
       transition: 0.3s ease;
-      border: 1px solid #f6d6d6;
-      min-height: 190px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
 
     .letter-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 16px 40px rgba(143, 64, 104, 0.2);
+      transform: translateY(-9px) rotate(-0.5deg);
+      box-shadow: 0 24px 52px var(--shadow);
+    }
+
+    .letter-card:hover::before {
+      transform: scale(1.35);
     }
 
     .letter-card .icon {
-      font-size: 32px;
+      position: relative;
+      font-size: 33px;
       margin-bottom: 18px;
+      animation: softPulse 2.8s ease-in-out infinite;
     }
 
     .letter-card h3 {
-      font-size: 21px;
+      position: relative;
       color: var(--primary);
+      font-size: 21px;
       margin-bottom: 12px;
+      line-height: 1.25;
     }
 
     .letter-card p {
-      font-size: 15px;
+      position: relative;
       color: var(--muted);
-      line-height: 1.6;
+      font-size: 15px;
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+
+    .open-btn {
+      position: relative;
+      color: var(--secondary);
+      font-size: 14px;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.25s ease;
+    }
+
+    .letter-card:hover .open-btn {
+      gap: 13px;
+    }
+
+    @keyframes softPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.12);
+      }
     }
 
     .promise {
-      margin-top: 70px;
-      background: #ffffffaa;
-      border: 1px solid #f6d6d6;
-      padding: 40px;
-      border-radius: 28px;
+      margin: 70px 0 30px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 48px var(--shadow);
+      border-radius: 30px;
+      padding: 38px 30px;
       text-align: center;
-      box-shadow: 0 12px 35px rgba(143, 64, 104, 0.1);
+      backdrop-filter: blur(16px);
+      animation: fadeUp 1s ease both;
     }
 
     .promise h2 {
-      color: var(--accent);
-      font-size: 32px;
-      margin-bottom: 16px;
+      color: var(--secondary);
+      font-size: 34px;
+      margin-bottom: 14px;
     }
 
     .promise p {
-      color: var(--muted);
-      max-width: 720px;
+      max-width: 780px;
       margin: auto;
-      line-height: 1.8;
+      color: var(--muted);
       font-size: 17px;
+      line-height: 1.8;
     }
 
     footer {
       text-align: center;
-      padding: 40px 20px;
       color: var(--muted);
       font-size: 14px;
+      padding: 24px 0 10px;
     }
 
     .modal {
       position: fixed;
       inset: 0;
-      background: rgba(59, 47, 47, 0.45);
+      z-index: 20;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      z-index: 99;
+      background: rgba(20, 20, 30, 0.48);
+      backdrop-filter: blur(10px);
     }
 
     .modal.active {
       display: flex;
     }
 
-    .modal-content {
-      background: #fffdfb;
-      max-width: 620px;
-      width: 100%;
-      border-radius: 24px;
-      padding: 36px;
+    .modal-box {
+      width: min(680px, 100%);
+      max-height: 86vh;
+      overflow-y: auto;
+      background: rgba(255, 253, 251, 0.95);
+      color: #382b2b;
+      border-radius: 30px;
+      padding: 34px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.32);
       position: relative;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
-      animation: fadeIn 0.3s ease;
+      animation: letterOpen 0.36s ease both;
     }
 
-    .modal-content h2 {
-      color: var(--accent);
-      margin-bottom: 18px;
-      font-size: 30px;
+    body.night .modal-box {
+      background: rgba(255, 253, 251, 0.96);
+      color: #382b2b;
     }
 
-    .modal-content p {
-      color: var(--text);
-      line-height: 1.9;
-      font-size: 17px;
-      white-space: pre-line;
-    }
-
-    .close {
+    .close-btn {
       position: absolute;
       top: 18px;
       right: 22px;
-      border: none;
-      background: none;
-      font-size: 28px;
-      cursor: pointer;
+      font-size: 30px;
       color: var(--primary);
+      background: transparent;
     }
 
-    @keyframes fadeIn {
+    .modal-label {
+      color: var(--primary);
+      font-size: 13px;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .modal-box h2 {
+      color: var(--secondary);
+      font-size: clamp(28px, 4vw, 42px);
+      margin-bottom: 18px;
+      padding-right: 34px;
+    }
+
+    .letter-text {
+      font-size: 18px;
+      line-height: 1.9;
+      white-space: pre-line;
+      min-height: 260px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 22px;
+      background: var(--primary);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 45% {
+        opacity: 1;
+      }
+      46%, 100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes letterOpen {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
       }
       to {
         opacity: 1;
@@ -217,205 +486,450 @@
       }
     }
 
-    @media (max-width: 600px) {
-      .container {
-        padding: 35px 0;
+    @media (max-width: 720px) {
+      .page {
+        width: min(92%, 1120px);
+        padding-top: 30px;
       }
 
       .hero {
         padding-top: 40px;
       }
 
-      .modal-content {
-        padding: 28px 24px;
+      .name-form {
+        grid-template-columns: 1fr;
       }
 
-      .promise {
-        padding: 30px 22px;
+      .modal-box {
+        padding: 30px 24px;
+        border-radius: 24px;
+      }
+
+      .letter-text {
+        font-size: 16px;
       }
     }
   </style>
 </head>
+
 <body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
 
-  <section class="hero">
-    <span>FOR US, EVEN FROM FAR AWAY</span>
-    <h1>Open When<br />You Miss Me</h1>
-    <p>
-      Karena jarak memang tidak mudah, aku buat halaman kecil ini untuk kamu.
-      Buka suratnya pelan-pelan, terutama saat hari terasa berat dan kamu butuh diingatkan bahwa kamu tidak sendirian.
-    </p>
-  </section>
-
-  <main class="container">
-
-    <div class="section-title">
-      <h2>Open When Letters</h2>
-      <p>Pilih satu surat sesuai dengan apa yang sedang kamu rasakan.</p>
-    </div>
-
-    <section class="letters">
-
-      <div class="letter-card" onclick="openLetter('miss')">
-        <div>
-          <div class="icon">💌</div>
-          <h3>Open when you miss me</h3>
-          <p>Buka saat kamu sedang kangen dan ingin merasa dekat walaupun kita berjauhan.</p>
-        </div>
+  <main class="page">
+    <section class="hero">
+      <div class="time-pill">
+        <span id="timeIcon">💌</span>
+        <span id="timeText">A little place for us</span>
       </div>
 
-      <div class="letter-card" onclick="openLetter('sad')">
-        <div>
-          <div class="icon">🌧️</div>
-          <h3>Open when you feel sad</h3>
-          <p>Buka saat harimu berat dan kamu butuh kata-kata yang menenangkan.</p>
+      <h1>Open When<br />You Need Me</h1>
+
+      <p class="subtitle">
+        A small digital box of letters for the days when distance feels heavy.
+        No photos, no noise, just words made for <span id="partnerNameText">you</span>.
+      </p>
+
+      <div class="names-card">
+        <h2>Make it personal</h2>
+        <p>
+          Add your names once. The page will remember them on the same device.
+        </p>
+
+        <div class="name-form">
+          <input type="text" id="yourNameInput" placeholder="Your name" />
+          <input type="text" id="partnerNameInput" placeholder="Partner name" />
+          <button class="save-btn" onclick="saveNames()">Save Names</button>
         </div>
       </div>
+    </section>
 
-      <div class="letter-card" onclick="openLetter('doubt')">
-        <div>
-          <div class="icon">🌙</div>
-          <h3>Open when you doubt us</h3>
-          <p>Buka saat jarak membuatmu takut atau mulai mempertanyakan semuanya.</p>
-        </div>
+    <section>
+      <div class="section-heading">
+        <h2>Letters for the hard little moments</h2>
+        <p>Choose what your heart needs right now.</p>
       </div>
 
-      <div class="letter-card" onclick="openLetter('happy')">
-        <div>
-          <div class="icon">☀️</div>
-          <h3>Open when you are happy</h3>
-          <p>Buka saat kamu punya kabar baik dan ingin aku ikut tersenyum dari jauh.</p>
-        </div>
-      </div>
-
-      <div class="letter-card" onclick="openLetter('night')">
-        <div>
-          <div class="icon">⭐</div>
-          <h3>Open before you sleep</h3>
-          <p>Buka sebelum tidur, saat dunia mulai sepi dan kamu ingin merasa ditemani.</p>
-        </div>
-      </div>
-
-      <div class="letter-card" onclick="openLetter('future')">
-        <div>
-          <div class="icon">🕰️</div>
-          <h3>Open when you think about our future</h3>
-          <p>Buka saat kamu membayangkan hari ketika jarak ini akhirnya selesai.</p>
-        </div>
-      </div>
-
+      <div class="letters" id="lettersContainer"></div>
     </section>
 
     <section class="promise">
-      <h2>My Promise</h2>
-      <p>
-        Aku tidak akan berpura-pura bahwa jarak itu mudah. Ada hari yang akan terasa sepi,
-        ada waktu ketika rindu terasa terlalu besar, dan ada momen ketika kita sama-sama lelah.
-        Tapi selama kita masih memilih untuk saling menjaga, saling percaya, dan saling pulang,
-        jarak ini bukan akhir. Ini hanya bagian dari cerita kita.
+      <h2>My quiet promise</h2>
+      <p id="promiseText">
+        Distance may change how often we hold hands, but it does not get to change how much I choose you.
+        On the easy days, I will celebrate you. On the hard days, I will remind you that you are not alone.
       </p>
     </section>
 
+    <footer>
+      Made with love, patience, and a little bit of longing.
+    </footer>
   </main>
 
-  <footer>
-    Made with love, patience, and a little bit of longing.
-  </footer>
-
   <div class="modal" id="letterModal">
-    <div class="modal-content">
-      <button class="close" onclick="closeLetter()">&times;</button>
-      <h2 id="letterTitle"></h2>
-      <p id="letterText"></p>
+    <div class="modal-box">
+      <button class="close-btn" onclick="closeLetter()">&times;</button>
+      <div class="modal-label" id="modalLabel">Open when</div>
+      <h2 id="modalTitle"></h2>
+      <p class="letter-text">
+        <span id="letterText"></span><span class="cursor" id="cursor"></span>
+      </p>
     </div>
   </div>
 
   <script>
-    const letters = {
-      miss: {
-        title: "Open when you miss me",
-        text: `Aku tahu rasanya tidak mudah.
+    let yourName = localStorage.getItem("yourName") || "Me";
+    let partnerName = localStorage.getItem("partnerName") || "My Love";
 
-Mungkin sekarang kamu sedang ingin aku ada di dekatmu, duduk di sampingmu, memelukmu, atau sekadar mendengar suaraku tanpa harus lewat layar.
+    const letters = [
+      {
+        key: "tired",
+        icon: "🌙",
+        title: "When you are tired",
+        preview: "For the days when everything feels too much.",
+        text: () => `Hi ${partnerName},
 
-Tapi dengar ya, jarak ini tidak mengurangi rasa sayangku. Kamu tetap orang yang aku pikirkan di sela-sela hari, di tengah sibukku, dan sebelum aku tidur.
+I know you are tired.
 
-Kalau kamu rindu, ingat ini: aku juga. Kita sedang jauh, bukan selesai.`
+Not just sleepy tired, but the kind of tired that sits quietly in your chest after trying so hard for too long.
+
+So please pause for a moment. You do not have to carry everything perfectly today. You do not have to prove that you are strong every second.
+
+Rest is not weakness. Rest is how you return to yourself.
+
+I am proud of you for making it this far. Breathe slowly. Let the day be done. I am here with you, even from far away.
+
+With love,
+${yourName}`
       },
+      {
+        key: "miss",
+        icon: "💌",
+        title: "When you miss me",
+        preview: "For the moments when distance feels unfair.",
+        text: () => `Hi ${partnerName},
 
-      sad: {
-        title: "Open when you feel sad",
-        text: `Hari ini mungkin berat.
+I miss you too.
 
-Kamu tidak harus selalu kuat. Kamu boleh capek, boleh menangis, boleh diam sebentar. Tapi jangan biarkan satu hari buruk membuatmu lupa bahwa kamu sangat berharga.
+Maybe that is the part distance never tells us: some days, love feels bigger because we cannot reach each other.
 
-Aku mungkin tidak bisa langsung ada di sana, tapi hatiku tetap dekat denganmu.
+But please remember this. We are far, not fading. We are apart, not absent. You are still in my thoughts, in my prayers, in my quiet moments, and in the little spaces between my day.
 
-Tarik napas pelan-pelan. Satu hari ini akan lewat. Dan aku tetap di sini, memilih kamu.`
+Whenever you miss me, imagine me choosing you again.
+
+Because I am.
+
+Always,
+${yourName}`
       },
+      {
+        key: "sleep",
+        icon: "⭐",
+        title: "When you cannot sleep",
+        preview: "For the nights when your mind refuses to rest.",
+        text: () => `Hi ${partnerName},
 
-      doubt: {
-        title: "Open when you doubt us",
-        text: `Aku tahu jarak bisa membuat pikiran jadi berisik.
+If you cannot sleep, do not fight the night too hard.
 
-Kadang kamu mungkin bertanya-tanya apakah kita bisa melewati ini. Jawabanku sederhana: bisa, kalau kita tidak berhenti memilih satu sama lain.
+Close your eyes gently. Relax your shoulders. Unclench your jaw. Let the world become smaller for a while.
 
-Hubungan jarak jauh tidak bertahan hanya karena cinta. Ia bertahan karena kejujuran, usaha, komunikasi, dan kesabaran.
+You do not need to solve everything tonight. Some thoughts are loud only because you are exhausted. Tomorrow will make them lighter.
 
-Jadi kalau kamu mulai ragu, jangan simpan sendiri. Bicara padaku. Kita hadapi, bukan kita hindari.`
+I wish I could be beside you, holding your hand until your breathing gets softer.
+
+For now, let these words stay with you:
+You are safe. You are loved. You can rest.
+
+Good night, my love.
+${yourName}`
       },
+      {
+        key: "motivation",
+        icon: "🔥",
+        title: "When you need motivation",
+        preview: "For the days when you need a push, not pity.",
+        text: () => `Hi ${partnerName},
 
-      happy: {
-        title: "Open when you are happy",
-        text: `Aku senang kamu sedang bahagia.
+Listen to me carefully.
 
-Walaupun aku tidak ada di sana untuk melihat senyummu secara langsung, aku tetap ikut bangga dan ikut bahagia dari jauh.
+You are not behind. You are not failing. You are building, and building always looks messy before it looks beautiful.
 
-Ceritakan semuanya padaku nanti. Hal kecil, hal besar, hal lucu, semuanya. Aku ingin tetap menjadi bagian dari harimu.
+Do not wait until you feel ready. Start small. Do the next right thing. One task. One step. One brave decision.
 
-Simpan bahagia itu baik-baik ya. Kamu pantas mendapatkannya.`
+You have survived days you thought would break you. That means there is more strength in you than your tired mind is admitting.
+
+Get up. Try again. I believe in you, but more importantly, I need you to believe in yourself too.
+
+You can do this.
+${yourName}`
       },
+      {
+        key: "overthinking",
+        icon: "🫧",
+        title: "When you are overthinking",
+        preview: "For the moments when your mind gets too loud.",
+        text: () => `Hi ${partnerName},
 
-      night: {
-        title: "Open before you sleep",
-        text: `Sebelum kamu tidur, aku mau kamu tahu satu hal.
+Your mind is trying to protect you, but right now it is making everything heavier than it needs to be.
 
-Kamu sudah melakukan yang terbaik hari ini. Mungkin tidak semua berjalan sempurna, tapi kamu tetap melewati hari ini, dan itu cukup.
+Not every thought is true. Not every fear is a warning. Not every silence means something is wrong.
 
-Tidurlah dengan tenang. Jangan bawa terlalu banyak pikiran ke dalam malam.
+Come back to what is real:
+You are loved.
+You matter.
+We can talk.
+We can fix things.
+You do not have to fight your thoughts alone.
 
-Aku harap kamu mimpi indah. Dan kalau besok terasa berat lagi, kita lewati pelan-pelan.`
+Take one slow breath. Then another.
+
+I am not asking you to stop feeling. I am asking you not to believe every fear your mind creates at night.
+
+I am here.
+${yourName}`
       },
+      {
+        key: "lonely",
+        icon: "🌧️",
+        title: "When you feel lonely",
+        preview: "For when the room feels too quiet.",
+        text: () => `Hi ${partnerName},
 
-      future: {
-        title: "Open when you think about our future",
-        text: `Suatu hari nanti, jarak ini akan jadi cerita yang kita ingat sambil tersenyum.
+I hate that you feel lonely.
 
-Kita akan ingat bagaimana dulu kita saling menunggu, saling menguatkan, dan tetap bertahan meski tidak selalu mudah.
+I hate that I cannot just show up, sit beside you, and make the silence feel less heavy.
 
-Aku tidak tahu semua detail masa depan, tapi aku tahu aku ingin ada kamu di dalamnya.
+But I want you to know this: being physically alone does not mean you are unloved. You are deeply loved, even in the quiet. Especially in the quiet.
 
-Jadi untuk sekarang, mari kita jaga yang kita punya. Pelan-pelan, serius, dan penuh rasa percaya.`
+Think of this letter as my hand reaching for yours from far away.
+
+You are not too much.
+You are not forgotten.
+You are not alone in this.
+
+I am with you in every way I can be.
+${yourName}`
+      },
+      {
+        key: "smile",
+        icon: "☀️",
+        title: "When you need to smile",
+        preview: "For a tiny soft moment in the middle of the day.",
+        text: () => `Hi ${partnerName},
+
+Smile for me. Just a little.
+
+Not because everything is perfect, but because you are still here. Because your heart is still soft. Because the world is better with you in it.
+
+I hope something small makes you laugh today. A silly memory. A random message. A tiny moment that reminds you life is not only heavy.
+
+And if nothing makes you smile, then let this be the reason:
+
+Somewhere, someone is thinking about you and wishing they could see your face right now.
+
+That someone is me.
+${yourName}`
+      },
+      {
+        key: "badDay",
+        icon: "☁️",
+        title: "When you had a bad day",
+        preview: "For the days that feel unfair from beginning to end.",
+        text: () => `Hi ${partnerName},
+
+I am sorry today was hard.
+
+Some days do not ask politely. They just take your energy, test your patience, and leave you feeling small.
+
+But one bad day does not define you. One hard moment does not erase your progress. One heavy night does not mean life will always feel this way.
+
+Let today end. Do not keep replaying every painful detail.
+
+You made it through. That counts.
+
+Tomorrow does not have to be perfect. It just has to be new.
+
+I am proud of you for surviving today.
+${yourName}`
+      },
+      {
+        key: "hug",
+        icon: "🤍",
+        title: "When you need a hug",
+        preview: "For when words are not enough.",
+        text: () => `Hi ${partnerName},
+
+Come here, in the only way distance allows.
+
+Imagine my arms around you. No questions. No pressure. No need to explain everything.
+
+Just stay there for a moment.
+
+You do not have to be okay immediately. You do not have to make sense. You do not have to be strong while I am holding you in my heart.
+
+If I could, I would pull you close and let the world wait.
+
+Until then, take this letter as a hug from me.
+
+A long one.
+${yourName}`
+      },
+      {
+        key: "proud",
+        icon: "🌷",
+        title: "When you need to feel proud of yourself",
+        preview: "For when you forget how far you have come.",
+        text: () => `Hi ${partnerName},
+
+I need you to stop for a second and look at yourself honestly.
+
+You have grown. You have tried. You have kept going through things that were not easy to explain to anyone else.
+
+Maybe you are not where you want to be yet, but you are not where you used to be either.
+
+That matters.
+
+Be proud of the quiet battles. The small progress. The times you chose to continue even when no one clapped for you.
+
+I see your effort. I see your heart. I see you.
+
+And I am so proud of you.
+${yourName}`
       }
-    };
+    ];
 
-    function openLetter(type) {
-      document.getElementById("letterTitle").innerText = letters[type].title;
-      document.getElementById("letterText").innerText = letters[type].text;
-      document.getElementById("letterModal").classList.add("active");
+    const lettersContainer = document.getElementById("lettersContainer");
+    const modal = document.getElementById("letterModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalLabel = document.getElementById("modalLabel");
+    const letterText = document.getElementById("letterText");
+    const cursor = document.getElementById("cursor");
+
+    let typingTimer = null;
+
+    function initNames() {
+      document.getElementById("yourNameInput").value = yourName === "Me" ? "" : yourName;
+      document.getElementById("partnerNameInput").value = partnerName === "My Love" ? "" : partnerName;
+
+      document.getElementById("partnerNameText").textContent = partnerName;
+      document.getElementById("promiseText").textContent =
+        `Distance may change how often ${yourName} and ${partnerName} hold hands, but it does not get to change how much this love is chosen. On the easy days, I will celebrate you. On the hard days, I will remind you that you are not alone.`;
+    }
+
+    function saveNames() {
+      const newYourName = document.getElementById("yourNameInput").value.trim();
+      const newPartnerName = document.getElementById("partnerNameInput").value.trim();
+
+      yourName = newYourName || "Me";
+      partnerName = newPartnerName || "My Love";
+
+      localStorage.setItem("yourName", yourName);
+      localStorage.setItem("partnerName", partnerName);
+
+      initNames();
+      renderLetters();
+    }
+
+    function renderLetters() {
+      lettersContainer.innerHTML = "";
+
+      letters.forEach((letter, index) => {
+        const card = document.createElement("button");
+        card.className = "letter-card";
+        card.style.animationDelay = `${index * 0.05}s`;
+        card.onclick = () => openLetter(letter.key);
+
+        card.innerHTML = `
+          <div class="icon">${letter.icon}</div>
+          <h3>Open ${letter.title.toLowerCase()}</h3>
+          <p>${letter.preview}</p>
+          <span class="open-btn">Open letter <span>→</span></span>
+        `;
+
+        lettersContainer.appendChild(card);
+      });
+    }
+
+    function openLetter(key) {
+      const selectedLetter = letters.find(letter => letter.key === key);
+      if (!selectedLetter) return;
+
+      clearTimeout(typingTimer);
+
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+
+      modalLabel.textContent = "A letter for you";
+      modalTitle.textContent = selectedLetter.title;
+      letterText.textContent = "";
+      cursor.style.display = "inline-block";
+
+      typeWriter(selectedLetter.text(), 0);
+    }
+
+    function typeWriter(text, index) {
+      if (index < text.length) {
+        letterText.textContent += text.charAt(index);
+
+        const speed = text.charAt(index) === "\n" ? 120 : 28;
+        typingTimer = setTimeout(() => typeWriter(text, index + 1), speed);
+      } else {
+        cursor.style.display = "none";
+      }
     }
 
     function closeLetter() {
-      document.getElementById("letterModal").classList.remove("active");
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+      clearTimeout(typingTimer);
+      letterText.textContent = "";
     }
 
-    window.onclick = function(event) {
-      const modal = document.getElementById("letterModal");
+    modal.addEventListener("click", function(event) {
       if (event.target === modal) {
         closeLetter();
       }
-    };
-  </script>
+    });
 
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeLetter();
+      }
+    });
+
+    function updateTimeTheme() {
+      const hour = new Date().getHours();
+      const body = document.body;
+      const timeIcon = document.getElementById("timeIcon");
+      const timeText = document.getElementById("timeText");
+
+      body.classList.remove("morning", "afternoon", "evening", "night");
+
+      if (hour >= 5 && hour < 12) {
+        body.classList.add("morning");
+        timeIcon.textContent = "🌤️";
+        timeText.textContent = "Good morning, this page is awake with you";
+      } else if (hour >= 12 && hour < 17) {
+        body.classList.add("afternoon");
+        timeIcon.textContent = "☀️";
+        timeText.textContent = "Good afternoon, take a soft little pause";
+      } else if (hour >= 17 && hour < 21) {
+        body.classList.add("evening");
+        timeIcon.textContent = "🌇";
+        timeText.textContent = "Good evening, breathe slowly";
+      } else {
+        body.classList.add("night");
+        timeIcon.textContent = "🌙";
+        timeText.textContent = "Good night, you are not alone";
+      }
+    }
+
+    updateTimeTheme();
+    initNames();
+    renderLetters();
+
+    setInterval(updateTimeTheme, 60000);
+  </script>
 </body>
 </html>
