@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Open When Letters</title>
 
   <style>
     :root {
       --bg-1: #fff7f3;
-      --bg-2: #ffe5df;
+      --bg-2: #ffe3dc;
       --bg-3: #f8c8dc;
       --text: #382b2b;
       --muted: #7a6666;
@@ -16,8 +16,8 @@
       --secondary: #8f4068;
       --card: rgba(255, 255, 255, 0.82);
       --border: rgba(255, 255, 255, 0.65);
-      --shadow: rgba(143, 64, 104, 0.16);
-      --glow: rgba(255, 255, 255, 0.55);
+      --shadow: rgba(143, 64, 104, 0.18);
+      --glow: rgba(255, 255, 255, 0.6);
     }
 
     body.morning {
@@ -26,7 +26,6 @@
       --bg-3: #ffe9ef;
       --primary: #bd6b3f;
       --secondary: #9b4d2b;
-      --shadow: rgba(189, 107, 63, 0.18);
     }
 
     body.afternoon {
@@ -35,7 +34,6 @@
       --bg-3: #fff2d9;
       --primary: #3f7fb5;
       --secondary: #285f8f;
-      --shadow: rgba(63, 127, 181, 0.18);
     }
 
     body.evening {
@@ -44,7 +42,6 @@
       --bg-3: #7b5ea7;
       --primary: #8f4068;
       --secondary: #57366f;
-      --shadow: rgba(87, 54, 111, 0.22);
     }
 
     body.night {
@@ -52,19 +49,20 @@
       --bg-2: #1f2937;
       --bg-3: #53346d;
       --text: #fff7f3;
-      --muted: #d6c9d6;
+      --muted: #d9cbd8;
       --primary: #f4a7c2;
       --secondary: #ffd6e7;
       --card: rgba(255, 255, 255, 0.12);
       --border: rgba(255, 255, 255, 0.18);
       --shadow: rgba(0, 0, 0, 0.35);
-      --glow: rgba(255, 255, 255, 0.16);
+      --glow: rgba(255, 255, 255, 0.14);
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html {
@@ -72,211 +70,147 @@
     }
 
     body {
-      min-height: 100vh;
+      min-height: 100svh;
       font-family: Georgia, "Times New Roman", serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, var(--glow), transparent 28%),
+        radial-gradient(circle at top left, var(--glow), transparent 30%),
         linear-gradient(135deg, var(--bg-1), var(--bg-2), var(--bg-3));
       overflow-x: hidden;
-      transition: background 1s ease, color 0.6s ease;
+      transition: background 0.8s ease, color 0.5s ease;
     }
 
-    .bg-orb {
+    .orb {
       position: fixed;
       border-radius: 50%;
-      filter: blur(4px);
+      filter: blur(5px);
       opacity: 0.35;
       pointer-events: none;
       z-index: 0;
-      animation: floatOrb 9s ease-in-out infinite;
+      animation: float 8s ease-in-out infinite;
     }
 
-    .orb-1 {
-      width: 220px;
-      height: 220px;
+    .orb.one {
+      width: 180px;
+      height: 180px;
       background: white;
       top: 8%;
-      left: -60px;
+      left: -70px;
     }
 
-    .orb-2 {
-      width: 300px;
-      height: 300px;
+    .orb.two {
+      width: 240px;
+      height: 240px;
       background: var(--primary);
-      right: -120px;
-      bottom: 8%;
+      right: -110px;
+      bottom: 10%;
       animation-delay: 1.5s;
     }
 
-    .orb-3 {
-      width: 150px;
-      height: 150px;
+    .orb.three {
+      width: 120px;
+      height: 120px;
       background: var(--secondary);
-      right: 18%;
+      right: 20%;
       top: 18%;
       animation-delay: 3s;
     }
 
-    @keyframes floatOrb {
+    @keyframes float {
       0%, 100% {
         transform: translateY(0) scale(1);
       }
       50% {
-        transform: translateY(-24px) scale(1.06);
+        transform: translateY(-22px) scale(1.06);
       }
     }
 
     .page {
       position: relative;
       z-index: 2;
-      width: min(1120px, 90%);
+      width: min(1120px, 92%);
       margin: auto;
-      padding: 52px 0 36px;
+      padding: 42px 0 28px;
     }
 
     .hero {
       text-align: center;
-      padding: 56px 0 42px;
-      animation: fadeUp 0.9s ease both;
+      padding: 44px 0 36px;
+      animation: fadeUp 0.8s ease both;
     }
 
     .time-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 9px 18px;
+      padding: 9px 16px;
       border-radius: 999px;
       background: var(--card);
       border: 1px solid var(--border);
       color: var(--primary);
       font-size: 14px;
-      letter-spacing: 0.5px;
-      box-shadow: 0 8px 28px var(--shadow);
+      box-shadow: 0 8px 26px var(--shadow);
       backdrop-filter: blur(14px);
       margin-bottom: 20px;
     }
 
     .hero h1 {
-      font-size: clamp(42px, 7vw, 86px);
+      font-size: clamp(42px, 12vw, 86px);
       line-height: 0.98;
       color: var(--secondary);
       margin-bottom: 22px;
       letter-spacing: -2px;
     }
 
-    .hero .subtitle {
+    .hero p {
       max-width: 720px;
       margin: auto;
       color: var(--muted);
-      font-size: 18px;
+      font-size: clamp(16px, 4vw, 18px);
       line-height: 1.8;
-    }
-
-    .names-card {
-      margin: 26px auto 0;
-      max-width: 760px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      box-shadow: 0 18px 48px var(--shadow);
-      border-radius: 28px;
-      padding: 22px;
-      backdrop-filter: blur(16px);
-      animation: fadeUp 1s ease both;
-      animation-delay: 0.1s;
-    }
-
-    .names-card h2 {
-      color: var(--secondary);
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    .names-card p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 18px;
-    }
-
-    .name-form {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 12px;
-    }
-
-    input {
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.72);
-      padding: 13px 15px;
-      border-radius: 16px;
-      font-size: 15px;
-      color: #382b2b;
-      outline: none;
-      font-family: inherit;
-    }
-
-    input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(184, 92, 112, 0.12);
-    }
-
-    button {
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
-    .save-btn {
-      padding: 13px 20px;
-      border-radius: 16px;
-      background: var(--secondary);
-      color: white;
-      font-size: 15px;
-      transition: 0.25s ease;
-      white-space: nowrap;
-    }
-
-    .save-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px var(--shadow);
     }
 
     .section-heading {
       text-align: center;
-      margin: 62px 0 26px;
-      animation: fadeUp 1s ease both;
+      margin: 42px 0 24px;
+      animation: fadeUp 0.9s ease both;
     }
 
     .section-heading h2 {
-      font-size: clamp(30px, 4vw, 44px);
       color: var(--secondary);
+      font-size: clamp(30px, 8vw, 44px);
       margin-bottom: 10px;
     }
 
     .section-heading p {
       color: var(--muted);
       font-size: 16px;
+      line-height: 1.6;
     }
 
     .letters {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
+      gap: 18px;
     }
 
     .letter-card {
-      position: relative;
-      min-height: 210px;
+      min-height: 205px;
+      width: 100%;
+      text-align: left;
       padding: 24px;
       border-radius: 26px;
-      background: var(--card);
       border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
       box-shadow: 0 14px 36px var(--shadow);
       backdrop-filter: blur(14px);
+      cursor: pointer;
+      position: relative;
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: fadeUp 0.9s ease both;
+      transition: 0.28s ease;
+      animation: fadeUp 0.8s ease both;
+      font-family: inherit;
     }
 
     .letter-card::before {
@@ -284,35 +218,41 @@
       position: absolute;
       width: 120px;
       height: 120px;
+      top: -48px;
+      right: -48px;
       border-radius: 50%;
       background: var(--glow);
-      top: -42px;
-      right: -42px;
-      transition: 0.3s ease;
+      transition: 0.28s ease;
     }
 
-    .letter-card:hover {
-      transform: translateY(-9px) rotate(-0.5deg);
-      box-shadow: 0 24px 52px var(--shadow);
+    .letter-card:active {
+      transform: scale(0.97);
     }
 
-    .letter-card:hover::before {
-      transform: scale(1.35);
+    @media (hover: hover) {
+      .letter-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 24px 52px var(--shadow);
+      }
+
+      .letter-card:hover::before {
+        transform: scale(1.35);
+      }
     }
 
-    .letter-card .icon {
+    .icon {
       position: relative;
-      font-size: 33px;
-      margin-bottom: 18px;
-      animation: softPulse 2.8s ease-in-out infinite;
+      font-size: 32px;
+      margin-bottom: 16px;
+      animation: pulse 2.8s ease-in-out infinite;
     }
 
     .letter-card h3 {
       position: relative;
       color: var(--primary);
       font-size: 21px;
-      margin-bottom: 12px;
       line-height: 1.25;
+      margin-bottom: 10px;
     }
 
     .letter-card p {
@@ -320,48 +260,31 @@
       color: var(--muted);
       font-size: 15px;
       line-height: 1.65;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
 
-    .open-btn {
+    .open-text {
       position: relative;
       color: var(--secondary);
       font-size: 14px;
       font-weight: bold;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: 0.25s ease;
-    }
-
-    .letter-card:hover .open-btn {
-      gap: 13px;
-    }
-
-    @keyframes softPulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.12);
-      }
     }
 
     .promise {
-      margin: 70px 0 30px;
+      margin: 62px 0 26px;
+      padding: 34px 28px;
+      border-radius: 30px;
       background: var(--card);
       border: 1px solid var(--border);
       box-shadow: 0 18px 48px var(--shadow);
-      border-radius: 30px;
-      padding: 38px 30px;
-      text-align: center;
       backdrop-filter: blur(16px);
-      animation: fadeUp 1s ease both;
+      text-align: center;
+      animation: fadeUp 0.9s ease both;
     }
 
     .promise h2 {
       color: var(--secondary);
-      font-size: 34px;
+      font-size: clamp(30px, 7vw, 38px);
       margin-bottom: 14px;
     }
 
@@ -377,7 +300,7 @@
       text-align: center;
       color: var(--muted);
       font-size: 14px;
-      padding: 24px 0 10px;
+      padding: 20px 0 10px;
     }
 
     .modal {
@@ -387,8 +310,8 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      background: rgba(20, 20, 30, 0.48);
+      padding: 18px;
+      background: rgba(20, 20, 30, 0.5);
       backdrop-filter: blur(10px);
     }
 
@@ -398,29 +321,30 @@
 
     .modal-box {
       width: min(680px, 100%);
-      max-height: 86vh;
+      max-height: 86svh;
       overflow-y: auto;
-      background: rgba(255, 253, 251, 0.95);
+      background: rgba(255, 253, 251, 0.96);
       color: #382b2b;
       border-radius: 30px;
       padding: 34px;
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.32);
       position: relative;
-      animation: letterOpen 0.36s ease both;
-    }
-
-    body.night .modal-box {
-      background: rgba(255, 253, 251, 0.96);
-      color: #382b2b;
+      animation: letterOpen 0.35s ease both;
     }
 
     .close-btn {
-      position: absolute;
-      top: 18px;
-      right: 22px;
-      font-size: 30px;
+      position: sticky;
+      top: 0;
+      float: right;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(184, 92, 112, 0.12);
       color: var(--primary);
-      background: transparent;
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 3;
     }
 
     .modal-label {
@@ -433,13 +357,14 @@
 
     .modal-box h2 {
       color: var(--secondary);
-      font-size: clamp(28px, 4vw, 42px);
+      font-size: clamp(28px, 8vw, 42px);
       margin-bottom: 18px;
-      padding-right: 34px;
+      line-height: 1.15;
+      padding-right: 20px;
     }
 
     .letter-text {
-      font-size: 18px;
+      font-size: clamp(16px, 4.2vw, 18px);
       line-height: 1.9;
       white-space: pre-line;
       min-height: 260px;
@@ -455,12 +380,32 @@
       animation: blink 0.8s infinite;
     }
 
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.12);
+      }
+    }
+
     @keyframes blink {
       0%, 45% {
         opacity: 1;
       }
       46%, 100% {
         opacity: 0;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
@@ -475,88 +420,88 @@
       }
     }
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(26px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 720px) {
+    @media (max-width: 640px) {
       .page {
-        width: min(92%, 1120px);
-        padding-top: 30px;
+        width: 91%;
+        padding-top: 24px;
       }
 
       .hero {
-        padding-top: 40px;
+        padding: 34px 0 26px;
       }
 
-      .name-form {
+      .time-pill {
+        font-size: 13px;
+        padding: 8px 14px;
+      }
+
+      .letters {
         grid-template-columns: 1fr;
+        gap: 16px;
       }
 
-      .modal-box {
-        padding: 30px 24px;
+      .letter-card {
+        min-height: auto;
+        padding: 22px;
         border-radius: 24px;
       }
 
+      .promise {
+        margin-top: 46px;
+        padding: 28px 22px;
+      }
+
+      .modal {
+        align-items: flex-end;
+        padding: 0;
+      }
+
+      .modal-box {
+        width: 100%;
+        max-height: 88svh;
+        border-radius: 28px 28px 0 0;
+        padding: 28px 22px calc(28px + env(safe-area-inset-bottom));
+      }
+
       .letter-text {
-        font-size: 16px;
+        min-height: 320px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="bg-orb orb-1"></div>
-  <div class="bg-orb orb-2"></div>
-  <div class="bg-orb orb-3"></div>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
 
   <main class="page">
     <section class="hero">
       <div class="time-pill">
         <span id="timeIcon">💌</span>
-        <span id="timeText">A little place for us</span>
+        <span id="timeText">A little place for you</span>
       </div>
 
-      <h1>Open When<br />You Need Me</h1>
+      <h1>Open When<br>You Need Me</h1>
 
-      <p class="subtitle">
+      <p>
         A small digital box of letters for the days when distance feels heavy.
-        No photos, no noise, just words made for <span id="partnerNameText">you</span>.
+        No photos, no noise, just words for you, my love.
       </p>
-
-      <div class="names-card">
-        <h2>Make it personal</h2>
-        <p>
-          Add your names once. The page will remember them on the same device.
-        </p>
-
-        <div class="name-form">
-          <input type="text" id="yourNameInput" placeholder="Your name" />
-          <input type="text" id="partnerNameInput" placeholder="Partner name" />
-          <button class="save-btn" onclick="saveNames()">Save Names</button>
-        </div>
-      </div>
     </section>
 
     <section>
       <div class="section-heading">
-        <h2>Letters for the hard little moments</h2>
-        <p>Choose what your heart needs right now.</p>
+        <h2>Open When Letters</h2>
+        <p>Choose the letter that matches what your heart needs right now.</p>
       </div>
 
       <div class="letters" id="lettersContainer"></div>
     </section>
 
     <section class="promise">
-      <h2>My quiet promise</h2>
-      <p id="promiseText">
+      <h2>My Quiet Promise</h2>
+      <p>
         Distance may change how often we hold hands, but it does not get to change how much I choose you.
         On the easy days, I will celebrate you. On the hard days, I will remind you that you are not alone.
       </p>
@@ -570,7 +515,7 @@
   <div class="modal" id="letterModal">
     <div class="modal-box">
       <button class="close-btn" onclick="closeLetter()">&times;</button>
-      <div class="modal-label" id="modalLabel">Open when</div>
+      <div class="modal-label">A letter for you</div>
       <h2 id="modalTitle"></h2>
       <p class="letter-text">
         <span id="letterText"></span><span class="cursor" id="cursor"></span>
@@ -579,16 +524,12 @@
   </div>
 
   <script>
-    let yourName = localStorage.getItem("yourName") || "Me";
-    let partnerName = localStorage.getItem("partnerName") || "My Love";
-
     const letters = [
       {
-        key: "tired",
         icon: "🌙",
         title: "When you are tired",
         preview: "For the days when everything feels too much.",
-        text: () => `Hi ${partnerName},
+        text: `My love,
 
 I know you are tired.
 
@@ -598,84 +539,86 @@ So please pause for a moment. You do not have to carry everything perfectly toda
 
 Rest is not weakness. Rest is how you return to yourself.
 
-I am proud of you for making it this far. Breathe slowly. Let the day be done. I am here with you, even from far away.
-
-With love,
-${yourName}`
+I am proud of you for making it this far. Breathe slowly. Let the day be done. I am here with you, even from far away.`
       },
       {
-        key: "miss",
         icon: "💌",
         title: "When you miss me",
         preview: "For the moments when distance feels unfair.",
-        text: () => `Hi ${partnerName},
+        text: `My love,
 
 I miss you too.
 
 Maybe that is the part distance never tells us: some days, love feels bigger because we cannot reach each other.
 
-But please remember this. We are far, not fading. We are apart, not absent. You are still in my thoughts, in my prayers, in my quiet moments, and in the little spaces between my day.
+But please remember this. We are far, not fading. We are apart, not absent.
+
+You are still in my thoughts, in my prayers, in my quiet moments, and in the little spaces between my day.
 
 Whenever you miss me, imagine me choosing you again.
 
-Because I am.
-
-Always,
-${yourName}`
+Because I am.`
       },
       {
-        key: "sleep",
         icon: "⭐",
         title: "When you cannot sleep",
         preview: "For the nights when your mind refuses to rest.",
-        text: () => `Hi ${partnerName},
+        text: `My love,
 
 If you cannot sleep, do not fight the night too hard.
 
 Close your eyes gently. Relax your shoulders. Unclench your jaw. Let the world become smaller for a while.
 
-You do not need to solve everything tonight. Some thoughts are loud only because you are exhausted. Tomorrow will make them lighter.
+You do not need to solve everything tonight. Some thoughts are loud only because you are exhausted.
+
+Tomorrow will make them lighter.
 
 I wish I could be beside you, holding your hand until your breathing gets softer.
 
 For now, let these words stay with you:
-You are safe. You are loved. You can rest.
 
-Good night, my love.
-${yourName}`
+You are safe.
+You are loved.
+You can rest.`
       },
       {
-        key: "motivation",
         icon: "🔥",
         title: "When you need motivation",
         preview: "For the days when you need a push, not pity.",
-        text: () => `Hi ${partnerName},
+        text: `My love,
 
 Listen to me carefully.
 
 You are not behind. You are not failing. You are building, and building always looks messy before it looks beautiful.
 
-Do not wait until you feel ready. Start small. Do the next right thing. One task. One step. One brave decision.
+Do not wait until you feel ready.
+
+Start small.
+Do the next right thing.
+One task.
+One step.
+One brave decision.
 
 You have survived days you thought would break you. That means there is more strength in you than your tired mind is admitting.
 
-Get up. Try again. I believe in you, but more importantly, I need you to believe in yourself too.
+Get up. Try again.
 
-You can do this.
-${yourName}`
+I believe in you, but more importantly, I need you to believe in yourself too.`
       },
       {
-        key: "overthinking",
         icon: "🫧",
         title: "When you are overthinking",
         preview: "For the moments when your mind gets too loud.",
-        text: () => `Hi ${partnerName},
+        text: `My love,
 
 Your mind is trying to protect you, but right now it is making everything heavier than it needs to be.
 
-Not every thought is true. Not every fear is a warning. Not every silence means something is wrong.
+Not every thought is true.
+Not every fear is a warning.
+Not every silence means something is wrong.
 
 Come back to what is real:
+
 You are loved.
 You matter.
 We can talk.
@@ -684,85 +627,85 @@ You do not have to fight your thoughts alone.
 
 Take one slow breath. Then another.
 
-I am not asking you to stop feeling. I am asking you not to believe every fear your mind creates at night.
-
-I am here.
-${yourName}`
+I am not asking you to stop feeling. I am asking you not to believe every fear your mind creates at night.`
       },
       {
-        key: "lonely",
         icon: "🌧️",
         title: "When you feel lonely",
         preview: "For when the room feels too quiet.",
-        text: () => `Hi ${partnerName},
+        text: `My love,
 
 I hate that you feel lonely.
 
 I hate that I cannot just show up, sit beside you, and make the silence feel less heavy.
 
-But I want you to know this: being physically alone does not mean you are unloved. You are deeply loved, even in the quiet. Especially in the quiet.
+But I want you to know this:
+
+Being physically alone does not mean you are unloved.
+
+You are deeply loved, even in the quiet. Especially in the quiet.
 
 Think of this letter as my hand reaching for yours from far away.
 
 You are not too much.
 You are not forgotten.
-You are not alone in this.
-
-I am with you in every way I can be.
-${yourName}`
+You are not alone in this.`
       },
       {
-        key: "smile",
         icon: "☀️",
         title: "When you need to smile",
         preview: "For a tiny soft moment in the middle of the day.",
-        text: () => `Hi ${partnerName},
+        text: `My love,
 
 Smile for me. Just a little.
 
-Not because everything is perfect, but because you are still here. Because your heart is still soft. Because the world is better with you in it.
+Not because everything is perfect, but because you are still here.
+
+Because your heart is still soft.
+Because the world is better with you in it.
 
 I hope something small makes you laugh today. A silly memory. A random message. A tiny moment that reminds you life is not only heavy.
 
 And if nothing makes you smile, then let this be the reason:
 
-Somewhere, someone is thinking about you and wishing they could see your face right now.
-
-That someone is me.
-${yourName}`
+Somewhere, someone is thinking about you and wishing they could see your face right now.`
       },
       {
-        key: "badDay",
         icon: "☁️",
         title: "When you had a bad day",
         preview: "For the days that feel unfair from beginning to end.",
-        text: () => `Hi ${partnerName},
+        text: `My love,
 
 I am sorry today was hard.
 
 Some days do not ask politely. They just take your energy, test your patience, and leave you feeling small.
 
-But one bad day does not define you. One hard moment does not erase your progress. One heavy night does not mean life will always feel this way.
+But one bad day does not define you.
 
-Let today end. Do not keep replaying every painful detail.
+One hard moment does not erase your progress.
+One heavy night does not mean life will always feel this way.
+
+Let today end.
+
+Do not keep replaying every painful detail.
 
 You made it through. That counts.
 
-Tomorrow does not have to be perfect. It just has to be new.
-
-I am proud of you for surviving today.
-${yourName}`
+Tomorrow does not have to be perfect. It just has to be new.`
       },
       {
-        key: "hug",
         icon: "🤍",
         title: "When you need a hug",
         preview: "For when words are not enough.",
-        text: () => `Hi ${partnerName},
+        text: `My love,
 
 Come here, in the only way distance allows.
 
-Imagine my arms around you. No questions. No pressure. No need to explain everything.
+Imagine my arms around you.
+
+No questions.
+No pressure.
+No need to explain everything.
 
 Just stay there for a moment.
 
@@ -772,64 +715,43 @@ If I could, I would pull you close and let the world wait.
 
 Until then, take this letter as a hug from me.
 
-A long one.
-${yourName}`
+A long one.`
       },
       {
-        key: "proud",
         icon: "🌷",
         title: "When you need to feel proud of yourself",
         preview: "For when you forget how far you have come.",
-        text: () => `Hi ${partnerName},
+        text: `My love,
 
 I need you to stop for a second and look at yourself honestly.
 
-You have grown. You have tried. You have kept going through things that were not easy to explain to anyone else.
+You have grown.
+You have tried.
+You have kept going through things that were not easy to explain to anyone else.
 
 Maybe you are not where you want to be yet, but you are not where you used to be either.
 
 That matters.
 
-Be proud of the quiet battles. The small progress. The times you chose to continue even when no one clapped for you.
+Be proud of the quiet battles.
+The small progress.
+The times you chose to continue even when no one clapped for you.
 
-I see your effort. I see your heart. I see you.
+I see your effort.
+I see your heart.
+I see you.
 
-And I am so proud of you.
-${yourName}`
+And I am so proud of you.`
       }
     ];
 
     const lettersContainer = document.getElementById("lettersContainer");
     const modal = document.getElementById("letterModal");
     const modalTitle = document.getElementById("modalTitle");
-    const modalLabel = document.getElementById("modalLabel");
     const letterText = document.getElementById("letterText");
     const cursor = document.getElementById("cursor");
 
     let typingTimer = null;
-
-    function initNames() {
-      document.getElementById("yourNameInput").value = yourName === "Me" ? "" : yourName;
-      document.getElementById("partnerNameInput").value = partnerName === "My Love" ? "" : partnerName;
-
-      document.getElementById("partnerNameText").textContent = partnerName;
-      document.getElementById("promiseText").textContent =
-        `Distance may change how often ${yourName} and ${partnerName} hold hands, but it does not get to change how much this love is chosen. On the easy days, I will celebrate you. On the hard days, I will remind you that you are not alone.`;
-    }
-
-    function saveNames() {
-      const newYourName = document.getElementById("yourNameInput").value.trim();
-      const newPartnerName = document.getElementById("partnerNameInput").value.trim();
-
-      yourName = newYourName || "Me";
-      partnerName = newPartnerName || "My Love";
-
-      localStorage.setItem("yourName", yourName);
-      localStorage.setItem("partnerName", partnerName);
-
-      initNames();
-      renderLetters();
-    }
 
     function renderLetters() {
       lettersContainer.innerHTML = "";
@@ -838,42 +760,44 @@ ${yourName}`
         const card = document.createElement("button");
         card.className = "letter-card";
         card.style.animationDelay = `${index * 0.05}s`;
-        card.onclick = () => openLetter(letter.key);
 
         card.innerHTML = `
           <div class="icon">${letter.icon}</div>
           <h3>Open ${letter.title.toLowerCase()}</h3>
           <p>${letter.preview}</p>
-          <span class="open-btn">Open letter <span>→</span></span>
+          <span class="open-text">Open letter →</span>
         `;
 
+        card.addEventListener("click", () => openLetter(index));
         lettersContainer.appendChild(card);
       });
     }
 
-    function openLetter(key) {
-      const selectedLetter = letters.find(letter => letter.key === key);
-      if (!selectedLetter) return;
+    function openLetter(index) {
+      const selectedLetter = letters[index];
 
       clearTimeout(typingTimer);
 
       modal.classList.add("active");
       document.body.style.overflow = "hidden";
 
-      modalLabel.textContent = "A letter for you";
       modalTitle.textContent = selectedLetter.title;
       letterText.textContent = "";
       cursor.style.display = "inline-block";
 
-      typeWriter(selectedLetter.text(), 0);
+      typeWriter(selectedLetter.text, 0);
     }
 
     function typeWriter(text, index) {
       if (index < text.length) {
         letterText.textContent += text.charAt(index);
 
-        const speed = text.charAt(index) === "\n" ? 120 : 28;
-        typingTimer = setTimeout(() => typeWriter(text, index + 1), speed);
+        const currentChar = text.charAt(index);
+        const speed = currentChar === "\n" ? 130 : 27;
+
+        typingTimer = setTimeout(() => {
+          typeWriter(text, index + 1);
+        }, speed);
       } else {
         cursor.style.display = "none";
       }
@@ -909,25 +833,24 @@ ${yourName}`
       if (hour >= 5 && hour < 12) {
         body.classList.add("morning");
         timeIcon.textContent = "🌤️";
-        timeText.textContent = "Good morning, this page is awake with you";
+        timeText.textContent = "Good morning, my love";
       } else if (hour >= 12 && hour < 17) {
         body.classList.add("afternoon");
         timeIcon.textContent = "☀️";
-        timeText.textContent = "Good afternoon, take a soft little pause";
+        timeText.textContent = "Good afternoon, my love";
       } else if (hour >= 17 && hour < 21) {
         body.classList.add("evening");
         timeIcon.textContent = "🌇";
-        timeText.textContent = "Good evening, breathe slowly";
+        timeText.textContent = "Good evening, my love";
       } else {
         body.classList.add("night");
         timeIcon.textContent = "🌙";
-        timeText.textContent = "Good night, you are not alone";
+        timeText.textContent = "Good night, my love";
       }
     }
 
-    updateTimeTheme();
-    initNames();
     renderLetters();
+    updateTimeTheme();
 
     setInterval(updateTimeTheme, 60000);
   </script>
